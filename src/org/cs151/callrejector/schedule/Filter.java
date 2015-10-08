@@ -1,66 +1,98 @@
 package org.cs151.callrejector.schedule;
 
-import org.cs151.callrejector.schedule.exceptions.HourOutOfBoundsException;
+import java.util.logging.Logger;
+
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
 
 /**
- * Provides actions within a specified time frame.
+ * Provides call rejection actions within a specified time frame.
  * @author Kirill
  */
 public class Filter {
-	private int startTime = 0, endTime = 0;
+	private static final Logger log = Logger.getLogger(Filter.class.getName());
+	
+	private Time start, end;
+	private String sms;	// SMS to send to rejected call
 	
 	/**
 	 * Constructs a new {@code Filter} with the specified start and end times.
 	 * @param start start time of activity
 	 * @param end end time of activity
-	 * @throws HourOutOfBoundsException
 	 * @throws InvalidTimeRangeException
 	 */
-	public Filter(int start, int end) throws HourOutOfBoundsException, InvalidTimeRangeException {
+	public Filter(Time start, Time end) throws InvalidTimeRangeException {
+		this(start, end, null);
+	}
+	/**
+	 * Constructs a new {@code Filter} with the specified start and end times, and specified SMS.
+	 * @param start start time of activity
+	 * @param end end time of activity
+	 * @param sms message to send to rejected calls
+	 * @throws InvalidTimeRangeException
+	 */
+	public Filter(Time start, Time end, String sms) throws InvalidTimeRangeException {
 		setStartTime(start);
 		setEndTime(end);
+		setSMS(sms);
+		
+		log.info("New " + Filter.class.getName() + " with startTime = " + getStartTime() + ", endTime = " + getEndTime() + ", SMS = " + getSMS() + ", instantiated successfully");
+	}
+	
+	public void doAction() {
+		
+	}
+	
+	/**
+	 * @return start time of filter activity
+	 */
+	public String getStartTime() {
+		return start.displayTime();
+	}
+	/**
+	 * @return end time of filter activity
+	 */
+	public String getEndTime() {
+		return end.displayTime();
+	}
+	/**
+	 * @return SMS this filter will send, or {@code null} if no SMS
+	 */
+	public String getSMS() {
+		return sms;
 	}
 	
 	/**
 	 * Sets the start time of this filter's activity.
-	 * @param hour time to start activity
-	 * @throws HourOutOfBoundsException
+	 * @param time time to start activity
 	 * @throws InvalidTimeRangeException
 	 */
-	public void setStartTime(int hour) throws HourOutOfBoundsException, InvalidTimeRangeException {
-		if (isValidHour(hour))	// Check whether hour is in range
-			startTime = hour;
-		else
-			throw new HourOutOfBoundsException(hour, Schedule.HOUR_BOUND_START, Schedule.HOUR_BOUND_END);
-		
+	public void setStartTime(Time startTime) throws InvalidTimeRangeException {
+		start = startTime;		
 		if (!isValidRange())	// Check whether start time is before end time
-			throw new InvalidTimeRangeException(startTime, endTime);
+			throw new InvalidTimeRangeException(start, end);
 	}
 	/**
 	 * Sets the end time of this filter's activity.
-	 * @param hour time to end activity
+	 * @param time time to end activity
 	 * @throws HourOutOfBoundsException
 	 * @throws InvalidTimeRangeException
 	 */
-	public void setEndTime(int hour) throws HourOutOfBoundsException, InvalidTimeRangeException {
-		if (isValidHour(hour))	// Check whether hour is in range
-			endTime = hour;
-		else
-			throw new HourOutOfBoundsException(hour, Schedule.HOUR_BOUND_START, Schedule.HOUR_BOUND_END);
-		
+	public void setEndTime(Time endTime) throws InvalidTimeRangeException {
+		end = endTime;		
 		if (!isValidRange())	// Check whether start time is before end time
-			throw new InvalidTimeRangeException(startTime, endTime);
+			throw new InvalidTimeRangeException(start, end);
+	}
+	/**
+	 * Sets the SMS this filter will send to rejected calls
+	 * @param sms message to send
+	 */
+	public void setSMS(String sms) {
+		this.sms = sms;
 	}
 	
-	private boolean isValidHour(int hour) {
-		if (hour < Schedule.HOUR_BOUND_START || hour > Schedule.HOUR_BOUND_END)
-			return false;
-		return true;
-	}
-	private boolean isValidRange() {
-		if (endTime != 0 && (endTime - startTime) < 1)
-			return false;
-		return true;
+	private boolean isValidRange() {	// Start time should be before end time
+		if (start.compareTo(end) < 0)
+			return true;
+		return false;
 	}
 }
