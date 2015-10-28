@@ -12,51 +12,52 @@ import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
  * @author Kirill
  */
 public class Schedule {
-	private static final Logger log = Logger.getLogger(Filter.class.getName());
+	private static final Logger log = Logger.getLogger(Schedule.class.getName());
 	
-	private List<Filter> filterList = new LinkedList<>();
+	private List<RejectionBlock> rejectionBlockList = new LinkedList<>();
 	
 	public Schedule() {
 		log.info("New " + Schedule.class.getName() + " instantiated successfully");
 	}
 	
 	/**
-	 * Adds a new {@code Filter} with the specified start and end times.
+	 * Adds a new {@code RejectionBlock} with the specified start and end times.
 	 * @param start start time of filter activity, where int[0] = hour, int[1] = minute
 	 * @param end end time of filter activity, where int[0] = hour, int[1] = minute
 	 */
-	public void addFilter(int[] start, int[] end) {
+	public void addRejectionBlock(int[] start, int[] end) {
 		try {
-			addFilter(new Time(start[0], start[1]), new Time(end[0], end[1]));
+			addRejectionBlock(new Time(start[0], start[1]), new Time(end[0], end[1]));
 		} catch (TimeOutOfBoundsException e) {
+			rejectionBlockList.remove(rejectionBlockList.size() - 1);
 			log.severe(e.getMessage());
 		}
 	}
 	/**
-	 * Adds a new {@code Filter} with the specified start and end times.
+	 * Adds a new {@code RejectionBlock} with the specified start and end times.
 	 * @param start start time of filter activity as a {@code Time} object
 	 * @param end end time of filter activity as a {@code Time} object
 	 */
-	public void addFilter(Time start, Time end) {
+	public void addRejectionBlock(Time start, Time end) {
 		try {
-			filterList.add(new Filter(start, end));
+			rejectionBlockList.add(new RejectionBlock(start, end));
 		} catch (InvalidTimeRangeException e) {
-			// TODO remove this faulty filter
+			rejectionBlockList.remove(rejectionBlockList.size() - 1);
 			log.severe(e.getMessage());
 		}
 	}
 	
 	/**
-	 * Removes the {@code Filter} at the specified index and returns the updated filter list.
+	 * Removes the {@code RejectionBlock} at the specified index and returns the updated filter list.
 	 * @param index index of filter to remove
 	 * @return updated filter list after removal
 	 */
-	public List<Filter> removeFilter(int index) {
-		filterList.remove(index);
-		return getFilterList();
+	public List<RejectionBlock> removeFilter(int index) {
+		rejectionBlockList.remove(index);
+		return getRejectionBlockList();
 	}
 	
-	public List<Filter> getFilterList() {
-		return new LinkedList<Filter>(filterList);	// Return copy
+	public List<RejectionBlock> getRejectionBlockList() {
+		return new LinkedList<RejectionBlock>(rejectionBlockList);	// Return copy
 	}
 }
