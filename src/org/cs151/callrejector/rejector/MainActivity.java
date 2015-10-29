@@ -5,6 +5,7 @@ import com.example.callrejector.R.id;
 import com.example.callrejector.R.layout;
 import com.example.callrejector.R.menu;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -35,5 +36,12 @@ public class MainActivity extends ActionBarActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	public void AddRejectionBlock(View view) {
+		
+		Intent intent = new Intent(this, RejectionBlockActivity.class);
+		
+		startActivity(intent);
 	}
 }
