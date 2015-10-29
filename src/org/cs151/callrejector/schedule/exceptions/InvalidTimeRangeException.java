@@ -10,6 +10,6 @@ public class InvalidTimeRangeException extends Exception {
 		super(BASE_MESSAGE);
 	}
 	public InvalidTimeRangeException(Time startTime, Time endTime) {
-		super("Start time '" + startTime.displayTime() + " is greater than end time '" + endTime.displayTime() + "'; " + BASE_MESSAGE);
+		super("Start time '" + startTime + " is greater than end time '" + endTime + "'; " + BASE_MESSAGE);
 	}
 }
