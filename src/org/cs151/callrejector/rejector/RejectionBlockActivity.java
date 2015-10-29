@@ -13,7 +13,7 @@ public class RejectionBlockActivity extends Activity {
     }
 
 
-    public void CancelFilter(View view) {
+    public void CancelRejectionBlock(View view) {
         finish();
     }
 
