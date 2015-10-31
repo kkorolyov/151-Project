@@ -1,4 +1,4 @@
-package com.calldeny;
+package org.cs151.callrejector.rejector;
 import java.lang.reflect.Method;
 
 import android.app.Activity;

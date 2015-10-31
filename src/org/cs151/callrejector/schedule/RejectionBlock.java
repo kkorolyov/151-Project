@@ -3,7 +3,6 @@ package org.cs151.callrejector.schedule;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.cs151.callrejector.rejector.Rejector;
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
 
 /**
@@ -15,9 +14,7 @@ public class RejectionBlock implements Comparable<RejectionBlock> {
 	
 	private Time start, end;
 	private String sms;	// SMS to send to rejected call
-	
-	private Rejector rejector;
-	
+		
 	/**
 	 * Constructs a new {@code Filter} with the specified start and end times.
 	 * @param start start time of activity
@@ -108,25 +105,32 @@ public class RejectionBlock implements Comparable<RejectionBlock> {
 	}
 	
 	private void initReject() {
-		long currentTimeMillis = System.currentTimeMillis(), startTimeMillis = getStartTime().getTimeInMillis();
-		long timeLeft = startTimeMillis - currentTimeMillis;
-		
+		long timeLeft = getStartTime().getTimeInMillis() - System.currentTimeMillis();	// Time until this rejectionBlock activates
 		if (timeLeft > 0) {	// Can't wait backwards
-			new Thread(this.toString()) {
+			new Thread(this.toString() + " timer") {
 				public void run() {
+					log.info("Initialized timer thread, will begin rejecting in " + timeLeft + "ms");
 					try {
 						Thread.sleep(timeLeft);
-						rejector = new Rejector();
-						//Rejector.initReject(sms, getEndTime()); TODO Have Rejector's initReject() return at endTime
+						Thread rejectorThread = new Thread(RejectionBlock.this.toString() + " rejector") {
+							public void run() {
+								log.info("Initialized rejector thread");
+								// TODO Start rejector
+							}
+						};
+						rejectorThread.start();	// Activate rejector thread
+						
+						Thread.sleep(getEndTime().getTimeInMillis() - System.currentTimeMillis());	// Sleep until end of lifetime
+						log.info("Interrupting rejector thread");
+						rejectorThread.interrupt();	// Interrupt rejector thread to stop rejecting
 					} catch (InterruptedException e) {
 						log.log(Level.SEVERE, e.getMessage(), e);
 					}
 				}
 			}.start();
-			log.info(toString() + " successfully scheduled rejecting at " + timeLeft + "ms from now");
 		}
 		else
-			log.severe(toString() + " failed to initialize rejecting ");
+			log.severe(toString() + " failed to initialize rejecting");
 	}
 	
 	private boolean isValidRange() {	// Start time should be before end time
