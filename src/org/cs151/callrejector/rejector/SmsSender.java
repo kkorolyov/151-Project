@@ -1,7 +1,10 @@
 package org.cs151.callrejector.rejector;
 import android.telephony.SmsManager;
 import android.widget.Toast;
-
+/*
+ * author: Watson Chang
+ * 
+ */
 public class SmsSender {
 	String message = "";
 	
@@ -10,6 +13,7 @@ public class SmsSender {
 	}
 	/*
 	 * @param String message is the message being send
+	 * 
 	 */
 	public void send (  String incomingNumber , String message ) {
 		try{
@@ -26,7 +30,13 @@ public class SmsSender {
 
 	}
 	
+	String getSMS () {
+		return message;
+	}
 	
+	void setSMS ( String s ) {
+		message = s;
+	}
 	
 
 }
