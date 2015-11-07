@@ -7,13 +7,13 @@ import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
  * @author Kirill
  */
 public class Time implements Comparable<Time> {
-	public static final int HOUR_BOUND_START = 1, HOUR_BOUND_END = 24, MINUTE_BOUND_START = 0, MINUTE_BOUND_END = 59;
+	public static final int HOUR_BOUND_START = 0, HOUR_BOUND_END = 23, MINUTE_BOUND_START = 0, MINUTE_BOUND_END = 59;
 
 	private int hour, minute;
 	
 	/**
 	 * Constructs a new {@code Time} object with a specified time of day.
-	 * @param hour int from 1 to 24
+	 * @param hour int from 0 to 23
 	 * @param minute int from 0 to 59
 	 * @throws TimeOutOfBoundsException when specified hour or minute out of bounds
 	 */
@@ -74,6 +74,8 @@ public class Time implements Comparable<Time> {
 		this.minute = minute;
 	}
 	private void setTime(int hour, int minute, boolean pm) throws TimeOutOfBoundsException {	// Converts 12-hour to 24-hour format
+		if (hour == 12)
+			hour = 0;
 		int converter = 0;
 		if (pm)
 			converter = 12;
