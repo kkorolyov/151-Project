@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.example.callrejecter;
+package org.cs151.callrejector.gui;
 
 public final class R {
     public static final class attr {

@@ -20,8 +20,8 @@ public class SmsSender {
 			
 			SmsManager smsManager = SmsManager.getDefault();
 			smsManager.sendTextMessage(incomingNumber, null, message, null, null);
-		 	android.widget.Toast.makeText(getApplicationContext(), "SMS Sent!",
-					Toast.LENGTH_LONG).show();
+		// 	android.widget.Toast.makeText(getApplicationContext(), "SMS Sent!",
+			//		Toast.LENGTH_LONG).show();
 		}
 
        catch(Exception e){//

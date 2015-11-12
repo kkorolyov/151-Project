@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.callrejecter"
+    package="org.cs151.callrejector.gui"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name="org.cs151.callrejector.gui.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,11 +23,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RejectionBlockActivity"
+            android:name="org.cs151.callrejector.gui.RejectionBlockActivity"
             android:label="RejectionBlockActivity" >
         </activity>
         <activity
-            android:name=".RepeatDaysActivity"
+            android:name="org.cs151.callrejector.gui.RepeatDaysActivity"
             android:label="RepeatDaysActivity" >
         </activity>
     </application>

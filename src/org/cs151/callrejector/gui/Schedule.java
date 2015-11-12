@@ -1,4 +1,4 @@
-package com.example.callrejecter;
+package org.cs151.callrejector.gui;
 
 import java.util.ArrayList;
 

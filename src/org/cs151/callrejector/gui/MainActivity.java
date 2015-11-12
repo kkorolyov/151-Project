@@ -1,4 +1,4 @@
-package com.example.callrejecter;
+package org.cs151.callrejector.gui;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import org.cs151.callrejector.gui.R;
 
 /**
  * Edited by Brandon Feist

@@ -1,6 +1,8 @@
-package com.example.callrejecter;
+package org.cs151.callrejector.gui;
 
 import java.util.ArrayList;
+
+import org.cs151.callrejector.gui.R;
 
 import android.content.Context;
 import android.graphics.Color;
