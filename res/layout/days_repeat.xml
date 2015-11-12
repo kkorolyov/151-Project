@@ -1,0 +1,96 @@
+<!-- Created By Brandon Feist -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/repeat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#eeeeee"
+        android:gravity="fill_horizontal|center"
+        android:padding="10dp" >
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:gravity="left|center_vertical"
+            android:onClick="BackToRejectionBlockActivity"
+            android:text="Back"
+            android:textColor="#c51e3a"
+            android:textColorHint="#c51e3a"
+            android:textColorLink="#c51e3a" />
+
+        <TextView
+            android:id="@+id/Repeat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.21"
+            android:gravity="center_vertical|center_horizontal"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:text="Repeat"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <ToggleButton
+        android:id="@+id/sunday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sunday"
+        android:textOff="Sunday"
+        android:textOn="Sunday" />
+
+    <ToggleButton
+        android:id="@+id/monday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ToggleButton"
+        android:textOff="Monday"
+        android:textOn="Monday" />
+
+    <ToggleButton
+        android:id="@+id/tuesday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ToggleButton"
+        android:textOff="Tuesday"
+        android:textOn="Tuesday" />
+
+    <ToggleButton
+        android:id="@+id/wednesday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ToggleButton"
+        android:textOff="Wednesday"
+        android:textOn="Wednesday" />
+
+    <ToggleButton
+        android:id="@+id/thursday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ToggleButton"
+        android:textOff="Thursday"
+        android:textOn="Thursday" />
+
+    <ToggleButton
+        android:id="@+id/friday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ToggleButton"
+        android:textOff="Friday"
+        android:textOn="Friday" />
+
+    <ToggleButton
+        android:id="@+id/saturday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ToggleButton"
+        android:textOff="Saturday"
+        android:textOn="Saturday" />
+
+</LinearLayout>
