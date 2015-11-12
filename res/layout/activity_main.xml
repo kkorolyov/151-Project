@@ -1,0 +1,55 @@
+<!-- Created By Brandon Feist -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#eeeeee"
+        android:gravity="fill_horizontal|center"
+        android:padding="10dp" >
+
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#c5c5be"
+            android:text="Back"
+            android:textColor="#c51e3a"
+            android:textColorHint="#c51e3a"
+            android:textColorLink="#c51e3a" />
+
+        <TextView
+            android:id="@+id/Schedule_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="29"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:text="Schedule"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <Button
+            android:id="@+id/add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#c5c5be"
+            android:onClick="GoToRejectionBlockActivity"
+            android:text="+"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#c51e3a" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/ListViewRejectionBlock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    </ListView>
+
+</LinearLayout>
