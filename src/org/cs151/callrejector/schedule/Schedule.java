@@ -14,7 +14,7 @@ import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
 public class Schedule {
 	private static final Logger log = Logger.getLogger(Schedule.class.getName());
 	
-	private Set<RejectionBlock> rejectionBlocks = new TreeSet<>();	// rejectionBlocks always sorted
+	private Set<RejectionBlock> rejectionBlocks = new TreeSet<RejectionBlock>();	// rejectionBlocks always sorted
 	
 	public Schedule() {
 		log.info("New " + Schedule.class.getName() + " instantiated successfully");
