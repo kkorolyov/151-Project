@@ -61,7 +61,7 @@ public class RejectionBlock implements Comparable<RejectionBlock> {
 	
 	/**
 	 * Sets the start time of this filter's activity.
-	 * @param time time to start activity
+	 * @param startTime time to start activity
 	 * @throws InvalidTimeRangeException
 	 */
 	public void setStartTime(Time startTime) throws InvalidTimeRangeException {
@@ -71,8 +71,7 @@ public class RejectionBlock implements Comparable<RejectionBlock> {
 	}
 	/**
 	 * Sets the end time of this filter's activity.
-	 * @param time time to end activity
-	 * @throws HourOutOfBoundsException
+	 * @param endTime time to end activity
 	 * @throws InvalidTimeRangeException
 	 */
 	public void setEndTime(Time endTime) throws InvalidTimeRangeException {
@@ -105,7 +104,7 @@ public class RejectionBlock implements Comparable<RejectionBlock> {
 	}
 	
 	private void initReject() {
-		long timeLeft = getStartTime().getTimeInMillis() - System.currentTimeMillis();	// Time until this rejectionBlock activates
+		final long timeLeft = getStartTime().getTimeInMillis() - System.currentTimeMillis();	// Time until this rejectionBlock activates
 		if (timeLeft > 0) {	// Can't wait backwards
 			new Thread(this.toString() + " timer") {
 				public void run() {
