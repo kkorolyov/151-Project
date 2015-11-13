@@ -1,5 +1,6 @@
 package org.cs151.callrejector.rejector;
 import android.telephony.SmsManager;
+import android.provider.CallLog.Calls;
 import android.widget.Toast;
 /*
  * author: Watson Chang
@@ -24,7 +25,8 @@ public class SmsSender {
 			//		Toast.LENGTH_LONG).show();
 		}
 
-       catch(Exception e){//
+       catch(Exception e){
+    	   
     	   
        }                        
 
