@@ -1,8 +1,9 @@
 *.class
 *.classpath
 *.project
-proguard-project.txt
 *.properties
+proguard-project.txt
+ic_launcher-web.png
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
