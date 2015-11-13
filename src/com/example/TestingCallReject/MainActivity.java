@@ -3,14 +3,13 @@ package com.example.TestingCallReject;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import org.cs151.callrejector.gui.R;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,14 +19,7 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
-
-
-
-import com.android.internal.telephony.ITelephony;
 //import com.android.dex.ClassData.Method;
-import com.example.test.R;
 
 public class MainActivity extends Activity {
 
