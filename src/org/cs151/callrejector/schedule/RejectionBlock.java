@@ -1,5 +1,6 @@
 package org.cs151.callrejector.schedule;
 
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -9,7 +10,8 @@ import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
  * Provides call rejection actions within a specified time frame.
  * @author Kirill
  */
-public class RejectionBlock implements Comparable<RejectionBlock> {
+public class RejectionBlock implements Comparable<RejectionBlock>, Serializable {
+	private static final long serialVersionUID = -2969684380343526177L;
 	private static final Logger log = Logger.getLogger(RejectionBlock.class.getName());
 	
 	private Time start, end;
