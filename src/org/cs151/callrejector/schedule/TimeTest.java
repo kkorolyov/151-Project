@@ -1,4 +1,4 @@
-package org.cs151.callrejector.schedule;
+/*package org.cs151.callrejector.schedule;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -101,4 +101,4 @@ public class TimeTest {
 		Time time = new Time(testHour, testMinute);
 		assertEquals(expectedMS, time.getTimeInMillis());
 	}
-}
+}*/

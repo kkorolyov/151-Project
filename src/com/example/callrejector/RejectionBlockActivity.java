@@ -1,10 +1,17 @@
-package com.example.callrejecter;
+package com.example.callrejector;
+
+import org.cs151.callrejector.schedule.Time;
+import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
+import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
+
+import com.example.callrejecter.R;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 /**
@@ -27,12 +34,18 @@ public class RejectionBlockActivity extends Activity {
 		finish();
 	}
 
-	public void AddingNewRejectionBlock(View view) {
+	public void AddingNewRejectionBlock(View view) throws TimeOutOfBoundsException, InvalidTimeRangeException {
 
 		EditText New_SMS_Message = (EditText) findViewById(R.id.SMS_Message);
+		TimePicker startTimePicker = (TimePicker) findViewById(R.id.start_time_picker);
+		TimePicker endTimePicker = (TimePicker) findViewById(R.id.end_time_picker); 
+		
+		Time startTime = new Time(startTimePicker.getHour(), startTimePicker.getMinute());
+		Time endTime = new Time(startTimePicker.getHour(), startTimePicker.getMinute());
+		
 
-		RejectionBlock newRejectionBlock = new RejectionBlock(
-				String.valueOf(New_SMS_Message.getText()));
+		RejectionBlock newRejectionBlock = 
+				new RejectionBlock(startTime, endTime, New_SMS_Message.getText().toString());
 
 		Intent AddRejectionBlockToMain = new Intent();
 

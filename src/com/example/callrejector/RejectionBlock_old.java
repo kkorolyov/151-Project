@@ -1,11 +1,11 @@
-package com.example.callrejecter;
+package com.example.callrejector;
 
 import java.io.Serializable;
 
 /**
  * Created by Victor on 10/30/2015.
  */
-public class RejectionBlock implements Serializable {
+public class RejectionBlock_old implements Serializable {
 	private boolean OnOrOff;
 	private String SMS;
 
@@ -17,7 +17,7 @@ public class RejectionBlock implements Serializable {
 		this.SMS = SMS;
 	}
 
-	public RejectionBlock(String s) {
+	public RejectionBlock_old(String s) {
 		SMS = s;
 		OnOrOff = true;
 	}

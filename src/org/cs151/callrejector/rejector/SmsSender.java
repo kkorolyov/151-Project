@@ -5,17 +5,17 @@ import android.widget.Toast;
  * author: Watson Chang
  * 
  */
-public class SmsSender {
+/*public class SmsSender {
 	String message = "";
 	
 	SmsSender ( String s ) {
 	message = s;
-	}
+	}*/
 	/*
 	 * @param String message is the message being send
 	 * 
 	 */
-	public void send (  String incomingNumber , String message ) {
+/*	public void send (  String incomingNumber , String message ) {
 		try{
 			
 			SmsManager smsManager = SmsManager.getDefault();
@@ -39,4 +39,4 @@ public class SmsSender {
 	}
 	
 
-}
+}*/
