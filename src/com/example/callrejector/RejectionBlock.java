@@ -1,9 +1,10 @@
-package org.cs151.callrejector.schedule;
+package com.example.callrejector;
 
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.cs151.callrejector.schedule.Time;
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
 
 /**
@@ -12,7 +13,11 @@ import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
  * @author Kirill
  */
 public class RejectionBlock implements Comparable<RejectionBlock>, Serializable {
-	private static final long serialVersionUID = -2969684380343526177L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4708437520743961681L;
+
 	private static final Logger log = Logger.getLogger(RejectionBlock.class.getName());
 	
 	private Time start, end;
@@ -26,7 +31,7 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	 * @throws InvalidTimeRangeException when end time is before start time
 	 */
 	public RejectionBlock(Time start, Time end) throws InvalidTimeRangeException {
-		this(start, end, null);
+		this(start, end, "");
 	}
 	/**
 	 * Constructs a new {@code Filter} with the specified start and end times, and specified SMS.

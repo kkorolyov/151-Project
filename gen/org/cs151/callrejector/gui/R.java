@@ -27,27 +27,28 @@ public final class R {
     public static final class id {
         public static final int Cancel_Button=0x7f08000e;
         public static final int ListViewRejectionBlock=0x7f080003;
-        public static final int RejectionRow=0x7f080014;
+        public static final int RejectionRow=0x7f080015;
         public static final int Repeat=0x7f080006;
-        public static final int SMS_Message=0x7f080013;
+        public static final int SMS_Message=0x7f080014;
         public static final int Save_Button=0x7f08000f;
         public static final int Schedule_title=0x7f080001;
-        public static final int TextView01=0x7f080015;
-        public static final int TextView02=0x7f080016;
-        public static final int ToggleButton=0x7f080017;
-        public static final int action_settings=0x7f080018;
+        public static final int TextView01=0x7f080016;
+        public static final int TextView02=0x7f080017;
+        public static final int ToggleButton=0x7f080018;
+        public static final int action_settings=0x7f080019;
         public static final int add_button=0x7f080002;
         public static final int back=0x7f080005;
         public static final int back_button=0x7f080000;
-        public static final int end_time=0x7f080011;
+        public static final int end_time=0x7f080012;
+        public static final int end_time_picker=0x7f080010;
         public static final int friday=0x7f08000c;
         public static final int monday=0x7f080008;
         public static final int repeat=0x7f080004;
-        public static final int repeat_days=0x7f080012;
+        public static final int repeat_days=0x7f080013;
         public static final int saturday=0x7f08000d;
+        public static final int start_time_picker=0x7f080011;
         public static final int sunday=0x7f080007;
         public static final int thursday=0x7f08000b;
-        public static final int timePicker=0x7f080010;
         public static final int tuesday=0x7f080009;
         public static final int wednesday=0x7f08000a;
     }

@@ -27,7 +27,7 @@
     </LinearLayout>
 
     <TimePicker
-        android:id="@+id/timePicker"
+        android:id="@+id/end_time_picker"
         android:layout_width="266dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal" />

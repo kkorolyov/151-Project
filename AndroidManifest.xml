@@ -14,7 +14,11 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
+<<<<<<< HEAD
+            android:name="com.example.callrejector.MainActivity"
+=======
             android:name="org.cs151.callrejector.gui.MainActivity"
+>>>>>>> b8e1a43f6658ea8f55ecfa28da977abecc3d8609
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,11 +27,19 @@
             </intent-filter>
         </activity>
         <activity
+<<<<<<< HEAD
+            android:name="com.example.callrejector.RejectionBlockActivity"
+            android:label="RejectionBlockActivity" >
+        </activity>
+        <activity
+            android:name="com.example.callrejector.RepeatDaysActivity"
+=======
             android:name="org.cs151.callrejector.gui.RejectionBlockActivity"
             android:label="RejectionBlockActivity" >
         </activity>
         <activity
             android:name="org.cs151.callrejector.gui.RepeatDaysActivity"
+>>>>>>> b8e1a43f6658ea8f55ecfa28da977abecc3d8609
             android:label="RepeatDaysActivity" >
         </activity>
     </application>
