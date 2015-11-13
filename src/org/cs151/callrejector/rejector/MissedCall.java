@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.provider.CallLog;
 import android.widget.TextView;
 
-//watson
+//watson s
 
 public class MissedCall  implements Runnable{
 	ArrayList list = new ArrayList ();
