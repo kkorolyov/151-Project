@@ -1,6 +1,6 @@
 package com.example.callrejector;
 
-import com.example.callrejecter.R;
+import org.cs151.callrejector.gui.R;
 
 import android.app.Activity;
 import android.os.Bundle;

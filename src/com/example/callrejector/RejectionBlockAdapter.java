@@ -2,7 +2,7 @@ package com.example.callrejector;
 
 import java.util.ArrayList;
 
-import com.example.callrejecter.R;
+import org.cs151.callrejector.gui.R;
 
 import android.content.Context;
 import android.graphics.Color;

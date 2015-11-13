@@ -4,7 +4,7 @@ import org.cs151.callrejector.schedule.Time;
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
 import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
 
-import com.example.callrejecter.R;
+import org.cs151.callrejector.gui.R;
 
 import android.app.Activity;
 import android.content.Intent;
