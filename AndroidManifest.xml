@@ -30,6 +30,11 @@
             android:name="org.cs151.callrejector.gui.RepeatDaysActivity"
             android:label="RepeatDaysActivity" >
         </activity>
+        
+        <activity
+            android:name="org.cs151.callrejector.gui.EndTimeActivity"
+            android:label="EndTimeActivity" >
+        </activity>
     </application>
 
 </manifest>

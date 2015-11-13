@@ -15,11 +15,11 @@ public class EndTimeActivity extends Activity {
 		setContentView(R.layout.end_time);
 	}
 	
-	public void Cancel(View view){
+	public void CancelEndTime(View view){
 		finish();
 	}
 	
-	public void Save(View view){
+	public void SaveEndTime(View view){
 		finish();
 	}
 }
