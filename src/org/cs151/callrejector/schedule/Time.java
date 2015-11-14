@@ -97,44 +97,47 @@ public class Time implements Comparable<Time> {
 	}
 	
 	/**
-	 * @return time in the format "HH:MM"
+	 * @return time in the 24-hour format
 	 */
 	@Override
 	public String toString() {
+		return toString(false);
+	}
+	/**
+	 * @param standard whether to return time in 12-hour format
+	 * @return time in the format "HH:MM" for 24-hour, or "(H)H:MMam/pm" for 12-hour
+	 */
+	public String toString(boolean standard) {
+		if (standard) {
+			String time = "", meridian = "am";
+			int hour = getHour(), minute = getMinute(), converter = 0;
+			if (hour > 12) {
+				converter = 12;
+				meridian = "pm";
+			}
+			time += (hour - converter) + ":";
+			
+			if (minute < 10)	// Append starting 0 to minute
+				time += '0' + minute;
+			else
+				time += minute;
+			
+			time += meridian;
+			return time;
+		}
 		String time = "";
 		int hour = getHour(), minute = getMinute();
 		if (hour < 10)	// Append starting 0 to hour
-			time += '0' + hour;
+			time += '0' + String.valueOf(hour);
 		else
 			time += hour;
 		
 		time += ":";
 		if (minute < 10)	// Append starting 0 to minute
-			time += '0' + minute;
+			time += '0' + String.valueOf(minute);
 		else
 			time += minute;
 		
-		return time;
-	}
-	/**
-	 * @param standard dummy variable to change method signature
-	 * @return time in 12-hour time format
-	 */
-	public String toString(boolean standard) {
-		String time = "", meridian = "am";
-		int hour = getHour(), minute = getMinute(), converter = 0;
-		if (hour > 12) {
-			converter = 12;
-			meridian = "pm";
-		}
-		time += (hour - converter) + ":";
-		
-		if (minute < 10)	// Append starting 0 to minute
-			time += '0' + minute;
-		else
-			time += minute;
-		
-		time += meridian;
 		return time;
 	}
 }

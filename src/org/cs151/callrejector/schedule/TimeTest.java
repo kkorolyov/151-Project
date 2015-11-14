@@ -1,7 +1,6 @@
-/*package org.cs151.callrejector.schedule;
+package org.cs151.callrejector.schedule;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
 import org.junit.Test;
@@ -101,4 +100,41 @@ public class TimeTest {
 		Time time = new Time(testHour, testMinute);
 		assertEquals(expectedMS, time.getTimeInMillis());
 	}
-}*/
+	
+	@Test
+	public void testCompareHours() throws TimeOutOfBoundsException {
+		int testHourEarlier = 13, testMinuteEarlier = 57;
+		int testHourLater = 14, testMinuteLater = 0;
+		Time earlier = new Time(testHourEarlier, testMinuteEarlier), later = new Time(testHourLater, testMinuteLater);
+		assertTrue(earlier.compareTo(later) < 0);
+		assertTrue(later.compareTo(earlier) > 0);	// Test for symmetry
+	}
+	@Test
+	public void testCompareMinutes() throws TimeOutOfBoundsException {
+		Time earlier = new Time(14, 57), later = new Time(14, 58);
+		assertTrue(earlier.compareTo(later) < 0);
+		assertTrue(later.compareTo(earlier) > 0);	// Test for symmetry
+	}
+	
+	@Test
+	public void testToString12hrAM() throws TimeOutOfBoundsException {
+		int testHour = 3, testMinute = 46;
+		String expectedToString = "3:46am";
+		Time testTime = new Time(testHour, testMinute);
+		assertEquals(expectedToString, testTime.toString(true));
+	}
+	@Test
+	public void testToString12hrPM() throws TimeOutOfBoundsException {
+		int testHour = 15, testMinute = 46;
+		String expectedToString = "3:46pm";
+		Time testTime = new Time(testHour, testMinute);
+		assertEquals(expectedToString, testTime.toString(true));
+	}
+	@Test
+	public void testToString24hr() throws TimeOutOfBoundsException {
+		int testHour = 15, testMinute = 46;
+		String expectedToString = String.valueOf(testHour) + ":" + String.valueOf(testMinute);
+		Time testTime = new Time(testHour, testMinute);
+		assertEquals(expectedToString, testTime.toString());
+	}
+}

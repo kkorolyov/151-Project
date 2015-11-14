@@ -8,8 +8,8 @@ import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
 
 /**
  * Provides call rejection actions within a specified time frame.
- * Edited by Brandon Feist
- * @author Kirill
+ * @author Kirill Korolyov
+ * @author Brandon Feist
  */
 public class RejectionBlock implements Comparable<RejectionBlock>, Serializable {
 	private static final long serialVersionUID = -2969684380343526177L;
@@ -17,54 +17,81 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	
 	private Time start, end;
 	private String sms;	// SMS to send to rejected call
-	private boolean on; // boolean to know if rejection block is on
+	private boolean on;	// Active status
 		
 	/**
-	 * Constructs a new {@code Filter} with the specified start and end times.
+	 * Constructs a new {@code RejectionBlock} with the specified start and end times.
+	 * Will start inactive.
 	 * @param start start time of activity
 	 * @param end end time of activity
 	 * @throws InvalidTimeRangeException when end time is before start time
 	 */
 	public RejectionBlock(Time start, Time end) throws InvalidTimeRangeException {
-		this(start, end, null);
+		this(start, end, null, false);
 	}
 	/**
-	 * Constructs a new {@code Filter} with the specified start and end times, and specified SMS.
+	 * Constructs a new {@code RejectionBlock} with the specified start and end times, and specified SMS.
+	 * Will start inactive.
 	 * @param start start time of activity
 	 * @param end end time of activity
 	 * @param sms message to send to rejected calls
 	 * @throws InvalidTimeRangeException when end time is before start time
 	 */
 	public RejectionBlock(Time start, Time end, String sms) throws InvalidTimeRangeException {
+		this(start, end, sms, false);
+	}
+	/**
+	 * Constructs a new {@code RejectionBlock} with the specified start and end times, SMS, and starting state.
+	 * @param start start time of activity
+	 * @param end end time of activity
+	 * @param sms message to send to rejected calls
+	 * @param on whether to activate this rejectionBlock upon construction
+	 * @throws InvalidTimeRangeException when end time is before start time
+	 */
+	public RejectionBlock(Time start, Time end, String sms, boolean on) throws InvalidTimeRangeException {
 		setStartTime(start);
 		setEndTime(end);
 		setSMS(sms);
+		this.on = on;
 		
-		log.info("Constructed new " + getClass().getName() + " with startTime = " + getStartTime() + ", endTime = " + getEndTime() + ", SMS = " + getSMS() + ", instantiated successfully");
+		log.info("Successfully constructed new " + getClass().getName() + " with startTime = " + getStartTime() + ", endTime = " + getEndTime() + ", SMS = " + getSMS() + ", on = " + isOn());
 		initReject();
 	}
 	
 	/**
-	 * @return start time of filter activity
+	 * Switches rejectionBlock active state. {@code true} to {@code false} or {@code false} to {@code true}.
+	 */
+	public void switchState() {
+		on = !on;
+	}
+	
+	/**
+	 * @return {@code true} if rejectionBlock is active. {@code false} if otherwise.
+	 */
+	public boolean isOn() {
+		return on;
+	}
+	/**
+	 * @return start time of rejectionBlock activity
 	 */
 	public Time getStartTime() {
 		return start;
 	}
 	/**
-	 * @return end time of filter activity
+	 * @return end time of rejectionBlock activity
 	 */
 	public Time getEndTime() {
 		return end;
 	}
 	/**
-	 * @return SMS this filter will send, or {@code null} if no SMS
+	 * @return SMS this rejectionBlock will send, or {@code null} if no SMS
 	 */
 	public String getSMS() {
 		return sms;
 	}
 	
 	/**
-	 * Sets the start time of this filter's activity.
+	 * Sets the start time of this rejectionBlock's activity.
 	 * @param startTime time to start activity
 	 * @throws InvalidTimeRangeException
 	 */
@@ -74,7 +101,7 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 			throw new InvalidTimeRangeException(start, end);
 	}
 	/**
-	 * Sets the end time of this filter's activity.
+	 * Sets the end time of this rejectionBlock's activity.
 	 * @param endTime time to end activity
 	 * @throws InvalidTimeRangeException
 	 */
@@ -108,32 +135,37 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	}
 	
 	private void initReject() {
-		final long timeLeft = getStartTime().getTimeInMillis() - System.currentTimeMillis();	// Time until this rejectionBlock activates
-		if (timeLeft > 0) {	// Can't wait backwards
-			new Thread(this.toString() + " timer") {
+		if (on) {	// Only run if on
+			new Thread(this.toString() + "rejectionThread") {
 				public void run() {
-					log.info("Initialized timer thread, will begin rejecting in " + timeLeft + "ms");
+					long timeLeft = getStartTime().getTimeInMillis() - System.currentTimeMillis();	// Time until this rejectionBlock activates
+					if (timeLeft < 0) {
+						if (getEndTime().getTimeInMillis() > System.currentTimeMillis())	// In the middle of activity time
+							timeLeft = 0;	// Will start rejecting immediately
+						else
+							timeLeft += (24 * 60 * 60 * 1000000);	// Add a day in ms
+					}
+					log.info("Initialized rejectionThread, will begin rejecting in " + timeLeft + "ms");
 					try {
-						Thread.sleep(timeLeft);
-						Thread rejectorThread = new Thread(RejectionBlock.this.toString() + " rejector") {
-							public void run() {
-								log.info("Initialized rejector thread");
-								// TODO Start rejector
-							}
-						};
-						rejectorThread.start();	// Activate rejector thread
+						while (on && getStartTime().getTimeInMillis() < System.currentTimeMillis()) {	// Waiting until startTime
+							Thread.sleep(1000);
+						}
+						while(on && getEndTime().getTimeInMillis() > System.currentTimeMillis()) {	// Check if still on and in the middle of activity
+							// TODO rejection method
+							Thread.sleep(10);
+						}
 						
-						Thread.sleep(getEndTime().getTimeInMillis() - System.currentTimeMillis());	// Sleep until end of lifetime
-						log.info("Interrupting rejector thread");
-						rejectorThread.interrupt();	// Interrupt rejector thread to stop rejecting
+						long timeAfter = System.currentTimeMillis() - getEndTime().getTimeInMillis();
+						if (timeAfter > 0)	// Natural stop
+							log.info("Naturally ended rejecting " + timeAfter + "ms after endTime: " + getEndTime());
+						else	// Was deactivated manually
+							log.info("Rejecting manually deactivated " + (timeAfter * -1) + "ms before endTime: " + getEndTime());
 					} catch (InterruptedException e) {
 						log.log(Level.SEVERE, e.getMessage(), e);
 					}
 				}
 			}.start();
 		}
-		else
-			log.severe(toString() + " failed to initialize rejecting");
 	}
 	
 	private boolean isValidRange() {	// Start time should be before end time
@@ -144,20 +176,4 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 			return true;
 		return false;
 	}
-	
-	/**
-	 * Checks if rejection block is currently active.
-	 * @return True if rejection block is active. False otherwise.
-	 */
-	public boolean isOn() {
-		return on;
-	}
-	
-	/**
-	 * Switches rejectionBlock boolean active state. True to False and False to True.
-	 */
-	public void switchOn() {
-		on = !on;
-	}
-	
 }
