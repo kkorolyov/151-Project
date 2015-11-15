@@ -42,7 +42,7 @@ public class MissedCall extends Activity {
        String phoneNum = cursor.getString(number);
        
          list.add(phoneNum);
-         list.add();
+         
            String callTypeCode = cursor.getString(type);
            String strcallDate = cursor.getString(date);
            Date callDate = new Date(Long.valueOf(strcallDate));
