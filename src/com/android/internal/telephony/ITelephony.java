@@ -3,6 +3,10 @@
  * Original file: frameworks/base/telephony/java/com/android/internal/telephony/ITelephony.aidl
  */
 package com.android.internal.telephony;
+
+import android.annotation.TargetApi;
+import android.os.Build;
+
 /**
  * Interface used to interact with the phone.  Mostly this is used by the
  * TelephonyManager class.  A few places are still using this directly.
@@ -1432,6 +1436,7 @@ return _result;
 /**
      * Returns the all observed cell information of the device.
      */
+@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 @Override public java.util.List<android.telephony.CellInfo> getAllCellInfo() throws android.os.RemoteException
 {
 android.os.Parcel _data = android.os.Parcel.obtain();
