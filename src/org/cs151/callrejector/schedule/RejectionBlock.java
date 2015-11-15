@@ -17,7 +17,7 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	
 	private Time start, end;
 	private String sms;	// SMS to send to rejected call
-	private boolean on;	// Active status
+	private boolean enabled, active;
 		
 	/**
 	 * Constructs a new {@code RejectionBlock} with the specified start and end times.
@@ -45,31 +45,42 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	 * @param start start time of activity
 	 * @param end end time of activity
 	 * @param sms message to send to rejected calls
-	 * @param on whether to activate this rejectionBlock upon construction
+	 * @param enabled whether to enable this rejectionBlock upon construction
 	 * @throws InvalidTimeRangeException when end time is before start time
 	 */
-	RejectionBlock(Time start, Time end, String sms, boolean on) throws InvalidTimeRangeException {
+	RejectionBlock(Time start, Time end, String sms, boolean enabled) throws InvalidTimeRangeException {
 		setStartTime(start);
 		setEndTime(end);
 		setSMS(sms);
-		this.on = on;
+		this.enabled = enabled;
 		
-		log.info("Successfully constructed new " + getClass().getName() + " with startTime = " + getStartTime() + ", endTime = " + getEndTime() + ", SMS = " + getSMS() + ", on = " + isOn());
+		log.info("Successfully constructed new " + getClass().getName() + " with startTime = " + getStartTime() + ", endTime = " + getEndTime() + ", SMS = " + getSMS() + ", enabled = " + isEnabled());
 		initReject();
 	}
 	
 	/**
-	 * Switches rejectionBlock active state. {@code true} to {@code false} or {@code false} to {@code true}.
+	 * Switches rejectionBlock enabled state. {@code true} to {@code false} or {@code false} to {@code true}.
 	 */
 	public void switchState() {
-		on = !on;
+		if (enabled)
+			enabled = false;
+		else {
+			enabled = true;
+			initReject();
+		}
 	}
 	
 	/**
-	 * @return {@code true} if rejectionBlock is active. {@code false} if otherwise.
+	 * @return {@code true} if rejectionBlock is enabled. {@code false} if otherwise
 	 */
-	public boolean isOn() {
-		return on;
+	public boolean isEnabled() {
+		return enabled;
+	}
+	/**
+	 * @return {@code true} if rejectionBlock is currently rejecting, {@code false} if otherwise
+	 */
+	public boolean isActive() {
+		return active;
 	}
 	/**
 	 * @return start time of rejectionBlock activity
@@ -135,7 +146,7 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	}
 	
 	private void initReject() {
-		if (on) {	// Only run if on
+		if (enabled) {	// Only run if enabled
 			new Thread(this.toString() + "rejectionThread") {
 				public void run() {
 					long timeLeft = getStartTime().getTimeInMillis() - System.currentTimeMillis();	// Time until this rejectionBlock activates
@@ -147,14 +158,14 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 					}
 					log.info("Initialized rejectionThread, will begin rejecting in " + timeLeft + "ms");
 					try {
-						while (on && getStartTime().getTimeInMillis() < System.currentTimeMillis()) {	// Waiting until startTime
+						while (enabled && getStartTime().getTimeInMillis() < System.currentTimeMillis()) {	// Waiting until startTime
 							Thread.sleep(1000);
 						}
-						while(on && getEndTime().getTimeInMillis() > System.currentTimeMillis()) {	// Check if still on and in the middle of activity
-							// TODO rejection method
+						while(enabled && getEndTime().getTimeInMillis() > System.currentTimeMillis()) {	// Check if still on and in the middle of activity
+							active = true;	// Rejecting
 							Thread.sleep(10);
 						}
-						
+						active = false;	// Not rejecting
 						long timeAfter = System.currentTimeMillis() - getEndTime().getTimeInMillis();
 						if (timeAfter > 0)	// Natural stop
 							log.info("Naturally ended rejecting " + timeAfter + "ms after endTime: " + getEndTime());

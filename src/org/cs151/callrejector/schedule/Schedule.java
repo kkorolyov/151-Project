@@ -12,10 +12,15 @@ import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
  */
 public class Schedule {
 	private static final Logger log = Logger.getLogger(Schedule.class.getName());
+	private static final Schedule instance = new Schedule();
 	
 	private Set<RejectionBlock> rejectionBlocks = new TreeSet<RejectionBlock>();	// rejectionBlocks always sorted
 	
-	public Schedule() {
+	public static Schedule getSchedule() {
+		return instance;
+	}
+	
+	private Schedule() {
 		log.info("New " + Schedule.class.getName() + " instantiated successfully");
 	}
 	
@@ -38,6 +43,17 @@ public class Schedule {
 	 */
 	public void removeRejectionBlock(RejectionBlock toRemove) {
 		rejectionBlocks.remove(toRemove);
+	}
+	
+	/**
+	 * @return {@code true} if at least 1 rejectionBlock is active at the moment, {@code false} if otherwise
+	 */
+	public boolean existsActiveRejectionBlock() {
+		for (RejectionBlock rejectionBlock : rejectionBlocks) {
+			if (rejectionBlock.isActive())
+				return true;
+		}
+		return false;
 	}
 	
 	/**

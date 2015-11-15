@@ -8,7 +8,7 @@ import android.util.Log;
 
 public class Rejector {
 
-	public void disconnectCall(){
+	public void disconnectCall(){	// TODO Restrict access only to PhoneState?
 		 try {			 
 		    String serviceManagerName = "android.os.ServiceManager";
 		    String serviceManagerNativeName = "android.os.ServiceManagerNative";

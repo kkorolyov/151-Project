@@ -1,5 +1,7 @@
 package org.cs151.callrejector.rejector;
 
+import org.cs151.callrejector.schedule.Schedule;
+
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -18,13 +20,15 @@ public class PhoneState extends BroadcastReceiver {
         TelephonyManager tm = (TelephonyManager)context.getSystemService(Service.TELEPHONY_SERVICE); 
         switch (tm.getCallState()) {
             case TelephonyManager.CALL_STATE_RINGING:
+            	if (Schedule.getSchedule().existsActiveRejectionBlock()) {	// Check for active rejectionBlock            	
             		goThru = true;
-                    phoneNum= intent.getStringExtra("incoming_number");
-                    Rejector tester = new Rejector();
-                    tester.disconnectCall();
-                    //phoneNum = phoneNr;
-                   // Toast.makeText(context, phoneNum,Toast.LENGTH_LONG).show();
-                    break;
+                phoneNum= intent.getStringExtra("incoming_number");
+                Rejector tester = new Rejector();
+                tester.disconnectCall();
+                //phoneNum = phoneNr;
+                // Toast.makeText(context, phoneNum,Toast.LENGTH_LONG).show();
+            	}
+              break;
         } 
         try {
 			SmsManager smsManager = SmsManager.getDefault();
