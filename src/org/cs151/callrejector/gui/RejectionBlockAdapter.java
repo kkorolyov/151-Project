@@ -63,7 +63,7 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 		final LinearLayout layout = (LinearLayout) view.findViewById(R.id.RejectionRow);
 		
 		final ToggleButton toggleButton = (ToggleButton) view.findViewById(R.id.ToggleButton);
-		if(r.isOnOrOff()) {
+		if(r.isEnabled()) {
 			layout.setBackgroundColor(Color.WHITE);
 			toggleButton.setText("On");
 		} else {
@@ -75,8 +75,8 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 			
 			@Override
 			public void onClick(View v) {
-				r.SwitchState();
-				if(r.isOnOrOff()) {
+				r.switchState();
+				if(r.isEnabled()) {
 					layout.setBackgroundColor(Color.WHITE);
 					toggleButton.setText("On");
 				}
