@@ -11,10 +11,10 @@ import java.util.ArrayList;
 //watson s 
 //TODO FIX THIS
 public class MissedCall extends Activity {
-	cursorsor cursor;
+	Cursor  cursor;
     ArrayList<String> list = new ArrayList<>();
     
-   public MissedCalls  (cursorsor c ) {
+   public MissedCalls  (Cursor  c ) {
         cursor = c;
         textView = t;
     }
@@ -26,7 +26,6 @@ public class MissedCall extends Activity {
    public void get() {
        
        String strOrder = android.provider.CallLog.Calls.DATE + " DESC";
-       //cursorsor querry stuff yall
 
        //getContentResolver().query(
        int number = cursor.getColumnIndex(CallLog.Calls.NUMBER);
