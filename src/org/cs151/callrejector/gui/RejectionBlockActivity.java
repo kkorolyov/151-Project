@@ -1,6 +1,7 @@
 package org.cs151.callrejector.gui;
 
 import org.cs151.callrejector.gui.R;
+import org.cs151.callrejector.schedule.RejectionBlock;
 
 import OldWorkingCode.EndTimeActivity;
 import android.app.Activity;

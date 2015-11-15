@@ -3,6 +3,8 @@ package org.cs151.callrejector.gui;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import org.cs151.callrejector.schedule.RejectionBlock;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Binder;
