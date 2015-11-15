@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class MissedCall extends Activity {
 	Cursor  cursor;
-    ArrayList<String> list = new ArrayList<>();
+    ArrayList<String> list = new ArrayList<String>();
     
    public MissedCalls  (Cursor  c ) {
         cursor = c;
