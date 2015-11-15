@@ -8,25 +8,25 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import java.sql.Date;
 import java.util.ArrayList;
-//watson s 
-//TODO FIX THIS
+
+//watson 
+
 public class MissedCall extends Activity {
-	cursorsor cursor;
+	Cursor  cursor;
     ArrayList<String> list = new ArrayList<>();
     
-   public MissedCalls  (cursorsor c ) {
+   public MissedCalls  (Cursor  c ) {
         cursor = c;
         textView = t;
     }
    /*
     * 
-    * gets the mot recent 10 call logs
+    * gets the most recent 10 call logs
     */
    
    public void get() {
        
        String strOrder = android.provider.CallLog.Calls.DATE + " DESC";
-       //cursorsor querry stuff yall
 
        //getContentResolver().query(
        int number = cursor.getColumnIndex(CallLog.Calls.NUMBER);
@@ -42,7 +42,7 @@ public class MissedCall extends Activity {
        String phoneNum = cursor.getString(number);
        
          list.add(phoneNum);
-         list.add();
+         
            String callTypeCode = cursor.getString(type);
            String strcallDate = cursor.getString(date);
            Date callDate = new Date(Long.valueOf(strcallDate));
