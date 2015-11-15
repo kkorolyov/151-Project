@@ -8,8 +8,9 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import java.sql.Date;
 import java.util.ArrayList;
-//watson s 
-//TODO FIX THIS
+
+//watson 
+
 public class MissedCall extends Activity {
 	Cursor  cursor;
     ArrayList<String> list = new ArrayList<>();
