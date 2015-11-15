@@ -16,6 +16,9 @@ public class Schedule {
 	
 	private Set<RejectionBlock> rejectionBlocks = new TreeSet<RejectionBlock>();	// rejectionBlocks always sorted
 	
+	/**
+	 * @return {@code Schedule} instance
+	 */
 	public static Schedule getSchedule() {
 		return instance;
 	}

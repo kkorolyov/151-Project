@@ -1,12 +1,16 @@
 package org.cs151.callrejector.schedule;
 
+import java.io.Serializable;
+
 import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
 
 /**
  * Represents an hour and minute of a time of day using 24-hour time format.
  * @author Kirill
  */
-public class Time implements Comparable<Time> {
+public class Time implements Comparable<Time>, Serializable {
+	private static final long serialVersionUID = -5754055166850976716L;
+
 	public static final int HOUR_BOUND_START = 0, HOUR_BOUND_END = 23, MINUTE_BOUND_START = 0, MINUTE_BOUND_END = 59;
 
 	private int hour, minute;
