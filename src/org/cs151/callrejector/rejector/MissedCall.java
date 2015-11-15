@@ -20,7 +20,7 @@ public class MissedCall extends Activity {
     }
    /*
     * 
-    * gets the mot recent 10 call logs
+    * gets the most recent 10 call logs
     */
    
    public void get() {
