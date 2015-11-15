@@ -1,7 +1,9 @@
 package org.cs151.callrejector.gui;
 
 import org.cs151.callrejector.gui.R;
+import org.cs151.callrejector.schedule.RejectionBlock;
 
+import OldWorkingCode.EndTimeActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -60,5 +62,11 @@ public class RejectionBlockActivity extends Activity {
 
 		Toast.makeText(this, "Edited Rejection Block", Toast.LENGTH_SHORT)
 				.show();
+	}
+	
+	public void EndTime(View view){
+		Intent GoToEndTimeActivity = new Intent(this, EndTimeActivity.class);
+		
+		startActivityForResult(GoToEndTimeActivity, 1);
 	}
 }
