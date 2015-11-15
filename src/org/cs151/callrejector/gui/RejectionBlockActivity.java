@@ -1,20 +1,24 @@
 package org.cs151.callrejector.gui;
 
-import org.cs151.callrejector.gui.R;
 import org.cs151.callrejector.schedule.RejectionBlock;
+import org.cs151.callrejector.schedule.Time;
+import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
+import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
 
-import OldWorkingCode.EndTimeActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 /**
  * The rejection block activity.
  */
 public class RejectionBlockActivity extends Activity {
+	
+	private Time EndTime;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,19 +35,25 @@ public class RejectionBlockActivity extends Activity {
 		finish();
 	}
 
-	public void AddingNewRejectionBlock(View view) {
-
-		EditText New_SMS_Message = (EditText) findViewById(R.id.SMS_Message);
-
-		RejectionBlock newRejectionBlock = new RejectionBlock(
-				String.valueOf(New_SMS_Message.getText()));
-
-		Intent AddRejectionBlockToMain = new Intent();
-
-		AddRejectionBlockToMain
-				.putExtra("newRejectionBlock", newRejectionBlock);
-
-		setResult(RESULT_OK, AddRejectionBlockToMain);
+	public void AddingNewRejectionBlock(View view) throws TimeOutOfBoundsException, InvalidTimeRangeException {
+		
+		if(EndTime != null) {
+		
+			EditText New_SMS_Message = (EditText) findViewById(R.id.SMS_Message);
+			
+			TimePicker startTimePicker = (TimePicker) findViewById(R.id.start_time_picker);
+	
+			Time Start_Time = new Time(startTimePicker.getCurrentHour(), startTimePicker.getCurrentMinute());
+			
+			RejectionBlock newRejectionBlock = new RejectionBlock(Start_Time, EndTime, String.valueOf(New_SMS_Message.getText()));
+			
+			Intent AddRejectionBlockToMain = new Intent();
+	
+			AddRejectionBlockToMain
+					.putExtra("newRejectionBlock", newRejectionBlock);
+	
+			setResult(RESULT_OK, AddRejectionBlockToMain);
+		}
 
 		finish();
 

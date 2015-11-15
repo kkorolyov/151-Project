@@ -37,7 +37,7 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	 * @param sms message to send to rejected calls
 	 * @throws InvalidTimeRangeException when end time is before start time
 	 */
-	RejectionBlock(Time start, Time end, String sms) throws InvalidTimeRangeException {
+	public RejectionBlock(Time start, Time end, String sms) throws InvalidTimeRangeException {
 		this(start, end, sms, false);
 	}
 	/**

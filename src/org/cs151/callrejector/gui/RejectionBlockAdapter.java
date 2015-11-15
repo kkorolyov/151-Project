@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.cs151.callrejector.gui.R;
 import org.cs151.callrejector.schedule.RejectionBlock;
+import org.cs151.callrejector.schedule.Time;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -51,12 +52,15 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 		// TODO: set onClick Button for, holder?
 		
 		//Sets the text for a SMS Preview
-		TextView date = (TextView) view.findViewById(R.id.TextView01);
+		TextView TimeBeingRejected = (TextView) view.findViewById(R.id.TextView01);
 		TextView SMSMessage = (TextView) view.findViewById(R.id.TextView02);
 		
 		final RejectionBlock r = list.get(position);
 		
-		date.setText("");
+		Time startTime = r.getStartTime();
+		Time endTime = r.getEndTime();
+		
+		TimeBeingRejected.setText(startTime.toString() + " - " + endTime.toString());
 		SMSMessage.setText(r.getSMS());
 		
 		//When toggle button is off, sets the background black. If not, the background is white

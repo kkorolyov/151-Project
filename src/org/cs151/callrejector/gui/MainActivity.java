@@ -102,7 +102,7 @@ public class MainActivity extends Activity {
 			}
 		} else {
 			// when user does not make a rejection block
-			Toast.makeText(MainActivity.this, "back to main",
+			Toast.makeText(MainActivity.this, "Error. Must Put End Time",
 					Toast.LENGTH_SHORT).show();
 		}
 
