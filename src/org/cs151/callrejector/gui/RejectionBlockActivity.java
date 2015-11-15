@@ -63,4 +63,10 @@ public class RejectionBlockActivity extends Activity {
 		Toast.makeText(this, "Edited Rejection Block", Toast.LENGTH_SHORT)
 				.show();
 	}
+	
+	public void EndTime(View view){
+		Intent GoToEndTimeActivity = new Intent(this, EndTimeActivity.class);
+		
+		startActivityForResult(GoToEndTimeActivity, 1);
+	}
 }
