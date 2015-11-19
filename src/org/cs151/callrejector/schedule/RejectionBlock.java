@@ -12,6 +12,7 @@ import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
  * @author Brandon Feist
  */
 public class RejectionBlock implements Comparable<RejectionBlock>, Serializable {
+	public static final long SLEEP_TIME = 1000;	// TODO Better name
 	private static final long serialVersionUID = -2969684380343526177L;
 	private static final Logger log = Logger.getLogger(RejectionBlock.class.getName());
 	
@@ -62,12 +63,8 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	 * Switches rejectionBlock enabled state. {@code true} to {@code false} or {@code false} to {@code true}.
 	 */
 	public void switchState() {
-		if (enabled)
-			enabled = false;
-		else {
-			enabled = true;
-			initReject();
-		}
+		enabled = !enabled;
+		initReject();	// Will check for enabled here
 	}
 	
 	/**
@@ -146,31 +143,20 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	}
 	
 	private void initReject() {
-		if (enabled) {	// Only run if enabled
+		if (enabled) {	// Check to avoid wasting resources on Thread creation
+			final long startTimeMillis = start.getTimeInMillis(), endTimeMillis = end.getTimeInMillis();	// For faster access
 			new Thread(this.toString() + "rejectionThread") {
 				public void run() {
-					long timeLeft = getStartTime().getTimeInMillis() - System.currentTimeMillis();	// Time until this rejectionBlock activates
-					if (timeLeft < 0) {
-						if (getEndTime().getTimeInMillis() > System.currentTimeMillis())	// In the middle of activity time
-							timeLeft = 0;	// Will start rejecting immediately
-						else
-							timeLeft += (24 * 60 * 60 * 1000000);	// Add a day in ms
-					}
-					log.info("Initialized rejectionThread, will begin rejecting in " + timeLeft + "ms");
 					try {
-						while (enabled && getStartTime().getTimeInMillis() < System.currentTimeMillis()) {	// Waiting until startTime
-							Thread.sleep(1000);
+						while(enabled) {
+							if ((System.currentTimeMillis() > startTimeMillis) && (System.currentTimeMillis() < endTimeMillis)) {
+								active = true;
+							}
+							else {
+								active = false;
+							}
+							Thread.sleep(SLEEP_TIME);	// Check enabled and times every interval
 						}
-						while(enabled && getEndTime().getTimeInMillis() > System.currentTimeMillis()) {	// Check if still on and in the middle of activity
-							active = true;	// Rejecting
-							Thread.sleep(10);
-						}
-						active = false;	// Not rejecting
-						long timeAfter = System.currentTimeMillis() - getEndTime().getTimeInMillis();
-						if (timeAfter > 0)	// Natural stop
-							log.info("Naturally ended rejecting " + timeAfter + "ms after endTime: " + getEndTime());
-						else	// Was deactivated manually
-							log.info("Rejecting manually deactivated " + (timeAfter * -1) + "ms before endTime: " + getEndTime());
 					} catch (InterruptedException e) {
 						log.log(Level.SEVERE, e.getMessage(), e);
 					}

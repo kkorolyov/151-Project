@@ -19,7 +19,7 @@ public class Schedule {
 	/**
 	 * @return {@code Schedule} instance
 	 */
-	public static Schedule getSchedule() {
+	public static synchronized Schedule getSchedule() {
 		return instance;
 	}
 	

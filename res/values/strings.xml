@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">CallRejecter</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">CallRejector</string>
     <string name="action_settings">Settings</string>
+    <string name="back_button_text">Back</string>
+    <string name="schedule_title_name">Schedule</string>
+    <string name="add_button_text">+</string>
 
 </resources>

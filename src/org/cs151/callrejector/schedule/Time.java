@@ -35,17 +35,14 @@ public class Time implements Comparable<Time>, Serializable {
 		setTime(hour, minute, pm);
 	}
 	
-	/*
-	 * Returns the difference in ms between this time and the specified time. May be negative if the specified time occurs before this time
-	 * @param time time to calculate to
+	/**
+	 * Returns the difference in ms between the specified time and this time. May be negative if the specified time occurs before this time
+	 * @param endTime time to calculate to
 	 * @return ms between this time and specified time
-	 *
-	public long timeTo(Time time) {
-		long thisTimeInMinutes = (hour * 60) + minute;	// Minutes from 24:00
-		long otherTimeInMinutes = (time.getHour() * 60) + time.getMinute();
-		
-		return (otherTimeInMinutes - thisTimeInMinutes) / (60 * 1000);	// Difference in milliseconds
-	}*/
+	 */
+	public long timeTo(Time endTime) {
+		return endTime.getTimeInMillis() - getTimeInMillis();
+	}
 	
 	/**
 	 * @return this time in milliseconds after 00:00
