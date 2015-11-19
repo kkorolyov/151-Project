@@ -73,6 +73,12 @@ public class MainActivity extends Activity {
 
 		startActivityForResult(GoToRejectionBlockActivity, 1);
 	}
+	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+	}
 
 	/*
 	 * What happens when MainActivity gets resumed. Either adds a rejection
