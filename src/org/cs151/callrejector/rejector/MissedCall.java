@@ -1,5 +1,7 @@
+package org.cs151.callrejector.rejector;
+
 import android.app.Activity;
-import android.database.cursor;
+import android.database.Cursor;
 import android.provider.CallLog;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -9,54 +11,53 @@ import android.widget.TextView;
 import java.sql.Date;
 import java.util.ArrayList;
 
-//watson 
+//watson
 
 public class MissedCall  {
-	Cursor  cursor;
+    Cursor  cursor;
     ArrayList<String> list = new ArrayList<String>();
-    
-   public MissedCalls  (Cursor  c ) {
+
+    public MissedCalls  (Cursor  c ) {
         cursor = c;
-        textView = t;
     }
    /*
-    * 
+    *
     * gets the most recent 10 call logs
     */
-   
-   public void get() {
-       
-       String strOrder = android.provider.CallLog.Calls.DATE + " DESC";
 
-       //getContentResolver().query(
-       int number = cursor.getColumnIndex(CallLog.Calls.NUMBER);
-       int type = cursor.getColumnIndex(CallLog.Calls.TYPE);
-       int date = cursor.getColumnIndex(CallLog.Calls.DATE);
-       int duration = cursor.getColumnIndex(CallLog.Calls.DURATION);
-       
-       int i = 0;
+    public void get() {
+
+        String strOrder = android.provider.CallLog.Calls.DATE + " DESC";
+
+        //getContentResolver().query(
+        int number = cursor.getColumnIndex(CallLog.Calls.NUMBER);
+        int type = cursor.getColumnIndex(CallLog.Calls.TYPE);
+        int date = cursor.getColumnIndex(CallLog.Calls.DATE);
+        int duration = cursor.getColumnIndex(CallLog.Calls.DURATION);
+
+        int i = 0;
 
 
 
-      while (cursor.moveToNext() && i < 10) {
-       String phoneNum = cursor.getString(number);
-       
-         list.add(phoneNum);
-         
-           String callTypeCode = cursor.getString(type);
-           String strcallDate = cursor.getString(date);
-           Date callDate = new Date(Long.valueOf(strcallDate));
-           String callDuration = cursor.getString(duration);
-           String callType = null;
-           int callcode = Integer.parseInt(callTypeCode);
-           
-          
-           i++;
-      }
-       cursor.close();
-   }
-	
-	
+        while (cursor.moveToNext() && i < 10) {
+            String phoneNum = cursor.getString(number);
+
+            list.add(phoneNum);
+
+            String callTypeCode = cursor.getString(type);
+            String strcallDate = cursor.getString(date);
+            Date callDate = new Date(Long.valueOf(strcallDate));
+            String callDuration = cursor.getString(duration);
+            String callType = null;
+            int callcode = Integer.parseInt(callTypeCode);
+
+
+            i++;
+        }
+        cursor.close();
+    }
+
+
 }
 
 /*MissedCall() {
