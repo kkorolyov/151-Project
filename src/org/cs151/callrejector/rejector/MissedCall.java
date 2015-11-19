@@ -1,5 +1,5 @@
 import android.app.Activity;
-import android.database.cursorsor;
+import android.database.cursor;
 import android.provider.CallLog;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 //watson 
 
-public class MissedCall extends Activity {
+public class MissedCall  {
 	Cursor  cursor;
     ArrayList<String> list = new ArrayList<String>();
     
