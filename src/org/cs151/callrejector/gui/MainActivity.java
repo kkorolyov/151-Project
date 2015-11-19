@@ -22,9 +22,9 @@ import android.widget.Toast;
  */
 public class MainActivity extends Activity {
 
-	ListView Schedule;
-	ArrayList<RejectionBlock> list;
-	RejectionBlockAdapter adapter;
+	private ListView Schedule;
+	private ArrayList<RejectionBlock> list;
+	private RejectionBlockAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
