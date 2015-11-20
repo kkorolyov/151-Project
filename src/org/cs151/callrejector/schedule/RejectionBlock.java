@@ -150,12 +150,12 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 				public void run() {
 					try {
 						while(enabled) {
-							int currentHour = Calendar.getInstance().get(Calendar.HOUR), currentMinute = Calendar.getInstance().get(Calendar.MINUTE);
+							int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY), currentMinute = Calendar.getInstance().get(Calendar.MINUTE);
 							if ((start.compareTime(currentHour, currentMinute) < 0) && (end.compareTime(currentHour, currentMinute) > 0)) {
 								active = true;
 							}
 							else {
-								active = true;
+								active = false;
 							}
 							Thread.sleep(SLEEP_TIME);	// Check enabled and times every interval
 						}
