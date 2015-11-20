@@ -81,12 +81,10 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 			public void onClick(View v) {
 				r.switchState();
 				if(r.isEnabled()) {
-					r.switchState();
 					layout.setBackgroundColor(Color.WHITE);
 					toggleButton.setText("On");
 				}
 				else {
-					r.switchState();
 					layout.setBackgroundColor(Color.GRAY);
 					toggleButton.setText("Off");
 				}

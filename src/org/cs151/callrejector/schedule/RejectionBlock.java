@@ -19,7 +19,7 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	private Time start, end;
 	private String sms;	// SMS to send to rejected call
 	// TODO Send SMS
-	private boolean enabled = false, active = true;
+	private boolean enabled, active;
 		
 	/**
 	 * Constructs a new {@code RejectionBlock} with the specified start and end times.
@@ -150,12 +150,12 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 				public void run() {
 					try {
 						while(enabled) {
+							active = true;	// TODO Test code, remove
 							if ((System.currentTimeMillis() > startTimeMillis) && (System.currentTimeMillis() < endTimeMillis)) {
 								active = true;
 							}
 							else {
 								//active = false;
-								active = true;	// TODO Test code, remove
 							}
 							Thread.sleep(SLEEP_TIME);	// Check enabled and times every interval
 						}

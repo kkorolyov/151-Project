@@ -119,9 +119,9 @@ public class Time implements Comparable<Time>, Serializable {
 			time += (hour - converter) + ":";
 			
 			if (minute < 10)	// Append starting 0 to minute
-				time += '0' + minute;
+				time += '0' + String.valueOf(minute);
 			else
-				time += minute;
+				time += String.valueOf(minute);
 			
 			time += meridian;
 			return time;
