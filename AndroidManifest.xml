@@ -7,7 +7,11 @@
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="23" />
-
+    
+	<uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/> 
+	<uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
+	
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -36,14 +40,11 @@
             android:label="EndTimeActivity" >
         </activity>
         
-        <receiver android:name="org.cs151.callrejector.rejector.PhoneState" >
+        <receiver android:name="org.cs151.callrejector.rejector.Rejector" >
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
         </receiver>
     </application>
-    <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/> 
-	<uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
 
 </manifest>
