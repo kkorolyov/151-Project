@@ -19,7 +19,7 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	private Time start, end;
 	private String sms;	// SMS to send to rejected call
 	// TODO Send SMS
-	private boolean enabled, active;
+	private boolean enabled = false, active = true;
 		
 	/**
 	 * Constructs a new {@code RejectionBlock} with the specified start and end times.
