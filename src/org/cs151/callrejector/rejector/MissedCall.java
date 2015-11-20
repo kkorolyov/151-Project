@@ -17,7 +17,7 @@ public class MissedCall  {
     Cursor  cursor;
     ArrayList<String> list = new ArrayList<String>();
 
-    public MissedCalls  (Cursor  c ) {
+    public MissedCall  (Cursor  c ) {
         cursor = c;
     }
    /*
