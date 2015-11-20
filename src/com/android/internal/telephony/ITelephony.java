@@ -1,4 +1,5 @@
-/*
+/**
+ * This class is implemented by Bao Pham (edited with open source)
  * This file is auto-generated.  DO NOT MODIFY.
  * Original file: frameworks/base/telephony/java/com/android/internal/telephony/ITelephony.aidl
  */

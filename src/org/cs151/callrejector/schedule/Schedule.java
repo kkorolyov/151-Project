@@ -1,5 +1,7 @@
 package org.cs151.callrejector.schedule;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Logger;
@@ -14,7 +16,8 @@ public class Schedule {
 	private static final Logger log = Logger.getLogger(Schedule.class.getName());
 	private static final Schedule instance = new Schedule();
 	
-	private Set<RejectionBlock> rejectionBlocks = new TreeSet<RejectionBlock>();	// rejectionBlocks always sorted
+	//private Set<RejectionBlock> rejectionBlocks = new TreeSet<RejectionBlock>();	// rejectionBlocks always sorted
+	private List<RejectionBlock> rejectionBlocks = new ArrayList<RejectionBlock>();	// TODO Temp workaround
 	
 	/**
 	 * @return {@code Schedule} instance
@@ -33,8 +36,11 @@ public class Schedule {
 	 * @param end end time of rejection activity as a {@code Time} object
 	 */
 	public void addRejectionBlock(Time start, Time end) {
+		addRejectionBlock(start, end, null);
+	}
+	public void addRejectionBlock(Time start, Time end, String sms) {
 		try {
-			rejectionBlocks.add(new RejectionBlock(start, end));
+			rejectionBlocks.add(new RejectionBlock(start, end, sms));
 		} catch (InvalidTimeRangeException e) {
 			log.severe(e.getMessage());
 		}
@@ -64,5 +70,11 @@ public class Schedule {
 	 */
 	public RejectionBlock[] getAllRejectionBlocks() {
 		return rejectionBlocks.toArray(new RejectionBlock[rejectionBlocks.size()]);
+	}
+	/**
+	 * @return all rejectionBlocks stored in this schedule, as an arrayList
+	 */
+	public ArrayList<RejectionBlock> getAllRejectionBlocksList() {
+		return (ArrayList<RejectionBlock>) rejectionBlocks;
 	}
 }

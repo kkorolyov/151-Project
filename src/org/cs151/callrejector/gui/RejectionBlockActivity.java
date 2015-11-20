@@ -1,6 +1,6 @@
 package org.cs151.callrejector.gui;
 
-import org.cs151.callrejector.schedule.RejectionBlock;
+import org.cs151.callrejector.schedule.Schedule;
 import org.cs151.callrejector.schedule.Time;
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
 import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
@@ -43,16 +43,10 @@ public class RejectionBlockActivity extends Activity {
 			
 			TimePicker startTimePicker = (TimePicker) findViewById(R.id.start_time_picker);
 	
+			@SuppressWarnings("deprecation")
 			Time Start_Time = new Time(startTimePicker.getCurrentHour(), startTimePicker.getCurrentMinute());
 			
-			RejectionBlock newRejectionBlock = new RejectionBlock(Start_Time, EndTime, String.valueOf(New_SMS_Message.getText()));
-			
-			Intent AddRejectionBlockToMain = new Intent();
-	
-			AddRejectionBlockToMain
-					.putExtra("newRejectionBlock", newRejectionBlock);
-	
-			setResult(RESULT_OK, AddRejectionBlockToMain);
+			Schedule.getSchedule().addRejectionBlock(Start_Time, EndTime, String.valueOf(New_SMS_Message.getText()));
 		}
 
 		finish();

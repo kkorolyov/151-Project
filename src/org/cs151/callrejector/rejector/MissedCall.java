@@ -1,15 +1,10 @@
 package org.cs151.callrejector.rejector;
 
-import android.app.Activity;
-import android.database.Cursor;
-import android.provider.CallLog;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
 import java.sql.Date;
 import java.util.ArrayList;
+
+import android.database.Cursor;
+import android.provider.CallLog;
 
 //watson
 
@@ -17,7 +12,7 @@ public class MissedCall  {
     Cursor  cursor;
     ArrayList<String> list = new ArrayList<String>();
 
-    public MissedCalls  (Cursor  c ) {
+    public MissedCall(Cursor  c ) {
         cursor = c;
     }
    /*
