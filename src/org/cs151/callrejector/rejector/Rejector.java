@@ -39,10 +39,14 @@ public class Rejector extends BroadcastReceiver {
         switch (tm.getCallState()) {
             case TelephonyManager.CALL_STATE_RINGING:
             	if (Schedule.getSchedule().existsActiveRejectionBlock()) {
+            		Toast.makeText(context, "Active rejectionBlock found", Toast.LENGTH_LONG).show();
+            			// TODO Pass in SMS
                     	phoneNum= intent.getStringExtra("incoming_number");
                     	disconnectCall();
                     	break;
             	}
+            	else
+            		Toast.makeText(context, "No active rejectionBlock found", Toast.LENGTH_LONG).show();
         } 	
         try {
 			SmsManager smsManager = SmsManager.getDefault();

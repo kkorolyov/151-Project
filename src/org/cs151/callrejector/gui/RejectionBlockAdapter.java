@@ -60,7 +60,7 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 		Time startTime = r.getStartTime();
 		Time endTime = r.getEndTime();
 		
-		TimeBeingRejected.setText(startTime.toString() + " - " + endTime.toString());
+		TimeBeingRejected.setText(startTime.toString(true) + " - " + endTime.toString(true));
 		SMSMessage.setText(r.getSMS());
 		
 		//When toggle button is off, sets the background black. If not, the background is white
@@ -81,10 +81,12 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 			public void onClick(View v) {
 				r.switchState();
 				if(r.isEnabled()) {
+					r.switchState();
 					layout.setBackgroundColor(Color.WHITE);
 					toggleButton.setText("On");
 				}
 				else {
+					r.switchState();
 					layout.setBackgroundColor(Color.GRAY);
 					toggleButton.setText("Off");
 				}
