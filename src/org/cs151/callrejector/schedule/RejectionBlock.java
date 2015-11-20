@@ -154,7 +154,8 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 								active = true;
 							}
 							else {
-								active = false;
+								//active = false;
+								active = true;	// TODO Test code, remove
 							}
 							Thread.sleep(SLEEP_TIME);	// Check enabled and times every interval
 						}
