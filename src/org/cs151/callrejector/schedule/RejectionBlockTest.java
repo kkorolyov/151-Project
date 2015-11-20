@@ -34,7 +34,7 @@ public class RejectionBlockTest {
 		assertTrue(earlier.compareTo(later) < 0);
 		assertTrue(later.compareTo(earlier) > 0);	// Test for symmetry
 	}
-	
+	// TODO Fix methods (e.g. currentMillis)
 	@Test
 	public void testMillisInterval() throws InvalidTimeRangeException, TimeOutOfBoundsException {
 		int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY), currentMinute = Calendar.getInstance().get(Calendar.MINUTE);
