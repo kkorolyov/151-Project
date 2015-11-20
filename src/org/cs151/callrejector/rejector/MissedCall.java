@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import android.database.Cursor;
 import android.provider.CallLog;
 
-//watson
+//watson test
 
 public class MissedCall  {
     Cursor  cursor;
     ArrayList<String> list = new ArrayList<String>();
 
-    public MissedCall(Cursor  c ) {
+    public MissedCall  (Cursor c) {
         cursor = c;
     }
    /*
