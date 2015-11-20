@@ -1,6 +1,7 @@
 package org.cs151.callrejector.schedule;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -145,17 +146,16 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	
 	private void initReject() {
 		if (enabled) {	// Check to avoid wasting resources on Thread creation
-			final long startTimeMillis = start.getTimeInMillis(), endTimeMillis = end.getTimeInMillis();	// For faster access
 			new Thread(this.toString() + "rejectionThread") {
 				public void run() {
 					try {
 						while(enabled) {
-							active = true;	// TODO Test code, remove
-							if ((System.currentTimeMillis() > startTimeMillis) && (System.currentTimeMillis() < endTimeMillis)) {
+							int currentHour = Calendar.getInstance().get(Calendar.HOUR), currentMinute = Calendar.getInstance().get(Calendar.MINUTE);
+							if ((start.compareTime(currentHour, currentMinute) < 0) && (end.compareTime(currentHour, currentMinute) > 0)) {
 								active = true;
 							}
 							else {
-								//active = false;
+								active = false;
 							}
 							Thread.sleep(SLEEP_TIME);	// Check enabled and times every interval
 						}

@@ -59,7 +59,7 @@ public class Schedule {
 	 */
 	public boolean existsActiveRejectionBlock() {
 		for (RejectionBlock rejectionBlock : rejectionBlocks) {
-			if (rejectionBlock.isActive())
+			if (rejectionBlock.isEnabled() && rejectionBlock.isActive())
 				return true;
 		}
 		return false;

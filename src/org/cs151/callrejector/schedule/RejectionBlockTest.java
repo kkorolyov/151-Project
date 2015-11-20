@@ -1,6 +1,9 @@
 package org.cs151.callrejector.schedule;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.Calendar;
 
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
 import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
@@ -30,5 +33,17 @@ public class RejectionBlockTest {
 		RejectionBlock later = new RejectionBlock(new Time(14, 58), new Time(21, 0));
 		assertTrue(earlier.compareTo(later) < 0);
 		assertTrue(later.compareTo(earlier) > 0);	// Test for symmetry
+	}
+	
+	@Test
+	public void testMillisInterval() throws InvalidTimeRangeException, TimeOutOfBoundsException {
+		int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY), currentMinute = Calendar.getInstance().get(Calendar.MINUTE);
+		System.out.println(String.valueOf(currentHour) + "-" + String.valueOf(currentMinute));
+		System.out.println(String.valueOf(System.currentTimeMillis()));
+		int testStartHour = currentHour - 1, testStartMinute = currentMinute - 1;
+		int testEndHour = currentHour + 1, testEndMinute = currentMinute + 1;
+		RejectionBlock testBlock = new RejectionBlock(new Time(testStartHour, testStartMinute), new Time(testEndHour, testEndMinute));
+		assertTrue(testBlock.getStartTime().compareTime(currentHour, currentMinute) < 0);
+		assertTrue(testBlock.getEndTime().compareTime(currentHour, currentMinute) > 0);
 	}
 }

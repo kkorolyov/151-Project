@@ -94,14 +94,6 @@ public class TimeTest {
 	}
 	
 	@Test
-	public void testGetTimeInMillis() throws TimeOutOfBoundsException {
-		int testHour = 15, testMinute = 27;
-		long expectedMS = (testHour * 60 + testMinute) * 60 * 1000;
-		Time time = new Time(testHour, testMinute);
-		assertEquals(expectedMS, time.getTimeInMillis());
-	}
-	
-	@Test
 	public void testCompareHours() throws TimeOutOfBoundsException {
 		int testHourEarlier = 13, testMinuteEarlier = 57;
 		int testHourLater = 14, testMinuteLater = 0;
