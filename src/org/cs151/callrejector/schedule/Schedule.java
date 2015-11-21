@@ -1,9 +1,6 @@
 package org.cs151.callrejector.schedule;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.logging.Logger;
 
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
@@ -55,14 +52,14 @@ public class Schedule {
 	}
 	
 	/**
-	 * @return {@code true} if at least 1 rejectionBlock is active at the moment, {@code false} if otherwise
+	 * @return currently enabled and active rejectionBlock, or {@code null} if no such block exists
 	 */
-	public boolean existsActiveRejectionBlock() {
-		for (RejectionBlock rejectionBlock : rejectionBlocks) {
-			if (rejectionBlock.isEnabled() && rejectionBlock.isActive())
-				return true;
+	public RejectionBlock getCurrentActiveBlock() {
+		for (RejectionBlock block : rejectionBlocks) {
+			if (block.isEnabled() && block.isActive())
+				return block;
 		}
-		return false;
+		return null;
 	}
 	
 	/**
@@ -74,7 +71,7 @@ public class Schedule {
 	/**
 	 * @return all rejectionBlocks stored in this schedule, as an arrayList
 	 */
-	public ArrayList<RejectionBlock> getAllRejectionBlocksList() {
+	public ArrayList<RejectionBlock> getAllRejectionBlocksList() {	// TODO Temp method
 		return (ArrayList<RejectionBlock>) rejectionBlocks;
 	}
 }

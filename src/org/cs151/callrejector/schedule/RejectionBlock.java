@@ -149,7 +149,7 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 			new Thread(this.toString() + "rejectionThread") {
 				public void run() {
 					try {
-						while(enabled) {
+						while (enabled) {
 							int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY), currentMinute = Calendar.getInstance().get(Calendar.MINUTE);
 							if ((start.compareTime(currentHour, currentMinute) <= 0) && (end.compareTime(currentHour, currentMinute) >= 0)) {
 								active = true;

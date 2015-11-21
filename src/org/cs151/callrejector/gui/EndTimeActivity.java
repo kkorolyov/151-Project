@@ -24,6 +24,7 @@ public class EndTimeActivity extends Activity {
 	
 	public void SaveEndTime(View view) throws TimeOutOfBoundsException{
 		TimePicker timePicker = (TimePicker) findViewById(R.id.end_time_picker);
+		@SuppressWarnings("deprecation")
 		Time time = new Time(timePicker.getCurrentHour(), timePicker.getCurrentMinute());
 		
 		Intent SendEndTime = new Intent();

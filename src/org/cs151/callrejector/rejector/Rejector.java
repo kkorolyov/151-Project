@@ -5,6 +5,7 @@ package org.cs151.callrejector.rejector;
 
 import java.lang.reflect.Method;
 
+import org.cs151.callrejector.schedule.RejectionBlock;
 import org.cs151.callrejector.schedule.Schedule;
 
 import android.app.Service;
@@ -35,28 +36,28 @@ public class Rejector extends BroadcastReceiver {
 	 */
     @Override
     public void onReceive(Context context, Intent intent) {
-        TelephonyManager tm = (TelephonyManager)context.getSystemService(Service.TELEPHONY_SERVICE); 
-        switch (tm.getCallState()) {
-            case TelephonyManager.CALL_STATE_RINGING:
-            	if (Schedule.getSchedule().existsActiveRejectionBlock()) {
-            		Toast.makeText(context, "Active rejectionBlock found", Toast.LENGTH_LONG).show();
-            			// TODO Pass in SMS
-                    	phoneNum= intent.getStringExtra("incoming_number");
-                    	disconnectCall();
-                    	break;
-            	}
-            	else
-            		Toast.makeText(context, "No active rejectionBlock found", Toast.LENGTH_LONG).show();
-        } 	
-        try {
-			SmsManager smsManager = SmsManager.getDefault();
-			smsManager.sendTextMessage(phoneNum, null, content, null, null);
-			Toast.makeText(context, "SMS SENT TO "+ phoneNum,
-						Toast.LENGTH_LONG).show();
-		  } catch (Exception e) {
-			Toast.makeText(context,	"SMS failed, please try again later!",Toast.LENGTH_LONG).show();
-			e.printStackTrace();
-		  }
+	    TelephonyManager tm = (TelephonyManager)context.getSystemService(Service.TELEPHONY_SERVICE); 
+	    if (tm.getCallState() == TelephonyManager.CALL_STATE_RINGING) {
+				RejectionBlock activeBlock = Schedule.getSchedule().getCurrentActiveBlock();
+				if (activeBlock != null) {	// If exists
+					Toast.makeText(context, "Active rejectionBlock found", Toast.LENGTH_LONG).show();
+					
+				  phoneNum= intent.getStringExtra("incoming_number");
+				  disconnectCall();
+				  setStringContent(activeBlock.getSMS());
+				  
+				  try {
+				  	SmsManager smsManager = SmsManager.getDefault();
+				  	smsManager.sendTextMessage(phoneNum, null, content, null, null);
+				  	Toast.makeText(context, "SMS SENT TO "+ phoneNum, Toast.LENGTH_LONG).show();
+				  } catch (Exception e) {
+					Toast.makeText(context,	"SMS failed, please try again later!",Toast.LENGTH_LONG).show();
+						e.printStackTrace();
+				  }
+				}
+				else
+					Toast.makeText(context, "No active rejectionBlock found", Toast.LENGTH_LONG).show();
+	    } 	
     }
     
     /**
@@ -99,8 +100,7 @@ public class Rejector extends BroadcastReceiver {
 
 		  } catch (Exception e) {
 		    e.printStackTrace();
-		    Log.d(null,
-		            "FATAL ERROR: Could not connect to telephony subsystem");
+		    Log.d(null, "FATAL ERROR: Could not connect to telephony subsystem");
 		    Log.d(null, "Exception object: " + e); 
 		 }
 		}
