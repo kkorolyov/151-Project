@@ -48,7 +48,7 @@ public class PopUp extends Activity  {
 
     
     public void setup () {
-        popUpButton = (Button)findViewById(R.id.openpopup);
+        popUpButton = (Button)findViewById(R.id.popup);
 
         LayoutInflater inflater  = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         pv = inflater.inflate(R.layout.popup, null);

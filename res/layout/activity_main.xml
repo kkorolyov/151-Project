@@ -44,6 +44,13 @@
             android:text="@string/add_button_text"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#c51e3a" />
+        <Button
+        	android:id="@+id/popup"
+        	android:layout_width="0.005dp"
+        	android:layout_height="0.005dp"
+        	android:visibility="gone"
+        	android:text="" />
+        	
     </LinearLayout>
 
     <ListView
