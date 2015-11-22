@@ -26,7 +26,7 @@ import java.util.TimerTask;
 public class PopUp extends Activity  {
 
     //-------------
-    //Watson 11-20 mostly working pop up codes inside mainactivity
+    //Watson 11-20 mostly working pop up codes outside of mainactivity
 
 
     @Override
@@ -46,10 +46,7 @@ public class PopUp extends Activity  {
     //debug
     TextView t ;
 
-    // delays popup by 1 sec
-
-
-
+    
     public void setup () {
         popUpButton = (Button)findViewById(R.id.openpopup);
 
@@ -79,6 +76,7 @@ public class PopUp extends Activity  {
         repeatPop();
     }
 
+    
     //repeat pop up
 
     void repeatPop() {
