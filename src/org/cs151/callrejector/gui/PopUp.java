@@ -16,18 +16,29 @@ import android.widget.TextView;
 import java.util.TimerTask;
 
 /**
- *   watson   11/20/2015 - mostly working
+ *   Watson   11/20/2015 - mostly working
  *   
     add the following in mainactivity to start:
+    
     Intent i = new Intent(this, PopUp.class);
         startActivity(i);
+        
+        or
+        
+    startActivity(new Intent(this, PopUp.class));
  *   
  */
 public class PopUp extends Activity  {
 
-    //-------------
-    //Watson 11-20 mostly working pop up codes outside of mainactivity
+    // field var for pop up
+    Button popUpButton;
+    Button dismiss; 
+    PopupWindow current;
+    View pv;
 
+    //debug
+    TextView t ;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +48,6 @@ public class PopUp extends Activity  {
         setup();
     }
 
-    // field var for pop up
-    Button popUpButton;
-    Button dismiss;
-    PopupWindow current;
-    View pv;
-
-    //debug
-    TextView t ;
 
     
     public void setup () {
@@ -96,6 +99,9 @@ public class PopUp extends Activity  {
 
     //this pops up once
     public void pop() {
+    	//Could not add a dismiss button to the field, 
+    	//had to define it inside all method that calls it
+    	// not a big deal, just more codes
         Button dismiss = (Button)PopUp.this.pv.findViewById(R.id.dismiss);
       dismiss.setOnClickListener(new Button.OnClickListener() {
 
@@ -111,6 +117,5 @@ public class PopUp extends Activity  {
     }
 
 
-    //End pop up stuff
-    //----------------
+    
 }
