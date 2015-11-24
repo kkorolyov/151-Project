@@ -2,7 +2,6 @@ package org.cs151.callrejector.gui;
 
 import java.util.ArrayList;
 
-import org.cs151.callrejector.gui.R;
 import org.cs151.callrejector.schedule.RejectionBlock;
 import org.cs151.callrejector.schedule.Time;
 
@@ -13,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -92,6 +92,16 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 			}
 		});
 
+		Button EditButton = (Button) view.findViewById(R.id.Edit_Button);
+		
+		EditButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				//TODO: make edit button
+				
+			}
+		});
 		return view;
 	}
 }

@@ -34,12 +34,13 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/end_time"
+        android:id="@+id/Edit_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:background="#3f51b5"
-        android:text="Edit" />
+        android:text="Edit"
+        android:onClick="EditRejectionRow" />
 
     <ToggleButton
         android:id="@+id/ToggleButton"
