@@ -1,5 +1,6 @@
 package org.cs151.callrejector.gui;
 
+import org.cs151.callrejector.schedule.RejectionBlock;
 import org.cs151.callrejector.schedule.Schedule;
 import org.cs151.callrejector.schedule.Time;
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
@@ -20,11 +21,21 @@ public class RejectionBlockActivity extends Activity {
 	
 //	private Time EndTime;
 
+	private TimePicker startTime;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.rejection_block_activity);
+		
+		startTime = (TimePicker) findViewById(R.id.start_time_picker);
+		Intent intent = getIntent();
+		RejectionBlock r = (RejectionBlock) intent.getSerializableExtra("Editting Rejection Block");
+		if(r != null)
+		{
+			startTime.setCurrentMinute(r.getStartTime().getMinute());
+			startTime.setCurrentHour(r.getStartTime().getHour());
+		}
 
 	}
 
@@ -79,10 +90,8 @@ public class RejectionBlockActivity extends Activity {
 	public void EndTime(View view) throws TimeOutOfBoundsException{
 		Intent GoToEndTimeActivity = new Intent(this, EndTimeActivity.class);
 		
-		TimePicker startTimePicker = (TimePicker) findViewById(R.id.start_time_picker);
-		
 		@SuppressWarnings("deprecation")
-		Time Start_Time = new Time(startTimePicker.getCurrentHour(), startTimePicker.getCurrentMinute());
+		Time Start_Time = new Time(startTime.getCurrentHour(), startTime.getCurrentMinute());
 		
 		GoToEndTimeActivity.putExtra("Start Time", Start_Time);
 		

@@ -31,7 +31,9 @@
         android:id="@+id/start_time_picker"
         android:layout_width="266dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:scaleX="0.6"
+        android:scaleY="0.6" />
 
     <!--
     	<Button
@@ -52,9 +54,9 @@
     <EditText
         android:id="@+id/SMS_Message"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:gravity="top|left"
+        android:gravity="start"
         android:hint="@string/automatic_text_message" />
 
 </LinearLayout>

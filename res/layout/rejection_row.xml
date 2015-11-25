@@ -9,6 +9,7 @@
     android:padding="10dp"
     tools:context=".MainActivity" >
 
+    <!--
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -16,8 +17,8 @@
         android:gravity="left|center"
         android:minWidth="170dp"
         android:orientation="vertical" >
-
-        <TextView
+		
+		<TextView
             android:id="@+id/TextView01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,16 +30,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#646464" />
+              
+        
+            
     </LinearLayout>
-
+	-->
+    <Button
+            android:id="@+id/Time_And_SMS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"/>
+    
     <Button
         android:id="@+id/Delete_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:background="#3f51b5"
-        android:text="@string/delete_button_text"
-        android:onClick="EditRejectionRow" />
+        android:text="@string/delete_button_text" />
 
     <ToggleButton
         android:id="@+id/ToggleButton"
