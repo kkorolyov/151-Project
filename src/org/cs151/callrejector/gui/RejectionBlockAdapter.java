@@ -6,6 +6,7 @@ import org.cs151.callrejector.schedule.RejectionBlock;
 import org.cs151.callrejector.schedule.Time;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import android.widget.ToggleButton;
  */
 public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 
+	//TODO: SMS for textView
 	private ArrayList<RejectionBlock> list;
 	private Context context;
 	private int layoutResourceId;
@@ -99,9 +101,12 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 			@Override
 			public void onClick(View v) {
 				//TODO: make edit button
-				
+				Intent RejectionBlockActivity = new Intent(v.getContext(), RejectionBlockActivity.class);
+				context.startActivity(RejectionBlockActivity);
 			}
 		});
 		return view;
 	}
+	
+	
 }

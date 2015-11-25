@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:background="#3f51b5"
-        android:text="Edit"
+        android:text="@string/delete_button_text"
         android:onClick="EditRejectionRow" />
 
     <ToggleButton
