@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="CancelMakingRejectionBlock"
-            android:text="Cancel" />
+            android:text="@string/cancel_button_text" />
 
         <Button
             android:id="@+id/End_Time_Button"
@@ -55,6 +55,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="top|left"
-        android:hint="Automatic Text Message" />
+        android:hint="@string/automatic_text_message" />
 
 </LinearLayout>

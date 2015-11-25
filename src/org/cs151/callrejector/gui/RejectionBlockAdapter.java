@@ -26,18 +26,16 @@ import android.widget.ToggleButton;
  * @author Victor Li
  */
 public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
-
-	//TODO: SMS for textView
 	private ArrayList<RejectionBlock> list;
-	private Context context;
-	private int layoutResourceId;
+//	private Context context;
+//	private int layoutResourceId;
 
 	public RejectionBlockAdapter(Context context, int resource,
 			ArrayList<RejectionBlock> list) {
 		super(context, resource, list);
-		this.context = context;
+		//this.context = context;
 		this.list = list;
-		this.layoutResourceId = resource;
+		//this.layoutResourceId = resource;
 	}
 	
 	public void addRejectionBlock(RejectionBlock block) {
@@ -63,8 +61,11 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 		Time endTime = r.getEndTime();
 		
 		TimeBeingRejected.setText(startTime.toString(true) + " - " + endTime.toString(true));
-		SMSMessage.setText(r.getSMS());
-		//TODO: truncate SMS for the textView 
+		
+		//if SMS is too long
+		if(r.getSMS().length() >= 15)
+			{SMSMessage.setText(r.getSMS().substring(0, 14) + "...");}
+		else {SMSMessage.setText(r.getSMS());}
 		
 		
 		//When toggle button is off, sets the background black. If not, the background is white
@@ -102,7 +103,6 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 			
 			@Override
 			public void onClick(View v) {
-				//TODO: finish delete button
 				Schedule.getSchedule().removeRejectionBlock(r);
 				notifyDataSetChanged();
 			}

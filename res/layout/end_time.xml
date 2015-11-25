@@ -14,15 +14,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="CancelEndTime"
-            android:text="Cancel" />
+            android:text="@string/cancel_button_text" />
 
         <Button
             android:id="@+id/Save_Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="SaveEndTime"
-            android:text="Save" />
+            android:onClick="MakeRejectionBlock"
+            android:text="@string/save_button_text" />
 
     </LinearLayout>
 

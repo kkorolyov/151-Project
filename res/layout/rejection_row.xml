@@ -22,14 +22,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:text="DATE &amp; TIME"
             android:textColor="#646464" />
 
         <TextView
             android:id="@+id/TextView02"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SMS Preview..."
             android:textColor="#646464" />
     </LinearLayout>
 

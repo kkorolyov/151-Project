@@ -26,14 +26,13 @@ public class EndTimeActivity extends Activity {
 		SMS = (String) getStartTime.getStringExtra("SMS");
 		
 		setContentView(R.layout.end_time);
-		Toast.makeText(this, SMS, Toast.LENGTH_LONG).show();
 	}
 	
 	public void CancelEndTime(View view){
 		finish();
 	}
 	
-	public void SaveEndTime(View view) throws TimeOutOfBoundsException{
+	public void MakeRejectionBlock(View view) throws TimeOutOfBoundsException{
 		TimePicker EndTimePicker = (TimePicker) findViewById(R.id.end_time_picker);
 		@SuppressWarnings("deprecation")
 		Time End_Time = new Time(EndTimePicker.getCurrentHour(), EndTimePicker.getCurrentMinute());
@@ -43,6 +42,7 @@ public class EndTimeActivity extends Activity {
 		Intent finish = new Intent(this, MainActivity.class);
 		
 		startActivityForResult(finish, RESULT_OK);
+		
 		//Intent SendEndTime = new Intent();
 		
 		//SendEndTime.putExtra("New Time", time);
