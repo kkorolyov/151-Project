@@ -34,7 +34,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/Edit_Button"
+        android:id="@+id/Delete_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"

@@ -51,7 +51,6 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 		LayoutInflater inflater = LayoutInflater.from(getContext());
 
 		View view = inflater.inflate(R.layout.rejection_row, parent, false);
-		// TODO: set onClick Button for, holder?
 		
 		//Sets the text for a SMS Preview
 		TextView TimeBeingRejected = (TextView) view.findViewById(R.id.TextView01);
@@ -64,6 +63,8 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 		
 		TimeBeingRejected.setText(startTime.toString(true) + " - " + endTime.toString(true));
 		SMSMessage.setText(r.getSMS());
+		//TODO: truncate SMS for the textView 
+		
 		
 		//When toggle button is off, sets the background black. If not, the background is white
 		final LinearLayout layout = (LinearLayout) view.findViewById(R.id.RejectionRow);
@@ -94,15 +95,14 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 			}
 		});
 
-		Button EditButton = (Button) view.findViewById(R.id.Edit_Button);
+		Button DeleteButton = (Button) view.findViewById(R.id.Delete_Button);
 		
-		EditButton.setOnClickListener(new OnClickListener() {
+		DeleteButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				//TODO: make edit button
-				Intent RejectionBlockActivity = new Intent(v.getContext(), RejectionBlockActivity.class);
-				context.startActivity(RejectionBlockActivity);
+				//TODO: finish delete button
+				
 			}
 		});
 		return view;

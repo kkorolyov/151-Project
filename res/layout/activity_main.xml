@@ -14,7 +14,7 @@
         android:padding="10dp" >
 
         <Button
-            android:id="@+id/back_button"
+            android:id="@+id/edit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -22,7 +22,8 @@
             android:text="@string/edit_button_text"
             android:textColor="#c51e3a"
             android:textColorHint="#c51e3a"
-            android:textColorLink="#c51e3a" />
+            android:textColorLink="#c51e3a"
+            android:onClick="EditRejectionRow" />
 
         <TextView
             android:id="@+id/Schedule_title"

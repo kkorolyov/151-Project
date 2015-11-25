@@ -26,6 +26,7 @@ public class MainActivity extends Activity {
 		
 		schedule = (ListView) findViewById(R.id.ListViewRejectionBlock);
 		schedule.setAdapter(adapter);
+		
 	}
 
 	// Don't think we need this
@@ -72,4 +73,9 @@ public class MainActivity extends Activity {
 		super.onResume();
 		adapter.notifyDataSetChanged();
 	}
+	
+	public void EditRejectionRow(View view) {
+		
+	}
+	
 }
