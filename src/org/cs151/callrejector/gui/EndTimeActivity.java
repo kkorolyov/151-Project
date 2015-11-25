@@ -16,7 +16,11 @@ public class EndTimeActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
+		Intent getStartTime = getIntent();
+		
+		Time Start_Time = (Time) getStartTime.getSerializableExtra("Start Time");
+		
 		setContentView(R.layout.end_time);
 	}
 	
