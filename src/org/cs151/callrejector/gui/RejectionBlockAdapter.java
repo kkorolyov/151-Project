@@ -3,6 +3,7 @@ package org.cs151.callrejector.gui;
 import java.util.ArrayList;
 
 import org.cs151.callrejector.schedule.RejectionBlock;
+import org.cs151.callrejector.schedule.Schedule;
 import org.cs151.callrejector.schedule.Time;
 
 import android.content.Context;
@@ -102,7 +103,8 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 			@Override
 			public void onClick(View v) {
 				//TODO: finish delete button
-				
+				Schedule.getSchedule().removeRejectionBlock(r);
+				notifyDataSetChanged();
 			}
 		});
 		return view;

@@ -11,6 +11,8 @@ import android.widget.TimePicker;
 
 public class EndTimeActivity extends Activity {
 
+	private Time startTime;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

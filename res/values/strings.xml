@@ -8,5 +8,6 @@
     <string name="edit_button_text">Edit</string>
     <string name="add_button_text">+</string>
     <string name="delete_button_text">Delete</string>
+    <string name="end_time_button_text">End Time</string>
 
 </resources>
