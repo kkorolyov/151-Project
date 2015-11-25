@@ -1,5 +1,6 @@
 package org.cs151.callrejector.gui;
 
+import org.cs151.callrejector.schedule.Schedule;
 import org.cs151.callrejector.schedule.Time;
 import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
 
@@ -8,10 +9,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 public class EndTimeActivity extends Activity {
 
-	private Time startTime;
+	private Time Start_Time;
+	private String SMS;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -19,9 +22,11 @@ public class EndTimeActivity extends Activity {
 		
 		Intent getStartTime = getIntent();
 		
-		Time Start_Time = (Time) getStartTime.getSerializableExtra("Start Time");
+		Start_Time = (Time) getStartTime.getSerializableExtra("Start Time");
+		SMS = (String) getStartTime.getStringExtra("SMS");
 		
 		setContentView(R.layout.end_time);
+		Toast.makeText(this, SMS, Toast.LENGTH_LONG).show();
 	}
 	
 	public void CancelEndTime(View view){
@@ -29,16 +34,21 @@ public class EndTimeActivity extends Activity {
 	}
 	
 	public void SaveEndTime(View view) throws TimeOutOfBoundsException{
-		TimePicker timePicker = (TimePicker) findViewById(R.id.end_time_picker);
+		TimePicker EndTimePicker = (TimePicker) findViewById(R.id.end_time_picker);
 		@SuppressWarnings("deprecation")
-		Time time = new Time(timePicker.getCurrentHour(), timePicker.getCurrentMinute());
+		Time End_Time = new Time(EndTimePicker.getCurrentHour(), EndTimePicker.getCurrentMinute());
 		
-		Intent SendEndTime = new Intent();
+		Schedule.getSchedule().addRejectionBlock(Start_Time, End_Time, SMS);
 		
-		SendEndTime.putExtra("New Time", time);
+		Intent finish = new Intent(this, MainActivity.class);
 		
-		setResult(RESULT_OK, SendEndTime);
+		startActivityForResult(finish, RESULT_OK);
+		//Intent SendEndTime = new Intent();
 		
-		finish();
+		//SendEndTime.putExtra("New Time", time);
+		
+		//setResult(RESULT_OK, SendEndTime);
+		
+		//finish();
 	}
 }

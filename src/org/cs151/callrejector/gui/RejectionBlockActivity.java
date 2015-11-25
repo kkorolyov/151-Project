@@ -86,6 +86,9 @@ public class RejectionBlockActivity extends Activity {
 		
 		GoToEndTimeActivity.putExtra("Start Time", Start_Time);
 		
+		EditText New_SMS_Message = (EditText) findViewById(R.id.SMS_Message);
+		GoToEndTimeActivity.putExtra("SMS", String.valueOf(New_SMS_Message.getText()) );
+		
 		startActivityForResult(GoToEndTimeActivity, 1);
 	}
 }
