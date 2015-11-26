@@ -6,7 +6,19 @@ import java.util.ArrayList;
 import android.database.Cursor;
 import android.provider.CallLog;
 
-//watson test
+/*
+ * watson 11-26
+1. need to pass in a cursor in mainactivity:
+
+Cursor  c = managedQuery( CallLog.Calls.CONTENT_URI, null, null, null, android.provider.CallLog.Calls.DATE + " DESC");
+MissedCall m = new MissedCall(c);
+
+2. this starts the cursor from the most recent call
+String order = android.provider.CallLog.Calls.DATE + " DESC";
+in last argument of managedQuery()
+
+ */
+
 
 public class MissedCall  {
     Cursor  cursor;
@@ -15,14 +27,12 @@ public class MissedCall  {
     public MissedCall  (Cursor c) {
         cursor = c;
     }
-   /*
-    *
-    * gets the most recent 10 call logs
-    */
+  
+   // gets the most recent 10 call logs and store it in list 
 
-    public void get() {
+    public void refresh() {
 
-        String strOrder = android.provider.CallLog.Calls.DATE + " DESC";
+        //String order = android.provider.CallLog.Calls.DATE + " DESC";
 
         //getContentResolver().query(
         int number = cursor.getColumnIndex(CallLog.Calls.NUMBER);
@@ -43,13 +53,20 @@ public class MissedCall  {
             String strcallDate = cursor.getString(date);
             Date callDate = new Date(Long.valueOf(strcallDate));
             String callDuration = cursor.getString(duration);
-            String callType = null;
+            
             int callcode = Integer.parseInt(callTypeCode);
-
-
-            i++;
+            //if (Integer.parseInt(callTypeCode) == CallLog.Calls.MISSED_TYPE) {	
+            if (callcode == CallLog.Calls.MISSED_TYPE) {
+                list.add(phoneNum);
+                i++;
+            }
         }
         cursor.close();
+    }
+    
+    
+    public ArrayList<String> getList() {
+    	return this.list;
     }
 
 
