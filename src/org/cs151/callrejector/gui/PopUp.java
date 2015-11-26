@@ -1,6 +1,5 @@
 package org.cs151.callrejector.gui;
 
-
 import android.app.Activity;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -12,86 +11,65 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-
 import java.util.TimerTask;
 
 /**
- *   Watson   11/20/2015 - mostly working
- *   
-    add the following in mainactivity to start:
-    
-    Intent i = new Intent(this, PopUp.class);
-        startActivity(i);
-        
-        or
-        
-    startActivity(new Intent(this, PopUp.class));
- *   
+ *   watson     11/20/2015 - mostly working
+ *              11/25 - added cycle of 5 images, random
+ *
+ add the following in mainactivity to start:
+ Intent i = new Intent(this, PopUp.class);
+ startActivity(i);
+ *
  */
 public class PopUp extends Activity  {
-
-    // field var for pop up
-    Button popUpButton;
-    Button dismiss; 
-    PopupWindow current;
-    View pv;
-
-    //debug
-    TextView t ;
-    
+    //-------------
+    //Watson 11-20 mostly working pop up codes outside of mainactivity
+    // 11-26 added cycle of 5 images
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+       // t = (TextView)findViewById(R.id.debug);
         setup();
     }
 
+    // field var for pop up
+    Button popUpButton;
+    Button dismiss;
+    PopupWindow current;
+    View pv;
 
-    
+    //multiple image stuff
+    PopupWindow p2, p3 , p4 , p5;
+    View pv2, pv3, pv4 ,pv5;
+
+    //debug
+    TextView t ;
+
+    //setup the view and button for popup
     public void setup () {
+        setupView1();
+        setupView2();
+        setupView3();
+        setupView4();
+        setupView5();
         popUpButton = (Button)findViewById(R.id.popup);
-
-        LayoutInflater inflater  = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-        pv = inflater.inflate(R.layout.popup, null);
-
-        final PopupWindow window = new PopupWindow(
-                pv, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        current = window;
-
-        popUpButton.setOnClickListener(new Button.OnClickListener(){
-
-            @Override
-            public void onClick(View arg0) {
-                PopUp.this.dismiss = (Button) PopUp.this.pv.findViewById(R.id.dismiss);
-                dismiss.setOnClickListener(new Button.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // TODO Auto-generated method stub
-                        PopUp.this.current.dismiss();
-                    }
-                });
-                PopUp.this.current.showAsDropDown(popUpButton, 50, -30);
-            }
-        });
 
         repeatPop();
     }
 
-    
-    //repeat pop up
 
+    //repeat pop up
     void repeatPop() {
         final Handler handler = new Handler();
 
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                // t.setText("I am here delayed");
                 pop();
-                handler.postDelayed(this, 3000);
-                ;
+                handler.postDelayed(this, 1000);
             }
         }, 1000);
     }
@@ -99,23 +77,185 @@ public class PopUp extends Activity  {
 
     //this pops up once
     public void pop() {
-    	//Could not add a dismiss button to the field, 
-    	//had to define it inside all method that calls it
-    	// not a big deal, just more codes
-        Button dismiss = (Button)PopUp.this.pv.findViewById(R.id.dismiss);
-      dismiss.setOnClickListener(new Button.OnClickListener() {
+        double d = imageChooser ();
 
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                PopUp.this.current.dismiss();
-            }
-        });
+ //chenge view here works
+        String s = "";
+        //= "" + this.current.isShowing();
+        t.setText(s);
 
-        if (!this.current.isShowing())
-            this.current.showAsDropDown(popUpButton, 100, 100);
+      //  if (!this.current.isShowing() )
+        //    this.current.showAsDropDown(popUpButton , 200, 100);
+       // current.showAsDropDown((View)findViewById(R.id.activity_main));
     }
 
+    double imageChooser () {
+        double d = Math.random();
 
-    
+        double limit = 0.2 ;
+
+        if ( d <= limit ){
+            if (!this.current.isShowing() && !this.p2.isShowing() &&!this.p3.isShowing() && !this.p4.isShowing()&& !this.p5.isShowing()  )
+                this.current.showAsDropDown(popUpButton , 200, 100);
+
+            Button dismiss = (Button) PopUp.this.pv.findViewById(R.id.dismiss);
+            if ( dismiss != null  )
+                dismiss.setOnClickListener(new Button.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        PopUp.this.current.dismiss();
+                    }
+                });
+         }
+        else if ( d <= 2 * limit ) {
+            //popup2.xml
+            if (!this.current.isShowing() && !this.p2.isShowing()
+                    &&!this.p3.isShowing() && !this.p4.isShowing()&& !this.p5.isShowing()  )
+                this.p2.showAsDropDown(popUpButton , 200, 100);
+
+            Button dismiss = (Button) PopUp.this.pv2.findViewById(R.id.dismiss2);
+            if ( dismiss != null  )
+                dismiss.setOnClickListener(new Button.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        PopUp.this.p2.dismiss();
+                    }
+                });
+        }
+
+        else if ( d <= 3 * limit ) {
+            //popup3.xml
+            if (!this.current.isShowing() && !this.p2.isShowing()
+                    &&!this.p3.isShowing() && !this.p4.isShowing()&& !this.p5.isShowing()  )
+                this.p3.showAsDropDown(popUpButton , 200, 100);
+
+            Button dismiss = (Button) PopUp.this.pv3.findViewById(R.id.dismiss3);
+            if ( dismiss != null  )
+                dismiss.setOnClickListener(new Button.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        PopUp.this.p3.dismiss();
+                    }
+                });
+        }
+
+        else if ( d <= 4 * limit ) {
+            //popup4.xml
+            if (!this.current.isShowing() && !this.p2.isShowing()
+                    &&!this.p3.isShowing() && !this.p4.isShowing()&& !this.p5.isShowing()  )
+                this.p4.showAsDropDown(popUpButton , 200, 100);
+
+            Button dismiss = (Button) PopUp.this.pv4.findViewById(R.id.dismiss4);
+            if ( dismiss != null  )
+                dismiss.setOnClickListener(new Button.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        PopUp.this.p4.dismiss();
+                    }
+                });
+        }
+
+        else  {
+            //popup5.xml
+            if (!this.current.isShowing() && !this.p2.isShowing()
+                    &&!this.p3.isShowing() && !this.p4.isShowing()&& !this.p5.isShowing()  )
+                this.p5.showAsDropDown(popUpButton , 200, 100);
+
+            Button dismiss = (Button) PopUp.this.pv5.findViewById(R.id.dismiss5);
+            if ( dismiss != null  )
+                dismiss.setOnClickListener(new Button.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        PopUp.this.p5.dismiss();
+                    }
+                });
+        }
+
+        return d;
+
+    }
+
+    void setupView1 () {
+        LayoutInflater inflater  = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        pv = inflater.inflate(R.layout.popup,null);
+        final PopupWindow window1 = new PopupWindow(
+                pv, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        current = window1;
+
+        Button dismiss = (Button) PopUp.this.pv.findViewById(R.id.dismiss);
+        if ( dismiss != null  )
+            dismiss.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PopUp.this.current.dismiss();
+                }
+            });
+    }
+
+    void setupView2 () {
+        LayoutInflater inflater  = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        pv2 = inflater.inflate(R.layout.popup2, null);
+        final PopupWindow window1 = new PopupWindow(
+                pv2, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        p2 = window1;
+
+        Button dismiss = (Button) PopUp.this.pv2.findViewById(R.id.dismiss2);
+        if ( dismiss != null  )
+            dismiss.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PopUp.this.p2.dismiss();
+                }
+            });
+    }
+
+    void setupView3 () {
+        LayoutInflater inflater  = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        pv3 = inflater.inflate(R.layout.popup3, null);
+        final PopupWindow window1 = new PopupWindow(
+                pv3, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        p3 = window1;
+
+        Button dismiss = (Button) PopUp.this.pv3.findViewById(R.id.dismiss3);
+        if ( dismiss != null  )
+            dismiss.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PopUp.this.p3.dismiss();
+                }
+            });
+    }
+
+    void setupView4 () {
+        LayoutInflater inflater  = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        pv4 = inflater.inflate(R.layout.popup4, null);
+        final PopupWindow window1 = new PopupWindow(
+                pv4, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        p4 = window1;
+        Button dismiss = (Button) PopUp.this.pv4.findViewById(R.id.dismiss4);
+        if ( dismiss != null  )
+            dismiss.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PopUp.this.p4.dismiss();
+                }
+            });
+    }
+
+    void setupView5 () {
+        LayoutInflater inflater  = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        pv5 = inflater.inflate(R.layout.popup5, null);
+        final PopupWindow window1 = new PopupWindow(
+                pv5, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        p5 = window1;
+        Button dismiss = (Button) PopUp.this.pv5.findViewById(R.id.dismiss5);
+        if ( dismiss != null  )
+            dismiss.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PopUp.this.p5.dismiss();
+                }
+            });
+    }
+
 }
