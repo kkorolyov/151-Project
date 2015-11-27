@@ -17,4 +17,5 @@ ic_launcher-web.png
 hs_err_pid*
 /bin/
 /gen/
+/doc/
 /.settings/
