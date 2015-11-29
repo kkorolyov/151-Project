@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
+import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
 
 /**
  * Provides call rejection actions within a specified time frame.
@@ -19,7 +20,6 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	
 	private Time start, end;
 	private String sms;	// SMS to send to rejected call
-	// TODO Send SMS
 	private boolean enabled, active;
 		
 	/**
@@ -51,12 +51,12 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	 * @param enabled whether to enable this rejectionBlock upon construction
 	 * @throws InvalidTimeRangeException when end time is before start time
 	 */
-	RejectionBlock(Time start, Time end, String sms, boolean enabled) throws InvalidTimeRangeException {
+	public RejectionBlock(Time start, Time end, String sms, boolean enabled) throws InvalidTimeRangeException {
 		setStartTime(start);
 		setEndTime(end);
 		setSMS(sms);
 		this.enabled = enabled;
-		// TODO Fix
+		// TODO Fix logging
 		log.info("Successfully constructed new " + getClass().getName() + " with startTime = " + getStartTime() + ", endTime = " + getEndTime() + ", SMS = " + getSMS() + ", enabled = " + isEnabled());
 		initReject();
 	}
@@ -160,6 +160,8 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 							Thread.sleep(SLEEP_TIME);	// Check enabled and times every interval
 						}
 					} catch (InterruptedException e) {
+						log.log(Level.SEVERE, e.getMessage(), e);
+					} catch (TimeOutOfBoundsException e) {
 						log.log(Level.SEVERE, e.getMessage(), e);
 					}
 				}

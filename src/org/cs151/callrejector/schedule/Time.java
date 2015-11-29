@@ -35,13 +35,15 @@ public class Time implements Comparable<Time>, Serializable {
 		setTime(hour, minute, pm);
 	}
 	
-	public int compareTime(int hour, int minute) {
-		int timeInMinutes = (this.hour * 60) + this.minute, compareToTimeInMinutes = (hour * 60) + minute;
-		if (timeInMinutes < compareToTimeInMinutes)
-			return -1;
-		else if (timeInMinutes > compareToTimeInMinutes)
-			return 1;
-		return 0;
+	/**
+	 * Compares this time to a time specified by hour and minute.
+	 * @param hour hour of comparing time
+	 * @param minute minute of comparing time
+	 * @return -1 if earlier, 1 if later, 0 if equal
+	 * @throws TimeOutOfBoundsException
+	 */
+	public int compareTime(int hour, int minute) throws TimeOutOfBoundsException {
+		return compareTo(new Time(hour, minute));
 	}
 	
 	/**
@@ -82,9 +84,10 @@ public class Time implements Comparable<Time>, Serializable {
 	 */
 	@Override
 	public int compareTo(Time compared) {
-		if (hour < compared.getHour() || (hour == compared.getHour() && minute < compared.getMinute()))
+		int thisMinutes = (hour * 60) + minute, thatMinutes = (compared.hour * 60) + compared.minute;	// Easier to compare
+		if (thisMinutes < thatMinutes)
 			return -1;
-		if (hour > compared.getHour() || (hour == compared.getHour() && minute > compared.getMinute()))
+		if (thisMinutes > thatMinutes)
 			return 1;
 		return 0;	// If equal
 	}

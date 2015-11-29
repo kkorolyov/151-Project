@@ -1,9 +1,6 @@
 package org.cs151.callrejector.schedule;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.util.Calendar;
+import static org.junit.Assert.*;
 
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
 import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
@@ -35,5 +32,20 @@ public class RejectionBlockTest {
 		assertTrue(later.compareTo(earlier) > 0);	// Test for symmetry
 	}
 	
-	// TODO Test compareTime(), getSMS(), getTime() (start, end)
+	@Test
+	public void testGetTime() throws TimeOutOfBoundsException, InvalidTimeRangeException {
+		Time startTime = new Time(4, 17), endTime = new Time(8, 59);
+		RejectionBlock testBlock = new RejectionBlock(startTime, endTime);
+		assertEquals(startTime, testBlock.getStartTime());
+		assertTrue(testBlock.getStartTime().compareTo(startTime) == 0);
+		assertEquals(endTime, testBlock.getEndTime());
+		assertTrue(testBlock.getEndTime().compareTo(endTime) == 0);
+	}
+	
+	@Test
+	public void testGetSMS() throws InvalidTimeRangeException, TimeOutOfBoundsException {
+		String testSMS = "Test SMS";
+		RejectionBlock testBlock = new RejectionBlock(new Time(3, 7), new Time(15, 14), testSMS);
+		assertEquals(testSMS, testBlock.getSMS());
+	}
 }

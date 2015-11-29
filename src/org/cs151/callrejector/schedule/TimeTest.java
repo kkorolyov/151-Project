@@ -11,8 +11,8 @@ public class TimeTest {
 		int testHour = 10, testMinute = 15;
 		
 		Time time = new Time(testHour, testMinute);
-		assertEquals(10, time.getHour());
-		assertEquals(15, time.getMinute());
+		assertEquals(testHour, time.getHour());
+		assertEquals(testMinute, time.getMinute());
 	}
 	@Test
 	public void testConstruct12hrAM() throws TimeOutOfBoundsException {
@@ -106,6 +106,15 @@ public class TimeTest {
 		Time earlier = new Time(14, 57), later = new Time(14, 58);
 		assertTrue(earlier.compareTo(later) < 0);
 		assertTrue(later.compareTo(earlier) > 0);	// Test for symmetry
+	}
+	
+	@Test
+	public void testCompareTime() throws TimeOutOfBoundsException {
+		int testHour = 15, testMinute = 40;
+		Time testTime = new Time(testHour, testMinute);
+		assertTrue(testTime.compareTime(15, 41) < 0);
+		assertTrue(testTime.compareTime(14, 41) > 0);
+		assertTrue(testTime.compareTime(testHour, testMinute) == 0);
 	}
 	
 	@Test
