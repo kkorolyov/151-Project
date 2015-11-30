@@ -40,7 +40,7 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	 * @param sms message to send to rejected calls
 	 * @throws InvalidTimeRangeException when end time is before start time
 	 */
-	public RejectionBlock(Time start, Time end, String sms) throws InvalidTimeRangeException {
+	RejectionBlock(Time start, Time end, String sms) throws InvalidTimeRangeException {
 		this(start, end, sms, false);
 	}
 	/**
@@ -51,7 +51,7 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	 * @param enabled whether to enable this rejectionBlock upon construction
 	 * @throws InvalidTimeRangeException when end time is before start time
 	 */
-	public RejectionBlock(Time start, Time end, String sms, boolean enabled) throws InvalidTimeRangeException {
+	RejectionBlock(Time start, Time end, String sms, boolean enabled) throws InvalidTimeRangeException {
 		setStartTime(start);
 		setEndTime(end);
 		setSMS(sms);
@@ -173,7 +173,7 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 		if (getStartTime() == null || getEndTime() == null)
 			return true;	// Can't compare if both aren't yet instantiated
 		
-		if (getStartTime().compareTo(getEndTime()) < 0)
+		if (getStartTime().compareTo(getEndTime()) <= 0)
 			return true;
 		return false;
 	}

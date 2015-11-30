@@ -1,9 +1,7 @@
 package org.cs151.callrejector.gui;
 
 import org.cs151.callrejector.schedule.RejectionBlock;
-import org.cs151.callrejector.schedule.Schedule;
 import org.cs151.callrejector.schedule.Time;
-import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
 import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
 
 import android.app.Activity;
@@ -12,7 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 /**
  * The rejection block activity.

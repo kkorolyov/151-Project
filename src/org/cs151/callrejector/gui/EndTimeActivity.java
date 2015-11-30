@@ -2,6 +2,7 @@ package org.cs151.callrejector.gui;
 
 import org.cs151.callrejector.schedule.Schedule;
 import org.cs151.callrejector.schedule.Time;
+import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
 import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
 
 import android.app.Activity;
@@ -9,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 public class EndTimeActivity extends Activity {
 
@@ -32,12 +32,12 @@ public class EndTimeActivity extends Activity {
 		finish();
 	}
 	
-	public void MakeRejectionBlock(View view) throws TimeOutOfBoundsException{
+	public void MakeRejectionBlock(View view) throws TimeOutOfBoundsException, InvalidTimeRangeException{
 		TimePicker EndTimePicker = (TimePicker) findViewById(R.id.end_time_picker);
 		@SuppressWarnings("deprecation")
 		Time End_Time = new Time(EndTimePicker.getCurrentHour(), EndTimePicker.getCurrentMinute());
 		
-		Schedule.getSchedule().addRejectionBlock(Start_Time, End_Time, SMS);
+		Schedule.getSchedule().addRejectionBlock(Start_Time, End_Time, SMS, true);
 		
 		Intent finish = new Intent(this, MainActivity.class);
 		

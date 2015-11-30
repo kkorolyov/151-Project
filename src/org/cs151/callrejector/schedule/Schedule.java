@@ -13,8 +13,8 @@ public class Schedule {
 	private static final Logger log = Logger.getLogger(Schedule.class.getName());
 	private static final Schedule instance = new Schedule();
 	
-	//private Set<RejectionBlock> rejectionBlocks = new TreeSet<RejectionBlock>();	// rejectionBlocks always sorted
-	private List<RejectionBlock> rejectionBlocks = new ArrayList<RejectionBlock>();	// TODO Temp workaround
+	//private volatile Set<RejectionBlock> rejectionBlocks = new TreeSet<RejectionBlock>();	// rejectionBlocks always sorted
+	private volatile List<RejectionBlock> rejectionBlocks = new ArrayList<RejectionBlock>();	// TODO Temp workaround
 	
 	/**
 	 * @return {@code Schedule} instance
@@ -28,19 +28,26 @@ public class Schedule {
 	}
 	
 	/**
-	 * Adds a new {@code RejectionBlock} with the specified start and end times.
+	 * Adds a new {@code RejectionBlock} with the specified start and end times and sms.
+	 * Starts disabled.
 	 * @param start start time of rejection activity as a {@code Time} object
 	 * @param end end time of rejection activity as a {@code Time} object
+	 * @param sms sms to send when rejecting
+	 * @throws InvalidTimeRangeException 
 	 */
-	public void addRejectionBlock(Time start, Time end) {
-		addRejectionBlock(start, end, null);
+	public void addRejectionBlock(Time start, Time end, String sms) throws InvalidTimeRangeException {
+		addRejectionBlock(start, end, sms, false);
 	}
-	public void addRejectionBlock(Time start, Time end, String sms) {
-		try {
-			rejectionBlocks.add(new RejectionBlock(start, end, sms));
-		} catch (InvalidTimeRangeException e) {
-			log.severe(e.getMessage());
-		}
+	/**
+	 * Adds a new {@code RejectionBlock} with the specified start and end times, sms, and enabled status.
+	 * @param start start time of rejection activity as a {@code Time} object
+	 * @param end end time of rejection activity as a {@code Time} object
+	 * @param sms sms to send when rejecting
+	 * @param enabled whether block initially enabled
+	 * @throws InvalidTimeRangeException 
+	 */
+	public void addRejectionBlock(Time start, Time end, String sms, boolean enabled) throws InvalidTimeRangeException {
+		rejectionBlocks.add(new RejectionBlock(start, end, sms, enabled));
 	}
 	
 	/**
