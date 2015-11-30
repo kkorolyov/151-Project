@@ -26,10 +26,77 @@
 
     </LinearLayout>
 
+    <EditText
+        android:id="@+id/SMS_Message"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_weight="5"
+        android:gravity="start"
+        android:hint="@string/automatic_text_message" />
+    
+    <ToggleButton
+        android:id="@+id/sunday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textOff="Sunday"
+        android:textOn="Sunday" />
+
+    <ToggleButton
+        android:id="@+id/monday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textOff="Monday"
+        android:textOn="Monday" />
+
+    <ToggleButton
+        android:id="@+id/tuesday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textOff="Tuesday"
+        android:textOn="Tuesday" />
+
+    <ToggleButton
+        android:id="@+id/wednesday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textOff="Wednesday"
+        android:textOn="Wednesday" />
+
+    <ToggleButton
+        android:id="@+id/thursday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textOff="Thursday"
+        android:textOn="Thursday" />
+
+    <ToggleButton
+        android:id="@+id/friday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textOff="Friday"
+        android:textOn="Friday" />
+
+    <ToggleButton
+        android:id="@+id/saturday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textOff="Saturday"
+        android:textOn="Saturday" />
+    
+    <!--
     <TimePicker
         android:id="@+id/end_time_picker"
         android:layout_width="266dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal" />
+      -->
+    
 
 </LinearLayout>

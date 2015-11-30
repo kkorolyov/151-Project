@@ -9,21 +9,22 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TimePicker;
 
 public class EndTimeActivity extends Activity {
 
 	private Time Start_Time;
-	private String SMS;
+	private Time End_Time;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		Intent getStartTime = getIntent();
+		Intent getTime = getIntent();
 		
-		Start_Time = (Time) getStartTime.getSerializableExtra("Start Time");
-		SMS = (String) getStartTime.getStringExtra("SMS");
+		Start_Time = (Time) getTime.getSerializableExtra("Start Time");
+		End_Time = (Time) getTime.getSerializableExtra("End Time");
 		
 		setContentView(R.layout.end_time);
 	}
@@ -33,9 +34,13 @@ public class EndTimeActivity extends Activity {
 	}
 	
 	public void MakeRejectionBlock(View view) throws TimeOutOfBoundsException, InvalidTimeRangeException{
-		TimePicker EndTimePicker = (TimePicker) findViewById(R.id.end_time_picker);
-		@SuppressWarnings("deprecation")
-		Time End_Time = new Time(EndTimePicker.getCurrentHour(), EndTimePicker.getCurrentMinute());
+//		TimePicker EndTimePicker = (TimePicker) findViewById(R.id.end_time_picker);
+//		@SuppressWarnings("deprecation")
+//		Time End_Time = new Time(EndTimePicker.getCurrentHour(), EndTimePicker.getCurrentMinute());
+		
+		EditText NewSMSMessage = (EditText) findViewById(R.id.SMS_Message);
+		
+		String SMS = NewSMSMessage.getText().toString();
 		
 		Schedule.getSchedule().addRejectionBlock(Start_Time, End_Time, SMS, true);
 		

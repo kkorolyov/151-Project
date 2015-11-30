@@ -74,8 +74,4 @@ public class MainActivity extends Activity {
 		adapter.notifyDataSetChanged();
 	}
 	
-	public void EditRejectionRow(View view) {
-		
-	}
-	
 }

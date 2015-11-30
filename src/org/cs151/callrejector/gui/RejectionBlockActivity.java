@@ -19,6 +19,8 @@ public class RejectionBlockActivity extends Activity {
 //	private Time EndTime;
 
 	private TimePicker startTime;
+	private TimePicker endTime;
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -26,12 +28,15 @@ public class RejectionBlockActivity extends Activity {
 		setContentView(R.layout.rejection_block_activity);
 		
 		startTime = (TimePicker) findViewById(R.id.start_time_picker);
+		endTime = (TimePicker) findViewById(R.id.end_time_picker);
 		Intent intent = getIntent();
 		RejectionBlock r = (RejectionBlock) intent.getSerializableExtra("Editting Rejection Block");
 		if(r != null)
 		{
 			startTime.setCurrentMinute(r.getStartTime().getMinute());
 			startTime.setCurrentHour(r.getStartTime().getHour());
+			endTime.setCurrentHour(r.getEndTime().getHour());
+			endTime.setCurrentMinute(r.getEndTime().getMinute());
 		}
 
 	}
@@ -61,12 +66,12 @@ public class RejectionBlockActivity extends Activity {
 //
 //	}
 
-	public void RepeatDaysActivity(View view) {
-		Intent GoToRepeatDaysActivity = new Intent(this,
-				RepeatDaysActivity.class);
-
-		startActivityForResult(GoToRepeatDaysActivity, 1);
-	}
+//	public void RepeatDaysActivity(View view) {
+//		Intent GoToRepeatDaysActivity = new Intent(this,
+//				RepeatDaysActivity.class);
+//
+//		startActivityForResult(GoToRepeatDaysActivity, 1);
+//	}
 
 //	@Override
 //	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -84,7 +89,7 @@ public class RejectionBlockActivity extends Activity {
 //		}
 //	}
 	
-	public void EndTime(View view) throws TimeOutOfBoundsException{
+	public void next(View view) throws TimeOutOfBoundsException{
 		Intent GoToEndTimeActivity = new Intent(this, EndTimeActivity.class);
 		
 		@SuppressWarnings("deprecation")
@@ -92,8 +97,12 @@ public class RejectionBlockActivity extends Activity {
 		
 		GoToEndTimeActivity.putExtra("Start Time", Start_Time);
 		
-		EditText New_SMS_Message = (EditText) findViewById(R.id.SMS_Message);
-		GoToEndTimeActivity.putExtra("SMS", String.valueOf(New_SMS_Message.getText()) );
+		@SuppressWarnings("deprecation")
+		Time End_Time = new Time(endTime.getCurrentHour(), endTime.getCurrentMinute());
+		
+		GoToEndTimeActivity.putExtra("End Time", End_Time);
+		//EditText New_SMS_Message = (EditText) findViewById(R.id.SMS_Message);
+		//GoToEndTimeActivity.putExtra("SMS", String.valueOf(New_SMS_Message.getText()) );
 		
 		startActivityForResult(GoToEndTimeActivity, 1);
 	}

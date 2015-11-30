@@ -23,17 +23,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="EndTime"
-            android:text="@string/end_time_button_text" />
+            android:onClick="next"
+            android:text="Next" />
     </LinearLayout>
 
+    <TextView 
+        android:id="@+id/start_time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Time"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        />
     <TimePicker
         android:id="@+id/start_time_picker"
         android:layout_width="266dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"/>
+    
+    <TextView 
+        android:id="@+id/end_time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="End Time"
         android:layout_gravity="center_horizontal"
-        android:scaleX="0.6"
-        android:scaleY="0.6" />
+        android:textStyle="bold"
+        />
+    
+    <TimePicker 
+        android:id="@+id/end_time_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        />
 
     <!--
     	<Button
@@ -49,7 +71,7 @@
         android:layout_height="wrap_content"
         android:onClick="RepeatDaysActivity"
         android:text="Repeat" />
-       -->
+       
 
     <EditText
         android:id="@+id/SMS_Message"
@@ -58,5 +80,7 @@
         android:layout_weight="1"
         android:gravity="start"
         android:hint="@string/automatic_text_message" />
+   
+   -->
 
 </LinearLayout>
