@@ -61,7 +61,9 @@ public class PopUp extends Activity  {
     }
 
 
-    //repeat pop up
+    /*
+     * this repeates popup of 5 images
+     */
     void repeatPop() {
         final Handler handler = new Handler();
 
@@ -88,6 +90,10 @@ public class PopUp extends Activity  {
         //    this.current.showAsDropDown(popUpButton , 200, 100);
        // current.showAsDropDown((View)findViewById(R.id.activity_main));
     }
+    
+    /*
+     * it randomly picks 1 out of the 5 images
+     */
 
     double imageChooser () {
         double d = Math.random();
@@ -174,6 +180,10 @@ public class PopUp extends Activity  {
         return d;
 
     }
+    
+    /*
+     * setup the popup window and layoutmanager for popup.xml
+     */
 
     void setupView1 () {
         LayoutInflater inflater  = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -191,6 +201,10 @@ public class PopUp extends Activity  {
                 }
             });
     }
+    
+    /*
+     * setup the popup window and layoutmanager for popup2.xml
+     */
 
     void setupView2 () {
         LayoutInflater inflater  = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -208,6 +222,11 @@ public class PopUp extends Activity  {
                 }
             });
     }
+    
+    /*
+     * setup the popup window and layoutmanager for popup3.xml
+     */
+
 
     void setupView3 () {
         LayoutInflater inflater  = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -225,6 +244,11 @@ public class PopUp extends Activity  {
                 }
             });
     }
+    
+    /*
+     * setup the popup window and layoutmanager for popup4.xml
+     */
+
 
     void setupView4 () {
         LayoutInflater inflater  = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -241,6 +265,11 @@ public class PopUp extends Activity  {
                 }
             });
     }
+    
+    /*
+     * setup the popup window and layoutmanager for popup5.xml
+     */
+
 
     void setupView5 () {
         LayoutInflater inflater  = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -257,6 +286,11 @@ public class PopUp extends Activity  {
                 }
             });
     }
+    
+    /*
+     * checks to see if there are any other xmls showing, 
+     * to prevent multiple popups at the same time
+     */
     
     public boolean isShow () {
     	return (!this.current.isShowing() && !this.p2.isShowing()

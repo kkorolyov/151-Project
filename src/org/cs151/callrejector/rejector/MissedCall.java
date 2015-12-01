@@ -7,7 +7,7 @@ import android.database.Cursor;
 import android.provider.CallLog;
 
 /*
- * watson 11-26
+ Ô watson 11-26
 1. need to pass in a cursor in mainactivity:
 
 Cursor  c = managedQuery( CallLog.Calls.CONTENT_URI, null, null, null, android.provider.CallLog.Calls.DATE + " DESC");
@@ -16,15 +16,16 @@ MissedCall m = new MissedCall(c);
 2. this starts the cursor from the most recent call
 String order = android.provider.CallLog.Calls.DATE + " DESC";
 in last argument of managedQuery()
-
  */
 
 
 public class MissedCall  {
     Cursor  cursor;
     ArrayList<String> list = new ArrayList<String>();
+    
+    
 
-    public MissedCall  (Cursor c) {
+    public MissedCall  (Cursor c ) {
         cursor = c;
     }
   
