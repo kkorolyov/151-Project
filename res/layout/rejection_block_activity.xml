@@ -24,20 +24,20 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="next"
-            android:text="Next" />
+            android:text="@string/Next_button_text" />
     </LinearLayout>
 
     <TextView 
         android:id="@+id/start_time_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start Time"
+        android:text="@string/Start_Time"
         android:layout_gravity="center_horizontal"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold"/> 
+    
     <TimePicker
         android:id="@+id/start_time_picker"
-        android:layout_width="266dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"/>
     
@@ -45,17 +45,15 @@
         android:id="@+id/end_time_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="End Time"
+        android:text="@string/End_Time"
         android:layout_gravity="center_horizontal"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold"/>
     
     <TimePicker 
         android:id="@+id/end_time_picker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        />
+        android:layout_gravity="center_horizontal"/>
 
     <!--
     	<Button

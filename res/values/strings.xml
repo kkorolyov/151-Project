@@ -8,9 +8,11 @@
     <string name="edit_button_text">Edit</string>
     <string name="add_button_text">+</string>
     <string name="delete_button_text">Delete</string>
-    <string name="end_time_button_text">End Time</string>
     <string name="cancel_button_text">Cancel</string>
     <string name="automatic_text_message">Automatic Text Message</string>
     <string name="save_button_text">Save</string>
-
+	<string name="Start_Time">Start Time</string>
+	<string name="End_Time">End Time</string>
+	<string name="Next_button_text">Next</string>
+	
 </resources>
