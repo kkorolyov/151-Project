@@ -120,14 +120,14 @@ public class TimeTest {
 	@Test
 	public void testToString12hrAM() throws TimeOutOfBoundsException {
 		int testHour = 3, testMinute = 46;
-		String expectedToString = "3:46am";
+		String expectedToString = "3:46" + Time.MERIDIAN_AM;
 		Time testTime = new Time(testHour, testMinute);
 		assertEquals(expectedToString, testTime.toString(true));
 	}
 	@Test
 	public void testToString12hrPM() throws TimeOutOfBoundsException {
 		int testHour = 15, testMinute = 46;
-		String expectedToString = "3:46pm";
+		String expectedToString = "3:46" + Time.MERIDIAN_PM;
 		Time testTime = new Time(testHour, testMinute);
 		assertEquals(expectedToString, testTime.toString(true));
 	}

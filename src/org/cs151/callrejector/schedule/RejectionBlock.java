@@ -106,7 +106,8 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	 * @throws InvalidTimeRangeException
 	 */
 	public void setStartTime(Time startTime) throws InvalidTimeRangeException {
-		start = startTime;		
+		end = null;
+		start = startTime;
 		if (!isValidRange())	// Check whether start time is before end time
 			throw new InvalidTimeRangeException(start, end);
 	}

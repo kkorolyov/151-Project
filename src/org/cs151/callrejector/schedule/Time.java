@@ -11,6 +11,7 @@ import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
 public class Time implements Comparable<Time>, Serializable {
 	private static final long serialVersionUID = -5754055166850976716L;
 
+	public static final String MERIDIAN_AM = "am", MERIDIAN_PM = "pm";
 	public static final int HOUR_BOUND_START = 0, HOUR_BOUND_END = 23, MINUTE_BOUND_START = 0, MINUTE_BOUND_END = 59;
 
 	private int hour, minute;
@@ -105,11 +106,14 @@ public class Time implements Comparable<Time>, Serializable {
 	 */
 	public String toString(boolean standard) {
 		if (standard) {
-			String time = "", meridian = "am";
+			String time = "", meridian = MERIDIAN_AM;
 			int hour = getHour(), minute = getMinute(), converter = 0;
-			if (hour > 12) {
-				converter = 12;
-				meridian = "pm";
+			if (hour == 0)
+				hour = 12;
+			else if (hour >= 12) {
+				meridian = MERIDIAN_PM;
+				if (hour > 12)
+					converter = 12;
 			}
 			time += (hour - converter) + ":";
 			

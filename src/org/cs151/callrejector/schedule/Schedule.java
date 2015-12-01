@@ -6,13 +6,14 @@ import java.util.logging.Logger;
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
 
 /**
- * Contains and manages a collection of {@code Filter} objects.
+ * Contains and manages a collection of {@link RejectionBlock} objects.
  * @author Kirill
  */
 public class Schedule {
 	private static final Logger log = Logger.getLogger(Schedule.class.getName());
-	private static final Schedule instance = new Schedule();
+	private static Schedule instance;
 	
+	private volatile Thread timeThread;
 	//private volatile Set<RejectionBlock> rejectionBlocks = new TreeSet<RejectionBlock>();	// rejectionBlocks always sorted
 	private volatile List<RejectionBlock> rejectionBlocks = new ArrayList<RejectionBlock>();	// TODO Temp workaround
 	
@@ -20,6 +21,8 @@ public class Schedule {
 	 * @return {@code Schedule} instance
 	 */
 	public static synchronized Schedule getSchedule() {
+		if (instance == null)
+			 instance = new Schedule();
 		return instance;
 	}
 	
@@ -56,6 +59,15 @@ public class Schedule {
 	 */
 	public void removeRejectionBlock(RejectionBlock toRemove) {
 		rejectionBlocks.remove(toRemove);
+	}
+	
+	private void updateTime() {
+		Calendar currentCalendar = Calendar.getInstance();
+		int currentHour = currentCalendar.get(Calendar.HOUR_OF_DAY), currentMinute = currentCalendar.get(Calendar.MINUTE);
+		
+	}
+	private void updateBlocks() {
+		
 	}
 	
 	/**
