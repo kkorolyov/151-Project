@@ -71,7 +71,7 @@ public class PopUp extends Activity  {
             @Override
             public void run() {
                 pop();
-                handler.postDelayed(this, 1000);
+                handler.postDelayed(this, 60000);
             }
         }, 1000);
     }
