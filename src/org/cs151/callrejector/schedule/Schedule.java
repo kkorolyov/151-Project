@@ -55,20 +55,19 @@ public class Schedule {
 	 * @throws InvalidTimeRangeException 
 	 */
 	public void addRejectionBlock(Time start, Time end, String sms, boolean enabled) throws InvalidTimeRangeException {
-		updateRunning = false;
-		while (updateThread.isAlive()) {	// TODO move to spearate method
-			try {
-				Thread.sleep(updateInterval / 2);
-			} catch (InterruptedException e) {
-				log.log(Level.SEVERE, e.getMessage(), e);
-			}
-		}
-		rejectionBlocks.add(new RejectionBlock(start, end, sms, enabled));
-		initUpdateThread();
+		killUpdateThread();	// Stop updateThread (to safely edit blocks)
+		rejectionBlocks.add(new RejectionBlock(start, end, sms, enabled));	// Edit blocks
+		initUpdateThread();	// Restart updateThread
 	}
 	
-	public void updateRejectionBlock(RejectionBlock toUpdate, Time newStart, Time newEnd, String sms) {
-		
+	public void updateRejectionBlock(RejectionBlock toUpdate, Time newStart, Time newEnd, String sms) throws InvalidTimeRangeException, TimeOutOfBoundsException {
+		if (!rejectionBlocks.contains(toUpdate))
+			addRejectionBlock(new Time(0, 0), new Time(1, 1), null);
+		else {
+			toUpdate.setStartTime(newStart);
+			toUpdate.setEndTime(newEnd);
+			toUpdate.setSMS(sms);
+		}
 	}
 	
 	/**
@@ -76,14 +75,7 @@ public class Schedule {
 	 * @param toRemove reference of rejectionBlock to remove
 	 */
 	public void removeRejectionBlock(RejectionBlock toRemove) {
-		updateRunning = false;
-		while (updateThread.isAlive()) {
-			try {
-				Thread.sleep(updateInterval / 2);
-			} catch (InterruptedException e) {
-				log.log(Level.SEVERE, e.getMessage(), e);
-			}
-		}
+		killUpdateThread();
 		rejectionBlocks.remove(toRemove);
 		initUpdateThread();
 	}
@@ -116,6 +108,17 @@ public class Schedule {
 	private void updateBlocks(Time testTime) {
 		for (RejectionBlock block : rejectionBlocks)
 			block.updateTime(testTime);
+	}
+	
+	private void killUpdateThread() {	// Kills updateThread, waits for death
+		updateRunning = false;
+		while (updateThread.isAlive()) {
+			try {
+				Thread.sleep(updateInterval / 2);
+			} catch (InterruptedException e) {
+				log.log(Level.SEVERE, e.getMessage(), e);
+			}
+		}
 	}
 	
 	/**
