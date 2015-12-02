@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
 		schedule = (ListView) findViewById(R.id.ListViewRejectionBlock);
 		schedule.setAdapter(adapter);
 		
-		
+		setup();
 	}
 
 	// Don't think we need this
