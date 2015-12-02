@@ -1,5 +1,6 @@
 package org.cs151.callrejector.gui;
 
+import org.cs151.callrejector.schedule.RejectionBlock;
 import org.cs151.callrejector.schedule.Schedule;
 import org.cs151.callrejector.schedule.Time;
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
@@ -10,23 +11,38 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TimePicker;
+import android.widget.Toast;
 
 public class EndTimeActivity extends Activity {
 
 	private Time Start_Time;
 	private Time End_Time;
 	
+	private EditText NewSMSMessage;
+	
+	private RejectionBlock r;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		Intent getTime = getIntent();
-		
-		Start_Time = (Time) getTime.getSerializableExtra("Start Time");
-		End_Time = (Time) getTime.getSerializableExtra("End Time");
-		
 		setContentView(R.layout.end_time);
+		
+		Intent getTimes = getIntent();
+		
+		NewSMSMessage = (EditText) findViewById(R.id.SMS_Message);
+		
+		Start_Time = (Time) getTimes.getSerializableExtra("StartTime");
+		End_Time = (Time) getTimes.getSerializableExtra("EndTime");
+		
+		if(getTimes.getSerializableExtra("RejectionBlock") != null)
+		{
+			r = (RejectionBlock) getTimes.getSerializableExtra("RejectionBlock");
+			
+			NewSMSMessage.setText(r.getSMS());
+			
+		}
+		
 	}
 	
 	public void CancelEndTime(View view){
@@ -38,15 +54,42 @@ public class EndTimeActivity extends Activity {
 //		@SuppressWarnings("deprecation")
 //		Time End_Time = new Time(EndTimePicker.getCurrentHour(), EndTimePicker.getCurrentMinute());
 		
-		EditText NewSMSMessage = (EditText) findViewById(R.id.SMS_Message);
+//		if(r != null){
+//			String SMS = NewSMSMessage.getText().toString();
+//			
+//			//Schedule.getSchedule().updateRejectionBlock(r, Start_Time, End_Time, SMS);
+//			
+//			Intent finish = new Intent(this, MainActivity.class);
+//			
+//			startActivityForResult(finish, RESULT_OK);
+//			
+//		}
+//		else {			
+//			String SMS = NewSMSMessage.getText().toString();
+//			
+//			Schedule.getSchedule().addRejectionBlock(Start_Time, End_Time, SMS, true);
+//			
+//			Intent finish = new Intent(this, MainActivity.class);
+//			
+//			startActivityForResult(finish, RESULT_OK);
+//		}
 		
-		String SMS = NewSMSMessage.getText().toString();
+		if(r != null) {
+			
+			Schedule.getSchedule().removeRejectionBlock(r);
+			Toast.makeText(this, r.getStartTime().toString() + " " + r.getEndTime().toString(), Toast.LENGTH_LONG).show();
+
+		}
 		
+		
+		String SMS = NewSMSMessage.getText().toString();		
 		Schedule.getSchedule().addRejectionBlock(Start_Time, End_Time, SMS, true);
-		
+			
 		Intent finish = new Intent(this, MainActivity.class);
+			
+		startActivity(finish);
 		
-		startActivityForResult(finish, RESULT_OK);
+		
 		
 		//Intent SendEndTime = new Intent();
 		

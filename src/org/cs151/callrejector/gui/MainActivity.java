@@ -1,5 +1,6 @@
 package org.cs151.callrejector.gui;
 
+import org.cs151.callrejector.gui.PopUp;
 import org.cs151.callrejector.schedule.Schedule;
 
 import android.app.Activity;
@@ -26,6 +27,7 @@ public class MainActivity extends Activity {
 		
 		schedule = (ListView) findViewById(R.id.ListViewRejectionBlock);
 		schedule.setAdapter(adapter);
+		
 		
 	}
 

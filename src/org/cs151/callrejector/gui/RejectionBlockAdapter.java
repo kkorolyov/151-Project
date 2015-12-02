@@ -63,6 +63,7 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 //		
 		//if SMS is too long
 		String pass;
+		r.getSMS();
 		if(r.getSMS().length() >= 15)
 			{pass = r.getSMS().substring(0, 14) + "...";}
 		else { pass = r.getSMS();}

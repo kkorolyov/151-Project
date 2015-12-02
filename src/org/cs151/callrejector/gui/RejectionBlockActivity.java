@@ -2,6 +2,7 @@ package org.cs151.callrejector.gui;
 
 import org.cs151.callrejector.schedule.RejectionBlock;
 import org.cs151.callrejector.schedule.Time;
+import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
 import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
 
 import android.app.Activity;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 /**
  * The rejection block activity.
@@ -20,6 +22,8 @@ public class RejectionBlockActivity extends Activity {
 
 	private TimePicker startTime;
 	private TimePicker endTime;
+	private RejectionBlock r;
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +33,9 @@ public class RejectionBlockActivity extends Activity {
 		
 		startTime = (TimePicker) findViewById(R.id.start_time_picker);
 		endTime = (TimePicker) findViewById(R.id.end_time_picker);
+		
 		Intent intent = getIntent();
-		RejectionBlock r = (RejectionBlock) intent.getSerializableExtra("Editting Rejection Block");
+		r = (RejectionBlock) intent.getSerializableExtra("Editting Rejection Block");
 		if(r != null)
 		{
 			startTime.setCurrentMinute(r.getStartTime().getMinute());
@@ -90,20 +95,74 @@ public class RejectionBlockActivity extends Activity {
 //	}
 	
 	public void next(View view) throws TimeOutOfBoundsException{
-		Intent GoToEndTimeActivity = new Intent(this, EndTimeActivity.class);
 		
-		@SuppressWarnings("deprecation")
-		Time Start_Time = new Time(startTime.getCurrentHour(), startTime.getCurrentMinute());
+//		Time Start_Time = new Time(startTime.getCurrentHour(), startTime.getCurrentMinute());
+//		Time End_Time = new Time(endTime.getCurrentHour(), startTime.getCurrentMinute());
 		
-		GoToEndTimeActivity.putExtra("Start Time", Start_Time);
-		
-		@SuppressWarnings("deprecation")
-		Time End_Time = new Time(endTime.getCurrentHour(), endTime.getCurrentMinute());
-		
-		GoToEndTimeActivity.putExtra("End Time", End_Time);
-		//EditText New_SMS_Message = (EditText) findViewById(R.id.SMS_Message);
-		//GoToEndTimeActivity.putExtra("SMS", String.valueOf(New_SMS_Message.getText()) );
-		
-		startActivityForResult(GoToEndTimeActivity, 1);
+//		if(r != null) {
+//			Toast.makeText(this, "editting", Toast.LENGTH_SHORT).show();
+//			@SuppressWarnings("deprecation")
+//			Time Changed_Start_Time = null, Changed_End_Time = null;
+//			try {
+//				Changed_Start_Time = new Time(startTime.getCurrentHour(), startTime.getCurrentMinute());
+//				Changed_End_Time = new Time(endTime.getCurrentHour(), endTime.getCurrentMinute());
+//			} catch (TimeOutOfBoundsException e) {
+//				Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+//			}
+			
+//			try{
+//				Toast.makeText(this, "lololo", Toast.LENGTH_SHORT).show();
+//				
+//				r.setStartTime(Changed_Start_Time);
+//				r.setEndTime(Changed_End_Time);
+//			}
+//			catch(InvalidTimeRangeException e) {
+//				Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+//			}
+			
+//			Intent GotoEndTimeActivity = new Intent(this, EndTimeActivity.class);
+			
+//			GotoEndTimeActivity.putExtra("Edit Rejection Block", r);
+//			GotoEndTimeActivity.putExtra("Editted Start Time", Start_Time);
+//			GotoEndTimeActivity.putExtra("Editted End Time", End_Time);
+			
+//			startActivityForResult(GotoEndTimeActivity, 1);
+//		}
+//		else {
+//			Intent GoToEndTimeActivity = new Intent(this, EndTimeActivity.class);
+			
+//			Time Start_Time = null;
+//			Time End_Time = null;
+//			
+//			try{
+//			Start_Time = new Time(startTime.getCurrentHour(), startTime.getCurrentMinute());
+//			
+//			End_Time = new Time(endTime.getCurrentHour(), endTime.getCurrentMinute());
+//			} catch(TimeOutOfBoundsException e) {
+//				Toast.makeText(this, "hihi", Toast.LENGTH_LONG).show();
+//			}
+			
+//			GoToEndTimeActivity.putExtra("Start Time", Start_Time);
+//			GoToEndTimeActivity.putExtra("End Time", End_Time);
+			//EditText New_SMS_Message = (EditText) findViewById(R.id.SMS_Message);
+			//GoToEndTimeActivity.putExtra("SMS", String.valueOf(New_SMS_Message.getText()) );
+			
+//			startActivityForResult(GoToEndTimeActivity, 1);
+			
+			Time Start_Time = new Time(startTime.getCurrentHour(), startTime.getCurrentMinute());
+			Time End_Time = new Time(endTime.getCurrentHour(), endTime.getCurrentMinute());
+			
+			Intent GoToEndTimeActivity = new Intent(this, EndTimeActivity.class);
+			
+			GoToEndTimeActivity.putExtra("StartTime", Start_Time);
+			GoToEndTimeActivity.putExtra("EndTime", End_Time);
+			
+			if(r != null){
+				GoToEndTimeActivity.putExtra("RejectionBlock", r);
+				Toast.makeText(this, r.getStartTime().toString() + " " + r.getEndTime().toString(), Toast.LENGTH_LONG).show();
+			}
+			startActivityForResult(GoToEndTimeActivity, 1);
+			
+			
 	}
 }
