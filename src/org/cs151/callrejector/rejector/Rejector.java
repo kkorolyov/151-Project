@@ -6,7 +6,7 @@ package org.cs151.callrejector.rejector;
 import java.lang.reflect.Method;
 
 import org.cs151.callrejector.schedule.RejectionBlock;
-import org.cs151.callrejector.schedule.Schedule;
+import org.cs151.callrejector.schedule.DailySchedule;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -38,7 +38,7 @@ public class Rejector extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 	    TelephonyManager tm = (TelephonyManager)context.getSystemService(Service.TELEPHONY_SERVICE); 
 	    if (tm.getCallState() == TelephonyManager.CALL_STATE_RINGING) {
-				RejectionBlock activeBlock = Schedule.getSchedule().getCurrentActiveBlock();
+				RejectionBlock activeBlock = DailySchedule.getSchedule().getCurrentActiveBlock();
 				if (activeBlock != null) {	// If exists
 					Toast.makeText(context, "Active rejectionBlock found", Toast.LENGTH_LONG).show();
 					

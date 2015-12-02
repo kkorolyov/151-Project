@@ -95,6 +95,14 @@ public class RejectionBlockActivity extends Activity {
 //	}
 	
 	public void next(View view) throws TimeOutOfBoundsException{
+
+//		Intent GoToEndTimeActivity = new Intent(this, EndTimeActivity.class);
+//		
+//		@SuppressWarnings("deprecation")
+//		Time Start_Time = new Time(startTime.getCurrentHour(), startTime.getCurrentMinute());
+//		
+//		GoToEndTimeActivity.putExtra("Start Time", Start_Time);	// TODO Construct RejectionBlock from ints, not Time
+
 		
 //		Time Start_Time = new Time(startTime.getCurrentHour(), startTime.getCurrentMinute());
 //		Time End_Time = new Time(endTime.getCurrentHour(), startTime.getCurrentMinute());
@@ -149,6 +157,9 @@ public class RejectionBlockActivity extends Activity {
 			
 //			startActivityForResult(GoToEndTimeActivity, 1);
 			
+			
+			
+
 			Time Start_Time = new Time(startTime.getCurrentHour(), startTime.getCurrentMinute());
 			Time End_Time = new Time(endTime.getCurrentHour(), endTime.getCurrentMinute());
 			

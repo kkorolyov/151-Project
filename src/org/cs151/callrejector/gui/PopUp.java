@@ -71,7 +71,7 @@ public class PopUp extends Activity  {
             @Override
             public void run() {
                 pop();
-                handler.postDelayed(this, 1000);
+                handler.postDelayed(this, 60000);
             }
         }, 1000);
     }
@@ -84,10 +84,10 @@ public class PopUp extends Activity  {
  //chenge view here works
         String s = "";
         //= "" + this.current.isShowing();
-        //t.setText(s);
+       // t.setText(s);
 
       //  if (!this.current.isShowing() )
-        //    this.current.showAsDropDown(popUpButton , 200, 100);
+        //    this.current.showAsDropDown(popUpButton , x , y );
        // current.showAsDropDown((View)findViewById(R.id.activity_main));
     }
     
@@ -99,10 +99,11 @@ public class PopUp extends Activity  {
         double d = Math.random();
 
         double limit = 0.2 ;
+        int x = 150, y = 100;
 
         if ( d <= limit ){
             if (!this.current.isShowing() && !this.p2.isShowing() &&!this.p3.isShowing() && !this.p4.isShowing()&& !this.p5.isShowing()  )
-                this.current.showAsDropDown(popUpButton , 200, 100);
+                this.current.showAsDropDown(popUpButton , x , y );
 
             Button dismiss = (Button) PopUp.this.pv.findViewById(R.id.dismiss);
             if ( dismiss != null  )
@@ -117,7 +118,7 @@ public class PopUp extends Activity  {
             //popup2.xml
             if (!this.current.isShowing() && !this.p2.isShowing()
                     &&!this.p3.isShowing() && !this.p4.isShowing()&& !this.p5.isShowing()  )
-                this.p2.showAsDropDown(popUpButton , 200, 100);
+                this.p2.showAsDropDown(popUpButton , x , y );
 
             Button dismiss = (Button) PopUp.this.pv2.findViewById(R.id.dismiss2);
             if ( dismiss != null  )
@@ -133,7 +134,7 @@ public class PopUp extends Activity  {
             //popup3.xml
             if (!this.current.isShowing() && !this.p2.isShowing()
                     &&!this.p3.isShowing() && !this.p4.isShowing()&& !this.p5.isShowing()  )
-                this.p3.showAsDropDown(popUpButton , 200, 100);
+                this.p3.showAsDropDown(popUpButton , x , y );
 
             Button dismiss = (Button) PopUp.this.pv3.findViewById(R.id.dismiss3);
             if ( dismiss != null  )
@@ -149,7 +150,7 @@ public class PopUp extends Activity  {
             //popup4.xml
             if (!this.current.isShowing() && !this.p2.isShowing()
                     &&!this.p3.isShowing() && !this.p4.isShowing()&& !this.p5.isShowing()  )
-                this.p4.showAsDropDown(popUpButton , 200, 100);
+                this.p4.showAsDropDown(popUpButton , x , y );
 
             Button dismiss = (Button) PopUp.this.pv4.findViewById(R.id.dismiss4);
             if ( dismiss != null  )
@@ -165,7 +166,7 @@ public class PopUp extends Activity  {
             //popup5.xml
             if (!this.current.isShowing() && !this.p2.isShowing()
                     &&!this.p3.isShowing() && !this.p4.isShowing()&& !this.p5.isShowing()  )
-                this.p5.showAsDropDown(popUpButton , 200, 100);
+                this.p5.showAsDropDown(popUpButton , x , y );
 
             Button dismiss = (Button) PopUp.this.pv5.findViewById(R.id.dismiss5);
             if ( dismiss != null  )

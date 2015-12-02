@@ -1,7 +1,8 @@
 package org.cs151.callrejector.gui;
 
+
 import org.cs151.callrejector.schedule.RejectionBlock;
-import org.cs151.callrejector.schedule.Schedule;
+import org.cs151.callrejector.schedule.DailySchedule;
 import org.cs151.callrejector.schedule.Time;
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
 import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
@@ -76,15 +77,15 @@ public class EndTimeActivity extends Activity {
 		
 		if(r != null) {
 			
-			Schedule.getSchedule().removeRejectionBlock(r);
-			Toast.makeText(this, r.getStartTime().toString() + " " + r.getEndTime().toString(), Toast.LENGTH_LONG).show();
+			DailySchedule.getSchedule().removeRejectionBlock(r);
+			//Toast.makeText(this, r.getStartTime().toString() + " " + r.getEndTime().toString(), Toast.LENGTH_LONG).show();
 
 		}
 		
-		
 		String SMS = NewSMSMessage.getText().toString();		
-		Schedule.getSchedule().addRejectionBlock(Start_Time, End_Time, SMS, true);
 			
+		DailySchedule.getSchedule().addRejectionBlock(Start_Time, End_Time, SMS, true);
+
 		Intent finish = new Intent(this, MainActivity.class);
 			
 		startActivity(finish);
