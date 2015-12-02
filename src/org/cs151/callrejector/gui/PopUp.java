@@ -84,7 +84,7 @@ public class PopUp extends Activity  {
  //chenge view here works
         String s = "";
         //= "" + this.current.isShowing();
-        t.setText(s);
+       // t.setText(s);
 
       //  if (!this.current.isShowing() )
         //    this.current.showAsDropDown(popUpButton , 200, 100);
