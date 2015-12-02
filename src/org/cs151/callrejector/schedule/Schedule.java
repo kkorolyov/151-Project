@@ -1,9 +1,11 @@
 package org.cs151.callrejector.schedule;
 
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
+import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
 
 /**
  * Contains and manages a collection of {@link RejectionBlock} objects.
@@ -11,9 +13,11 @@ import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
  */
 public class Schedule {
 	private static final Logger log = Logger.getLogger(Schedule.class.getName());
+	private static final int updateInterval = 1000;
 	private static Schedule instance;
 	
-	private volatile Thread timeThread;
+	private volatile boolean updateRunning;
+	private volatile Thread updateThread;
 	//private volatile Set<RejectionBlock> rejectionBlocks = new TreeSet<RejectionBlock>();	// rejectionBlocks always sorted
 	private volatile List<RejectionBlock> rejectionBlocks = new ArrayList<RejectionBlock>();	// TODO Temp workaround
 	
@@ -27,6 +31,7 @@ public class Schedule {
 	}
 	
 	private Schedule() {
+		initUpdateThread();
 		log.info("New " + Schedule.class.getName() + " instantiated successfully");
 	}
 	
@@ -38,7 +43,7 @@ public class Schedule {
 	 * @param sms sms to send when rejecting
 	 * @throws InvalidTimeRangeException 
 	 */
-	public void addRejectionBlock(Time start, Time end, String sms) throws InvalidTimeRangeException {
+	public void addRejectionBlock(Time start, Time end, String sms) throws InvalidTimeRangeException {		
 		addRejectionBlock(start, end, sms, false);
 	}
 	/**
@@ -50,7 +55,20 @@ public class Schedule {
 	 * @throws InvalidTimeRangeException 
 	 */
 	public void addRejectionBlock(Time start, Time end, String sms, boolean enabled) throws InvalidTimeRangeException {
+		updateRunning = false;
+		while (updateThread.isAlive()) {	// TODO move to spearate method
+			try {
+				Thread.sleep(updateInterval / 2);
+			} catch (InterruptedException e) {
+				log.log(Level.SEVERE, e.getMessage(), e);
+			}
+		}
 		rejectionBlocks.add(new RejectionBlock(start, end, sms, enabled));
+		initUpdateThread();
+	}
+	
+	public void updateRejectionBlock(RejectionBlock toUpdate, Time newStart, Time newEnd, String sms) {
+		
 	}
 	
 	/**
@@ -58,16 +76,46 @@ public class Schedule {
 	 * @param toRemove reference of rejectionBlock to remove
 	 */
 	public void removeRejectionBlock(RejectionBlock toRemove) {
+		updateRunning = false;
+		while (updateThread.isAlive()) {
+			try {
+				Thread.sleep(updateInterval / 2);
+			} catch (InterruptedException e) {
+				log.log(Level.SEVERE, e.getMessage(), e);
+			}
+		}
 		rejectionBlocks.remove(toRemove);
+		initUpdateThread();
 	}
 	
+	private void initUpdateThread() {
+		updateRunning = true;
+		updateThread = new Thread("Time update") {
+			public void run() {
+				while (updateRunning) {
+					updateTime();
+					try {
+						Thread.sleep(updateInterval);
+					} catch (InterruptedException e) {
+						log.log(Level.SEVERE, e.getMessage(), e);
+					}
+				}
+			}
+		};
+		updateThread.start();
+	}
 	private void updateTime() {
 		Calendar currentCalendar = Calendar.getInstance();
 		int currentHour = currentCalendar.get(Calendar.HOUR_OF_DAY), currentMinute = currentCalendar.get(Calendar.MINUTE);
-		
+		try {
+			updateBlocks(new Time(currentHour, currentMinute));
+		} catch (TimeOutOfBoundsException e) {
+			log.log(Level.SEVERE, e.getMessage(), e);
+		}
 	}
-	private void updateBlocks() {
-		
+	private void updateBlocks(Time testTime) {
+		for (RejectionBlock block : rejectionBlocks)
+			block.updateTime(testTime);
 	}
 	
 	/**

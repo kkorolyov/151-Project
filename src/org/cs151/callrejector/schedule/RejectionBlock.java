@@ -1,12 +1,9 @@
 package org.cs151.callrejector.schedule;
 
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
-import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
 
 /**
  * Provides call rejection actions within a specified time frame.
@@ -14,7 +11,6 @@ import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
  * @author Brandon Feist
  */
 public class RejectionBlock implements Comparable<RejectionBlock>, Serializable {
-	public static final long SLEEP_TIME = 1000;	// TODO Better name
 	private static final long serialVersionUID = -2969684380343526177L;
 	private static final Logger log = Logger.getLogger(RejectionBlock.class.getName());
 	
@@ -58,7 +54,6 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 		this.enabled = enabled;
 		// TODO Fix logging
 		log.info("Successfully constructed new " + getClass().getName() + " with startTime = " + getStartTime() + ", endTime = " + getEndTime() + ", SMS = " + getSMS() + ", enabled = " + isEnabled());
-		initReject();
 	}
 	
 	/**
@@ -66,7 +61,6 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	 */
 	public void switchState() {
 		enabled = !enabled;
-		initReject();	// Will check for enabled here
 	}
 	
 	/**
@@ -145,28 +139,12 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 		return getStartTime() + "-" + getEndTime() + " rejectionBlock";
 	}
 	
-	private void initReject() {
-		if (enabled) {	// Check to avoid wasting resources on Thread creation
-			new Thread(this.toString() + "rejectionThread") {
-				public void run() {
-					try {
-						while (enabled) {
-							int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY), currentMinute = Calendar.getInstance().get(Calendar.MINUTE);
-							if ((start.compareTime(currentHour, currentMinute) <= 0) && (end.compareTime(currentHour, currentMinute) >= 0)) {
-								active = true;
-							}
-							else {
-								active = false;
-							}
-							Thread.sleep(SLEEP_TIME);	// Check enabled and times every interval
-						}
-					} catch (InterruptedException e) {
-						log.log(Level.SEVERE, e.getMessage(), e);
-					} catch (TimeOutOfBoundsException e) {
-						log.log(Level.SEVERE, e.getMessage(), e);
-					}
-				}
-			}.start();
+	void updateTime(Time testTime) {
+		if (enabled) {
+			if ((start.compareTo(testTime) <= 0) && (end.compareTo(testTime) >= 0))
+				active = true;
+			else
+				active = false;
 		}
 	}
 	
