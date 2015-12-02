@@ -17,7 +17,8 @@ import android.widget.TextView;
 /**
  * Edited by Brandon Feist
  * @author Victor Li
- *
+ * 
+ * added PopUp stuff - watson
  */
 public class MainActivity extends Activity {
 
@@ -147,10 +148,11 @@ public class MainActivity extends Activity {
         double d = Math.random();
 
         double limit = 0.2 ;
-
+        int x = 150, y = 100;// popup position
+        
         if ( d <= limit ){
             if (!this.current.isShowing() && !this.p2.isShowing() &&!this.p3.isShowing() && !this.p4.isShowing()&& !this.p5.isShowing()  )
-                this.current.showAsDropDown(popUpButton , 200, 100);
+                this.current.showAsDropDown(popUpButton , x , y );
 
             Button dismiss = (Button) MainActivity.this.pv.findViewById(R.id.dismiss);
             if ( dismiss != null  )
@@ -165,7 +167,7 @@ public class MainActivity extends Activity {
             //popup2.xml
             if (!this.current.isShowing() && !this.p2.isShowing()
                     &&!this.p3.isShowing() && !this.p4.isShowing()&& !this.p5.isShowing()  )
-                this.p2.showAsDropDown(popUpButton , 200, 100);
+                this.p2.showAsDropDown(popUpButton , x , y );
 
             Button dismiss = (Button) MainActivity.this.pv2.findViewById(R.id.dismiss2);
             if ( dismiss != null  )
@@ -181,7 +183,7 @@ public class MainActivity extends Activity {
             //popup3.xml
             if (!this.current.isShowing() && !this.p2.isShowing()
                     &&!this.p3.isShowing() && !this.p4.isShowing()&& !this.p5.isShowing()  )
-                this.p3.showAsDropDown(popUpButton , 200, 100);
+                this.p3.showAsDropDown(popUpButton , x , y );
 
             Button dismiss = (Button) MainActivity.this.pv3.findViewById(R.id.dismiss3);
             if ( dismiss != null  )
@@ -197,7 +199,7 @@ public class MainActivity extends Activity {
             //popup4.xml
             if (!this.current.isShowing() && !this.p2.isShowing()
                     &&!this.p3.isShowing() && !this.p4.isShowing()&& !this.p5.isShowing()  )
-                this.p4.showAsDropDown(popUpButton , 200, 100);
+                this.p4.showAsDropDown(popUpButton , x , y );
 
             Button dismiss = (Button) MainActivity.this.pv4.findViewById(R.id.dismiss4);
             if ( dismiss != null  )
@@ -213,7 +215,7 @@ public class MainActivity extends Activity {
             //popup5.xml
             if (!this.current.isShowing() && !this.p2.isShowing()
                     &&!this.p3.isShowing() && !this.p4.isShowing()&& !this.p5.isShowing()  )
-                this.p5.showAsDropDown(popUpButton , 200, 100);
+                this.p5.showAsDropDown(popUpButton , x , y );
 
             Button dismiss = (Button) MainActivity.this.pv5.findViewById(R.id.dismiss5);
             if ( dismiss != null  )
