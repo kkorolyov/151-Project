@@ -23,9 +23,9 @@ public class ScheduleTest {
 			}
 		}
 		String testString = "Test String";	// Will test with this
-		Schedule.getSchedule().addRejectionBlock(new Time(currentHour, currentMinute), new Time(nextHour, nextMinute), testString, true);
+		DailySchedule.getSchedule().addRejectionBlock(new Time(currentHour, currentMinute), new Time(nextHour, nextMinute), testString, true);
 		Thread.sleep(100);	// Give block enough time to check
-		assertEquals(testString, Schedule.getSchedule().getCurrentActiveBlock().getSMS());
+		assertEquals(testString, DailySchedule.getSchedule().getCurrentActiveBlock().getSMS());
 	}
 	@Test
 	// TODO Fix?
@@ -41,9 +41,9 @@ public class ScheduleTest {
 			}
 		}
 		String testString = "Test String";	// Will test with this
-		Schedule.getSchedule().addRejectionBlock(new Time(prevHour, prevMinute), new Time(currentHour, currentMinute), testString, true);
+		DailySchedule.getSchedule().addRejectionBlock(new Time(prevHour, prevMinute), new Time(currentHour, currentMinute), testString, true);
 		Thread.sleep(100);	// Give block enough time to check
-		assertTrue(Schedule.getSchedule().getCurrentActiveBlock() == null);
+		assertTrue(DailySchedule.getSchedule().getCurrentActiveBlock() == null);
 	}
 
 }

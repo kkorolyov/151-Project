@@ -5,12 +5,12 @@ import java.io.Serializable;
 import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
 
 /**
- * Represents an hour and minute of a time of day using 24-hour time format.
- * @author Kirill
+ * Represents an hour and minute of a time of day.
+ * @author Kirill Korolyov
  */
-public class Time implements Comparable<Time>, Serializable {
-	private static final long serialVersionUID = -5754055166850976716L;
-
+public class Time extends AbstractTime implements Serializable {
+	private static final long serialVersionUID = 527179700241102165L;
+	
 	public static final String MERIDIAN_AM = "am", MERIDIAN_PM = "pm";
 	public static final int HOUR_BOUND_START = 0, HOUR_BOUND_END = 23, MINUTE_BOUND_START = 0, MINUTE_BOUND_END = 59;
 
@@ -34,17 +34,6 @@ public class Time implements Comparable<Time>, Serializable {
 	 */
 	public Time(int hour, int minute, boolean pm) throws TimeOutOfBoundsException {
 		setTime(hour, minute, pm);
-	}
-	
-	/**
-	 * Compares this time to a time specified by hour and minute.
-	 * @param hour hour of comparing time
-	 * @param minute minute of comparing time
-	 * @return -1 if earlier, 1 if later, 0 if equal
-	 * @throws TimeOutOfBoundsException
-	 */
-	public int compareTime(int hour, int minute) throws TimeOutOfBoundsException {
-		return compareTo(new Time(hour, minute));
 	}
 	
 	/**
@@ -76,21 +65,6 @@ public class Time implements Comparable<Time>, Serializable {
 		if (pm)
 			converter = 12;
 		setTime(hour + converter, minute);
-	}
-	
-	/**
-	 * Compares value of this {@code Time} object and another {@code Time} object
-	 * @param compared {@code Time} to compare to
-	 * @return -1 if this {@code Time} is earlier, 1 if greater, 0 if equal
-	 */
-	@Override
-	public int compareTo(Time compared) {
-		int thisMinutes = (hour * 60) + minute, thatMinutes = (compared.hour * 60) + compared.minute;	// Easier to compare
-		if (thisMinutes < thatMinutes)
-			return -1;
-		if (thisMinutes > thatMinutes)
-			return 1;
-		return 0;	// If equal
 	}
 	
 	/**
@@ -139,5 +113,23 @@ public class Time implements Comparable<Time>, Serializable {
 			time += minute;
 		
 		return time;
+	}
+	
+	@Override
+	public int compareTo(AbstractTime otherTime) {
+		return compareTo((Time) otherTime);
+	}
+	private int compareTo(Time compared) {
+		int thisMinutes = (hour * 60) + minute, thatMinutes = (compared.hour * 60) + compared.minute;	// Easier to compare
+		if (thisMinutes < thatMinutes)
+			return -1;
+		if (thisMinutes > thatMinutes)
+			return 1;
+		return 0;	// If equal
+	}
+	@Override
+	protected boolean equals(AbstractTime aTime) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

@@ -95,7 +95,7 @@ public class RejectionBlockActivity extends Activity {
 		@SuppressWarnings("deprecation")
 		Time Start_Time = new Time(startTime.getCurrentHour(), startTime.getCurrentMinute());
 		
-		GoToEndTimeActivity.putExtra("Start Time", Start_Time);
+		GoToEndTimeActivity.putExtra("Start Time", Start_Time);	// TODO Construct RejectionBlock from ints, not Time
 		
 		@SuppressWarnings("deprecation")
 		Time End_Time = new Time(endTime.getCurrentHour(), endTime.getCurrentMinute());

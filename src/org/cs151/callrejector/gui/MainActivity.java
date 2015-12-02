@@ -1,6 +1,6 @@
 package org.cs151.callrejector.gui;
 
-import org.cs151.callrejector.schedule.Schedule;
+import org.cs151.callrejector.schedule.DailySchedule;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -29,7 +29,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		adapter = new RejectionBlockAdapter(this, R.layout.rejection_row, Schedule.getSchedule().getAllRejectionBlocksList());
+		adapter = new RejectionBlockAdapter(this, R.layout.rejection_row, DailySchedule.getSchedule().getAllRejectionBlocksList());
 		
 		schedule = (ListView) findViewById(R.id.ListViewRejectionBlock);
 		schedule.setAdapter(adapter);
