@@ -344,6 +344,7 @@ public class MainActivity extends Activity {
         return (!this.current.isShowing() && !this.p2.isShowing()
                 &&!this.p3.isShowing() && !this.p4.isShowing()&& !this.p5.isShowing() );
     }
+    //PopUp stuff ends
 
 
 	
