@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.widget.ImageView;
 
 //added 12/03 watson
+// use the following to download image
 //ImageView img1 = (ImageView) findViewById(R.id.image1);
 //String url1 = "http://opendatakosovo.org/wp-content/uploads/2015/08/android-logo.png";
 //img1.setTag(url1);
