@@ -35,7 +35,7 @@ public class Rejector extends BroadcastReceiver {
 	 * This method is used to check if there is an incoming call (One ring might pop up)
 	 */
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(Context context, Intent intent) {	// TODO Only try sending message if sms not null
 	    TelephonyManager tm = (TelephonyManager)context.getSystemService(Service.TELEPHONY_SERVICE); 
 	    if (tm.getCallState() == TelephonyManager.CALL_STATE_RINGING) {
 				RejectionBlock activeBlock = DailySchedule.getSchedule().getCurrentActiveBlock();

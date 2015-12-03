@@ -150,7 +150,7 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 		return getStartTime() + "-" + getEndTime() + " rejectionBlock";
 	}
 	
-	void updateTime(HourTime testTime) {
+	void updateTime(HourTime testTime) {	// Test if ready to activate/deactivate
 		if (enabled) {
 			if ((start.compareTo(testTime) <= 0) && (end.compareTo(testTime) >= 0))
 				active = true;
