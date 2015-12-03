@@ -12,7 +12,7 @@ import android.widget.ImageView;
 //ImageView img1 = (ImageView) findViewById(R.id.image1);
 //String url1 = "http://opendatakosovo.org/wp-content/uploads/2015/08/android-logo.png";
 //img1.setTag(url1);
-//DownloadImageTask.execute(img1);
+//(new ImageDownload()).execute(img1);
 
 public class ImageDownload extends AsyncTask<ImageView, Void, Bitmap> {
 
