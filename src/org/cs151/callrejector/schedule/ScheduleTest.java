@@ -4,8 +4,9 @@ import static org.junit.Assert.*;
 
 import java.util.Calendar;
 
+import org.cs151.callrejector.schedule.exceptions.HourOutOfBoundsException;
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
-import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
+import org.cs151.callrejector.schedule.exceptions.MinuteOutOfBoundsException;
 import org.junit.Test;
 
 public class ScheduleTest {
@@ -16,7 +17,12 @@ public class ScheduleTest {
 	}
 	
 	@Test
-	public void testGetActive() throws TimeOutOfBoundsException, InvalidTimeRangeException, InterruptedException {
+	public void testAdd() throws InvalidTimeRangeException, HourOutOfBoundsException, MinuteOutOfBoundsException {
+		DailySchedule.getSchedule().addRejectionBlock(new HourMinuteTime(1,1), new HourMinuteTime(1, 2), "");
+	}
+	
+	@Test
+	public void testGetActive() throws HourOutOfBoundsException, MinuteOutOfBoundsException, InvalidTimeRangeException, InterruptedException {
 		int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY), currentMinute = Calendar.getInstance().get(Calendar.MINUTE);
 		int nextHour = currentHour + 1, nextMinute = currentMinute;
 		if (nextHour > HourMinuteTime.HOUR_BOUND_END) {
@@ -34,7 +40,7 @@ public class ScheduleTest {
 	}
 	@Test
 	// TODO Fix?
-	public void testNoActive() throws InvalidTimeRangeException, TimeOutOfBoundsException, InterruptedException {
+	public void testNoActive() throws InvalidTimeRangeException, HourOutOfBoundsException, MinuteOutOfBoundsException, InterruptedException {
 		int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY), currentMinute = Calendar.getInstance().get(Calendar.MINUTE) - 1;
 		int prevHour = currentHour - 1, prevMinute = currentMinute;
 		if (prevHour < HourMinuteTime.HOUR_BOUND_START) {

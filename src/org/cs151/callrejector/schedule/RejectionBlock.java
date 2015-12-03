@@ -14,7 +14,7 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	private static final long serialVersionUID = -2969684380343526177L;
 	private static final Logger log = Logger.getLogger(RejectionBlock.class.getName());
 	
-	private HourMinuteTime start, end;
+	private HourTime start, end;
 	private String sms;	// SMS to send to rejected call
 	private boolean enabled, active;
 		
@@ -25,7 +25,7 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	 * @param end end time of activity
 	 * @throws InvalidTimeRangeException when end time is before start time
 	 */
-	RejectionBlock(HourMinuteTime start, HourMinuteTime end) throws InvalidTimeRangeException {
+	RejectionBlock(HourTime start, HourTime end) throws InvalidTimeRangeException {
 		this(start, end, null, false);
 	}
 	/**
@@ -36,7 +36,7 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	 * @param sms message to send to rejected calls
 	 * @throws InvalidTimeRangeException when end time is before start time
 	 */
-	RejectionBlock(HourMinuteTime start, HourMinuteTime end, String sms) throws InvalidTimeRangeException {
+	RejectionBlock(HourTime start, HourTime end, String sms) throws InvalidTimeRangeException {
 		this(start, end, sms, false);
 	}
 	/**
@@ -47,7 +47,7 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	 * @param enabled whether to enable this rejectionBlock upon construction
 	 * @throws InvalidTimeRangeException when end time is before start time
 	 */
-	RejectionBlock(HourMinuteTime start, HourMinuteTime end, String sms, boolean enabled) throws InvalidTimeRangeException {
+	RejectionBlock(HourTime start, HourTime end, String sms, boolean enabled) throws InvalidTimeRangeException {
 		setStartTime(start);
 		setEndTime(end);
 		setSMS(sms);
@@ -78,13 +78,13 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	/**
 	 * @return start time of rejectionBlock activity
 	 */
-	public HourMinuteTime getStartTime() {
+	public HourTime getStartTime() {
 		return start;
 	}
 	/**
 	 * @return end time of rejectionBlock activity
 	 */
-	public HourMinuteTime getEndTime() {
+	public HourTime getEndTime() {
 		return end;
 	}
 	/**
@@ -99,7 +99,7 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	 * @param startTime time to start activity
 	 * @throws InvalidTimeRangeException
 	 */
-	public void setStartTime(HourMinuteTime startTime) throws InvalidTimeRangeException {
+	public void setStartTime(HourTime startTime) throws InvalidTimeRangeException {
 		end = null;
 		start = startTime;
 		if (!isValidRange())	// Check whether start time is before end time
@@ -110,7 +110,7 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 	 * @param endTime time to end activity
 	 * @throws InvalidTimeRangeException
 	 */
-	public void setEndTime(HourMinuteTime endTime) throws InvalidTimeRangeException {
+	public void setEndTime(HourTime endTime) throws InvalidTimeRangeException {
 		end = endTime;		
 		if (!isValidRange())	// Check whether start time is before end time
 			throw new InvalidTimeRangeException(start, end);
@@ -150,7 +150,7 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 		return getStartTime() + "-" + getEndTime() + " rejectionBlock";
 	}
 	
-	void updateTime(HourMinuteTime testTime) {
+	void updateTime(HourTime testTime) {
 		if (enabled) {
 			if ((start.compareTo(testTime) <= 0) && (end.compareTo(testTime) >= 0))
 				active = true;

@@ -1,17 +1,16 @@
 package org.cs151.callrejector.gui;
 
-import org.cs151.callrejector.schedule.RejectionBlock;
 import org.cs151.callrejector.schedule.HourMinuteTime;
-import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
-import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
+import org.cs151.callrejector.schedule.HourMinuteTime;
+import org.cs151.callrejector.schedule.RejectionBlock;
+import org.cs151.callrejector.schedule.exceptions.HourOutOfBoundsException;
+import org.cs151.callrejector.schedule.exceptions.MinuteOutOfBoundsException;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 /**
  * The rejection block activity.
@@ -41,10 +40,10 @@ public class RejectionBlockActivity extends Activity {
 		r = (RejectionBlock) intent.getSerializableExtra("Editting Rejection Block");
 		if(r != null)
 		{
-			startTime.setCurrentMinute(r.getStartTime().getMinute());
+			startTime.setCurrentMinute(((HourMinuteTime) r.getStartTime()).getMinute());
 			startTime.setCurrentHour(r.getStartTime().getHour());
 			endTime.setCurrentHour(r.getEndTime().getHour());
-			endTime.setCurrentMinute(r.getEndTime().getMinute());
+			endTime.setCurrentMinute(((HourMinuteTime) r.getEndTime()).getMinute());
 		}
 
 	}
@@ -97,7 +96,7 @@ public class RejectionBlockActivity extends Activity {
 //		}
 //	}
 	
-	public void next(View view) throws TimeOutOfBoundsException{
+	public void next(View view) throws MinuteOutOfBoundsException, HourOutOfBoundsException{
 
 //		Intent GoToEndTimeActivity = new Intent(this, EndTimeActivity.class);
 //		

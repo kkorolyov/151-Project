@@ -2,9 +2,9 @@ package org.cs151.callrejector.gui;
 
 import java.util.ArrayList;
 
-import org.cs151.callrejector.schedule.RejectionBlock;
 import org.cs151.callrejector.schedule.DailySchedule;
 import org.cs151.callrejector.schedule.HourMinuteTime;
+import org.cs151.callrejector.schedule.RejectionBlock;
 
 import android.content.Context;
 import android.content.Intent;
@@ -58,8 +58,8 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 		
 		final RejectionBlock r = list.get(position);
 		
-		HourMinuteTime startTime = r.getStartTime();
-		HourMinuteTime endTime = r.getEndTime();
+		HourMinuteTime startTime = (HourMinuteTime) r.getStartTime();
+		HourMinuteTime endTime = (HourMinuteTime) r.getEndTime();
 		
 //		TimeBeingRejected.setText(startTime.toString(true) + " - " + endTime.toString(true));
 //		
@@ -71,7 +71,7 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 		else { pass = r.getSMS();}
 		
 		Button EditRejectionBlock = (Button) view.findViewById(R.id.Time_And_SMS);
-		EditRejectionBlock.setText(startTime.toString(true) + " - " + endTime.toString(true)
+		EditRejectionBlock.setText(startTime.toString12Hour() + " - " + endTime.toString12Hour()
 				+ "\n" + pass);
 		
 		EditRejectionBlock.setOnClickListener(new OnClickListener(){

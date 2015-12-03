@@ -1,18 +1,17 @@
 package org.cs151.callrejector.gui;
 
 
-import org.cs151.callrejector.schedule.RejectionBlock;
 import org.cs151.callrejector.schedule.DailySchedule;
 import org.cs151.callrejector.schedule.HourMinuteTime;
+import org.cs151.callrejector.schedule.RejectionBlock;
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
-import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
+import org.cs151.callrejector.schedule.exceptions.MinuteOutOfBoundsException;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class EndTimeActivity extends Activity {
 
@@ -50,7 +49,7 @@ public class EndTimeActivity extends Activity {
 		finish();
 	}
 	
-	public void MakeRejectionBlock(View view) throws TimeOutOfBoundsException, InvalidTimeRangeException{
+	public void MakeRejectionBlock(View view) throws MinuteOutOfBoundsException, InvalidTimeRangeException{
 //		TimePicker EndTimePicker = (TimePicker) findViewById(R.id.end_time_picker);
 //		@SuppressWarnings("deprecation")
 //		Time End_Time = new Time(EndTimePicker.getCurrentHour(), EndTimePicker.getCurrentMinute());

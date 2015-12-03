@@ -1,11 +1,7 @@
 package org.cs151.callrejector.gui;
 
 
-import org.cs151.callrejector.gui.PopUp;
-import org.cs151.callrejector.schedule.Schedule;
-
 import org.cs151.callrejector.schedule.DailySchedule;
-
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 
 /**
  * Edited by Brandon Feist
