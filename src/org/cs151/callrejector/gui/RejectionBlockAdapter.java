@@ -28,6 +28,8 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 	private ArrayList<RejectionBlock> list;
 	private Context context;
 	private int layoutResourceId;
+	
+	private static String EDITTING_REJECTION_BLOCK = "Editting Rejection Block";
 
 	public RejectionBlockAdapter(Context context, int resource,
 			ArrayList<RejectionBlock> list) {
@@ -77,7 +79,7 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 			@Override
 			public void onClick(View v) {
 				Intent Edit = new Intent(context, RejectionBlockActivity.class);
-				Edit.putExtra("Editting Rejection Block", r);
+				Edit.putExtra(EDITTING_REJECTION_BLOCK, r);
 				
 				context.startActivity(Edit);
 			}

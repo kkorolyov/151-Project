@@ -24,6 +24,9 @@ public class RejectionBlockActivity extends Activity {
 	private TimePicker endTime;
 	private RejectionBlock r;
 	
+	private static String START_TIME = "START_TIME";
+	private static String END_TIME = "END_TIME";
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -165,12 +168,12 @@ public class RejectionBlockActivity extends Activity {
 			
 			Intent GoToEndTimeActivity = new Intent(this, EndTimeActivity.class);
 			
-			GoToEndTimeActivity.putExtra("StartTime", Start_Time);
-			GoToEndTimeActivity.putExtra("EndTime", End_Time);
+			GoToEndTimeActivity.putExtra(START_TIME, Start_Time);
+			GoToEndTimeActivity.putExtra(END_TIME, End_Time);
 			
 			if(r != null){
 				GoToEndTimeActivity.putExtra("RejectionBlock", r);
-				Toast.makeText(this, r.getStartTime().toString() + " " + r.getEndTime().toString(), Toast.LENGTH_LONG).show();
+//				Toast.makeText(this, r.getStartTime().toString() + " " + r.getEndTime().toString(), Toast.LENGTH_LONG).show();
 			}
 			startActivityForResult(GoToEndTimeActivity, 1);
 			

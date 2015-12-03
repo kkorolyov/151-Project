@@ -33,8 +33,8 @@ public class EndTimeActivity extends Activity {
 		
 		NewSMSMessage = (EditText) findViewById(R.id.SMS_Message);
 		
-		Start_Time = (HourMinuteTime) getTimes.getSerializableExtra("StartTime");
-		End_Time = (HourMinuteTime) getTimes.getSerializableExtra("EndTime");
+		Start_Time = (HourMinuteTime) getTimes.getSerializableExtra("START_TIME");
+		End_Time = (HourMinuteTime) getTimes.getSerializableExtra("END_TIME");
 		
 		if(getTimes.getSerializableExtra("RejectionBlock") != null)
 		{
