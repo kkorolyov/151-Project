@@ -1,7 +1,7 @@
 package org.cs151.callrejector.gui;
 
 import org.cs151.callrejector.schedule.RejectionBlock;
-import org.cs151.callrejector.schedule.Time;
+import org.cs151.callrejector.schedule.HourMinuteTime;
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
 import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
 
@@ -160,8 +160,8 @@ public class RejectionBlockActivity extends Activity {
 			
 			
 
-			Time Start_Time = new Time(startTime.getCurrentHour(), startTime.getCurrentMinute());
-			Time End_Time = new Time(endTime.getCurrentHour(), endTime.getCurrentMinute());
+			HourMinuteTime Start_Time = new HourMinuteTime(startTime.getCurrentHour(), startTime.getCurrentMinute());
+			HourMinuteTime End_Time = new HourMinuteTime(endTime.getCurrentHour(), endTime.getCurrentMinute());
 			
 			Intent GoToEndTimeActivity = new Intent(this, EndTimeActivity.class);
 			

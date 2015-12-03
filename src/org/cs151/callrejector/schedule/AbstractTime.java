@@ -11,16 +11,15 @@ public abstract class AbstractTime implements Comparable<AbstractTime> {
 	 * @return -1 if this {@code AbstractTime} is less than the other, 1 if greater than, 0 if equal to
 	 */
 	@Override
-	public abstract int compareTo(AbstractTime otherTime);
+	public abstract int compareTo(AbstractTime otherTime);	// Each subclass has own unique properties to compare by
 	
 	@Override
 	public final boolean equals(Object anObject) {
-		if  (anObject == this)	// No need to test further
+		if (anObject == this)	// No need to test further
 			return true;
-		else if ((anObject instanceof AbstractTime) && equals((AbstractTime) anObject))	// Test for type and equal properties
+		if ((anObject instanceof AbstractTime) && (compareTo((AbstractTime) anObject)) == 0)	// Test for type and properties
 			return true;
 		else
 			return false;
 	}
-	protected abstract boolean equals(AbstractTime aTime);	// Overridden by subclasses for equality appropriate tests
 }

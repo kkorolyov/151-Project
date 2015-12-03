@@ -43,7 +43,7 @@ public class DailySchedule {
 	 * @param sms sms to send when rejecting
 	 * @throws InvalidTimeRangeException 
 	 */
-	public void addRejectionBlock(Time start, Time end, String sms) throws InvalidTimeRangeException {		
+	public void addRejectionBlock(HourMinuteTime start, HourMinuteTime end, String sms) throws InvalidTimeRangeException {		
 		addRejectionBlock(start, end, sms, false);
 	}
 	/**
@@ -54,7 +54,7 @@ public class DailySchedule {
 	 * @param enabled whether block initially enabled
 	 * @throws InvalidTimeRangeException 
 	 */
-	public void addRejectionBlock(Time start, Time end, String sms, boolean enabled) throws InvalidTimeRangeException {
+	public void addRejectionBlock(HourMinuteTime start, HourMinuteTime end, String sms, boolean enabled) throws InvalidTimeRangeException {
 		killUpdateThread();	// Stop updateThread (to safely edit blocks)
 		rejectionBlocks.add(new RejectionBlock(start, end, sms, enabled));	// Edit blocks
 		initUpdateThread();	// Restart updateThread
@@ -70,7 +70,7 @@ public class DailySchedule {
 	 * @Deprecated Incomplete
 	 */
 	@Deprecated
-	public void updateRejectionBlock(RejectionBlock toUpdate, Time newStart, Time newEnd, String sms) throws InvalidTimeRangeException {
+	public void updateRejectionBlock(RejectionBlock toUpdate, HourMinuteTime newStart, HourMinuteTime newEnd, String sms) throws InvalidTimeRangeException {
 		toUpdate.setStartTime(newStart);
 		toUpdate.setEndTime(newEnd);
 		toUpdate.setSMS(sms);
@@ -83,6 +83,7 @@ public class DailySchedule {
 	public void removeRejectionBlock(RejectionBlock toRemove) {
 		killUpdateThread();
 		rejectionBlocks.remove(toRemove);
+
 		initUpdateThread();
 	}
 	
@@ -93,7 +94,7 @@ public class DailySchedule {
 				while (updateRunning) {
 					updateTime();
 					try {
-						Thread.sleep(updateInterval);
+						Thread.sleep(updateInterval);	// Avoid perpetually hogging resources
 					} catch (InterruptedException e) {
 						log.log(Level.SEVERE, e.getMessage(), e);
 					}
@@ -106,12 +107,12 @@ public class DailySchedule {
 		Calendar currentCalendar = Calendar.getInstance();
 		int currentHour = currentCalendar.get(Calendar.HOUR_OF_DAY), currentMinute = currentCalendar.get(Calendar.MINUTE);
 		try {
-			updateBlocks(new Time(currentHour, currentMinute));
+			updateBlocks(new HourMinuteTime(currentHour, currentMinute));
 		} catch (TimeOutOfBoundsException e) {
 			log.log(Level.SEVERE, e.getMessage(), e);
 		}
 	}
-	private void updateBlocks(Time testTime) {
+	private void updateBlocks(HourMinuteTime testTime) {
 		for (RejectionBlock block : rejectionBlocks)
 			block.updateTime(testTime);
 	}

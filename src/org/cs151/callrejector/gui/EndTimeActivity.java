@@ -3,7 +3,7 @@ package org.cs151.callrejector.gui;
 
 import org.cs151.callrejector.schedule.RejectionBlock;
 import org.cs151.callrejector.schedule.DailySchedule;
-import org.cs151.callrejector.schedule.Time;
+import org.cs151.callrejector.schedule.HourMinuteTime;
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
 import org.cs151.callrejector.schedule.exceptions.TimeOutOfBoundsException;
 
@@ -16,8 +16,8 @@ import android.widget.Toast;
 
 public class EndTimeActivity extends Activity {
 
-	private Time Start_Time;
-	private Time End_Time;
+	private HourMinuteTime Start_Time;
+	private HourMinuteTime End_Time;
 	
 	private EditText NewSMSMessage;
 	
@@ -33,8 +33,8 @@ public class EndTimeActivity extends Activity {
 		
 		NewSMSMessage = (EditText) findViewById(R.id.SMS_Message);
 		
-		Start_Time = (Time) getTimes.getSerializableExtra("StartTime");
-		End_Time = (Time) getTimes.getSerializableExtra("EndTime");
+		Start_Time = (HourMinuteTime) getTimes.getSerializableExtra("StartTime");
+		End_Time = (HourMinuteTime) getTimes.getSerializableExtra("EndTime");
 		
 		if(getTimes.getSerializableExtra("RejectionBlock") != null)
 		{

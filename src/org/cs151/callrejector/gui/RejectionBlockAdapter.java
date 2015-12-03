@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.cs151.callrejector.schedule.RejectionBlock;
 import org.cs151.callrejector.schedule.DailySchedule;
-import org.cs151.callrejector.schedule.Time;
+import org.cs151.callrejector.schedule.HourMinuteTime;
 
 import android.content.Context;
 import android.content.Intent;
@@ -56,8 +56,8 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 		
 		final RejectionBlock r = list.get(position);
 		
-		Time startTime = r.getStartTime();
-		Time endTime = r.getEndTime();
+		HourMinuteTime startTime = r.getStartTime();
+		HourMinuteTime endTime = r.getEndTime();
 		
 //		TimeBeingRejected.setText(startTime.toString(true) + " - " + endTime.toString(true));
 //		

@@ -10,7 +10,7 @@ public class TimeTest {
 	public void testConstruct24hr() throws TimeOutOfBoundsException {
 		int testHour = 10, testMinute = 15;
 		
-		Time time = new Time(testHour, testMinute);
+		HourMinuteTime time = new HourMinuteTime(testHour, testMinute);
 		assertEquals(testHour, time.getHour());
 		assertEquals(testMinute, time.getMinute());
 	}
@@ -19,7 +19,7 @@ public class TimeTest {
 		int testHour = 10, testMinute = 15;
 		boolean testPM = false;
 		
-		Time time = new Time(testHour, testMinute, testPM);		
+		HourMinuteTime time = new HourMinuteTime(testHour, testMinute, testPM);		
 		assertEquals(testHour, time.getHour());
 		assertEquals(testMinute, time.getMinute());
 	}
@@ -28,7 +28,7 @@ public class TimeTest {
 		int testHour = 10, testMinute = 15;
 		boolean testPM = true;
 		
-		Time time = new Time(testHour, testMinute, testPM);
+		HourMinuteTime time = new HourMinuteTime(testHour, testMinute, testPM);
 		assertEquals(testHour + 12, time.getHour());	// PM, so +12hr
 		assertEquals(testMinute, time.getMinute());
 	}
@@ -38,7 +38,7 @@ public class TimeTest {
 		int testHour = 12, testMinute = 10;
 		boolean testPM = false;
 		
-		Time time = new Time(testHour, testMinute, testPM);
+		HourMinuteTime time = new HourMinuteTime(testHour, testMinute, testPM);
 		assertEquals(0, time.getHour());
 		assertEquals(testMinute, time.getMinute());
 	}
@@ -47,7 +47,7 @@ public class TimeTest {
 		int testHour = 12, testMinute = 30;
 		boolean testPM = true;
 		
-		Time time = new Time(testHour, testMinute, testPM);
+		HourMinuteTime time = new HourMinuteTime(testHour, testMinute, testPM);
 		assertEquals(12, time.getHour());
 		assertEquals(testMinute, time.getMinute());
 	}
@@ -56,7 +56,7 @@ public class TimeTest {
 	public void testTimeOutOfBoundsHourSmall() {
 		int smallHour = -1, testMinute = 5;
 		try {
-			new Time(smallHour, testMinute);
+			new HourMinuteTime(smallHour, testMinute);
 		} catch (TimeOutOfBoundsException e) {
 			return;
 		}
@@ -66,7 +66,7 @@ public class TimeTest {
 	public void testTimeOutOfBoundsMinuteSmall() {
 		int testHour = 20, smallMinute = -1;
 		try {
-			new Time(testHour, smallMinute);
+			new HourMinuteTime(testHour, smallMinute);
 		} catch (TimeOutOfBoundsException e) {
 			return;
 		}
@@ -76,7 +76,7 @@ public class TimeTest {
 	public void testTimeOutOfBoundsHourLarge() {
 		int largeHour = 24, testMinute = 5;
 		try {
-			new Time(largeHour, testMinute);
+			new HourMinuteTime(largeHour, testMinute);
 		} catch (TimeOutOfBoundsException e) {
 			return;
 		}
@@ -86,7 +86,7 @@ public class TimeTest {
 	public void testTimeOutOfBoundsMinuteLarge() {
 		int testHour = 20, largeMinute = 60;
 		try {
-			new Time(testHour, largeMinute);
+			new HourMinuteTime(testHour, largeMinute);
 		} catch (TimeOutOfBoundsException e) {
 			return;
 		}
@@ -97,13 +97,13 @@ public class TimeTest {
 	public void testCompareHours() throws TimeOutOfBoundsException {
 		int testHourEarlier = 13, testMinuteEarlier = 57;
 		int testHourLater = 14, testMinuteLater = 0;
-		Time earlier = new Time(testHourEarlier, testMinuteEarlier), later = new Time(testHourLater, testMinuteLater);
+		HourMinuteTime earlier = new HourMinuteTime(testHourEarlier, testMinuteEarlier), later = new HourMinuteTime(testHourLater, testMinuteLater);
 		assertTrue(earlier.compareTo(later) < 0);
 		assertTrue(later.compareTo(earlier) > 0);	// Test for symmetry
 	}
 	@Test
 	public void testCompareMinutes() throws TimeOutOfBoundsException {
-		Time earlier = new Time(14, 57), later = new Time(14, 58);
+		HourMinuteTime earlier = new HourMinuteTime(14, 57), later = new HourMinuteTime(14, 58);
 		assertTrue(earlier.compareTo(later) < 0);
 		assertTrue(later.compareTo(earlier) > 0);	// Test for symmetry
 	}
@@ -111,22 +111,22 @@ public class TimeTest {
 	@Test
 	public void testToString12hrAM() throws TimeOutOfBoundsException {
 		int testHour = 3, testMinute = 46;
-		String expectedToString = "3:46" + Time.MERIDIAN_AM;
-		Time testTime = new Time(testHour, testMinute);
+		String expectedToString = "3:46" + HourMinuteTime.MERIDIAN_AM;
+		HourMinuteTime testTime = new HourMinuteTime(testHour, testMinute);
 		assertEquals(expectedToString, testTime.toString(true));
 	}
 	@Test
 	public void testToString12hrPM() throws TimeOutOfBoundsException {
 		int testHour = 15, testMinute = 46;
-		String expectedToString = "3:46" + Time.MERIDIAN_PM;
-		Time testTime = new Time(testHour, testMinute);
+		String expectedToString = "3:46" + HourMinuteTime.MERIDIAN_PM;
+		HourMinuteTime testTime = new HourMinuteTime(testHour, testMinute);
 		assertEquals(expectedToString, testTime.toString(true));
 	}
 	@Test
 	public void testToString24hr() throws TimeOutOfBoundsException {
 		int testHour = 15, testMinute = 46;
 		String expectedToString = String.valueOf(testHour) + ":" + String.valueOf(testMinute);
-		Time testTime = new Time(testHour, testMinute);
+		HourMinuteTime testTime = new HourMinuteTime(testHour, testMinute);
 		assertEquals(expectedToString, testTime.toString());
 	}
 }
