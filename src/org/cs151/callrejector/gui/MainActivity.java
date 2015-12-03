@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
 		schedule = (ListView) findViewById(R.id.ListViewRejectionBlock);
 		schedule.setAdapter(adapter);
 		
-		setup();
+		setupPopUp(); //remove this to not have popup
 	}
 
 	// Don't think we need this
@@ -109,7 +109,7 @@ public class MainActivity extends Activity {
     //TextView t ;
 
     //setup the view and button for popup
-    public void setup () {
+    public void setupPopUp () {
         setupView1();
         setupView2();
         setupView3();
