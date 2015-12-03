@@ -91,6 +91,8 @@ public class MainActivity extends Activity {
 
 
     // watson 12/01 added to mainactivity
+	int popUpWait = 60000; //pop up wait time in ms
+	
     Button popUpButton;
     Button dismiss;
     PopupWindow current;
@@ -128,7 +130,7 @@ public class MainActivity extends Activity {
                 pop();
                 handler.postDelayed(this, 60000);
             }
-        }, 1000);
+        }, popUpWait);
     }
 
 
