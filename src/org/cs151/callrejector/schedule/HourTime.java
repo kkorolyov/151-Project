@@ -84,14 +84,15 @@ public class HourTime implements Comparable<HourTime>, Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj)	// Same object
 			return true;
-		if (obj == null)
+		if (obj == null)	// Null check
 			return false;
-		if (!(obj instanceof HourTime))
+		if (!(obj instanceof HourTime))	// Type check (Subclasses allowed in 1 direction)
 			return false;
-		if (getHour() != ((HourTime) obj).getHour())
+		if (hour != ((HourTime) obj).hour)	// Properties check
 			return false;
+		
 		return true;
 	}
 	

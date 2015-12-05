@@ -1,24 +1,43 @@
 package org.cs151.callrejector.schedule;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
 
 import org.cs151.callrejector.schedule.exceptions.HourOutOfBoundsException;
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
 import org.cs151.callrejector.schedule.exceptions.MinuteOutOfBoundsException;
+import org.junit.Before;
 import org.junit.Test;
 
-public class ScheduleTest {
+public class DailyScheduleTest {
 
+	@Before
+	public void clearSchedule() {
+		DailySchedule.getSchedule().clear();
+	}
+	
 	@Test
-	public void testRemove() {
-		RejectionBlock test;	// TODO Finish
+	public void testRemove() throws HourOutOfBoundsException, MinuteOutOfBoundsException, InvalidTimeRangeException {
+		HourTime testStart = new HourMinuteTime(4, 16), testEnd = new HourMinuteTime(5, 20);
+		String testSMS = "Test";
+		
+		DailySchedule.getSchedule().addRejectionBlock(testStart, testEnd, testSMS);
+		RejectionBlock toRemove = DailySchedule.getSchedule().getAllRejectionBlocksList().get(0);
+		assertTrue(DailySchedule.getSchedule().getAllRejectionBlocksList().contains(toRemove));	// Test if currently exists
+		
+		DailySchedule.getSchedule().removeRejectionBlock(toRemove);
+		assertTrue(!DailySchedule.getSchedule().getAllRejectionBlocksList().contains(toRemove));	// Test if was removed
 	}
 	
 	@Test
 	public void testAdd() throws InvalidTimeRangeException, HourOutOfBoundsException, MinuteOutOfBoundsException {
-		DailySchedule.getSchedule().addRejectionBlock(new HourMinuteTime(1,1), new HourMinuteTime(1, 2), "");
+		HourTime testStart = new HourMinuteTime(1,1), testEnd = new HourMinuteTime(1, 2);
+		String testSMS = "Test SMS";
+		
+		assertTrue(DailySchedule.getSchedule().getAllRejectionBlocksList().isEmpty());	// Initially empty list
+		DailySchedule.getSchedule().addRejectionBlock(testStart, testEnd, testSMS);
 	}
 	
 	@Test

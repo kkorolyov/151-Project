@@ -34,6 +34,10 @@ public interface Schedule {
 	void removeRejectionBlock(RejectionBlock toRemove);
 	
 	/**
+	 * Removes all {@code RejectionBlock}s.
+	 */
+	void clear();
+	/**
 	 * @return currently enabled and active rejectionBlock, or {@code null} if no such block exists
 	 */
 	RejectionBlock getCurrentActiveBlock();

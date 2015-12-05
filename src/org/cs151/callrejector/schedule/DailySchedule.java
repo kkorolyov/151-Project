@@ -72,6 +72,11 @@ public class DailySchedule implements Schedule {
 		initUpdateThread();
 	}
 	
+	@Override
+	public void clear() {
+		rejectionBlocks.clear();
+	}
+	
 	private void initUpdateThread() {	// TODO Specify in some SelfUpdater interface?
 		updateRunning = true;
 		updateThread = new Thread("Time update") {

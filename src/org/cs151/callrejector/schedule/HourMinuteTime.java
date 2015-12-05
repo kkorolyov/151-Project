@@ -54,6 +54,28 @@ public class HourMinuteTime extends HourTime {	// TODO Make mutable?
 	private void setTime(int hour, int minute, boolean pm) throws HourOutOfBoundsException, MinuteOutOfBoundsException {	// Converts 12-hour to 24-hour format
 		setHour(hour, pm);
 		setMinute(minute);
+	}	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + minute;
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (!(obj instanceof HourMinuteTime))
+			return false;
+		if (minute != ((HourMinuteTime) obj).minute)
+			return false;
+		
+		return true;
 	}
 	
 	/**
@@ -77,8 +99,7 @@ public class HourMinuteTime extends HourTime {	// TODO Make mutable?
 		return time;
 	}
 	/**
-	 * @param standard whether to return time in 12-hour format
-	 * @return time in the format "HH:MM" for 24-hour, or "(H)H:MMam/pm" for 12-hour
+	 * @return time in the 12-hour format "(H)H:MMam/pm"
 	 */
 	@Override
 	public String toString12Hour() {
@@ -103,7 +124,7 @@ public class HourMinuteTime extends HourTime {	// TODO Make mutable?
 	}
 	
 	@Override
-	public int compareTo(HourTime otherTime) {	// TODO Implement type restrictions
+	public int compareTo(HourTime otherTime) {
 		if ((super.compareTo(otherTime) != 0))	// Comparing at hour level sufficient
 			return super.compareTo(otherTime);
 		
