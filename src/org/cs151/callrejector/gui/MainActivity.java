@@ -18,6 +18,7 @@ import android.widget.PopupWindow;
  * Edited by Brandon Feist
  * @author Victor Li
  * 
+ * MainActivity where it shows the schedule of rejection blocks
  * added PopUp stuff - watson
  */
 public class MainActivity extends Activity {
@@ -37,32 +38,9 @@ public class MainActivity extends Activity {
 		setupPopUp(); //remove this to not have popup
 	}
 
-	// Don't think we need this
-
-	// @Override
-	// public boolean onCreateOptionsMenu(Menu menu) {
-	// // Inflate the menu; this adds items to the action bar if it is present.
-	// getMenuInflater().inflate(R.menu.menu_main, menu);
-	// return true;
-	// }
-	//
-	// @Override
-	// public boolean onOptionsItemSelected(MenuItem item) {
-	// // Handle action bar item clicks here. The action bar will
-	// // automatically handle clicks on the Home/Up button, so long
-	// // as you specify a parent activity in AndroidManifest.xml.
-	// int id = item.getItemId();
-	//
-	// //noinspection SimplifiableIfStatement
-	// if (id == R.id.action_settings) {
-	// return true;
-	// }
-	//
-	// return super.onOptionsItemSelected(item);
-	// }
-
-	/*
-	 * When user clicks on the "+" button, then RejectionBlockActivity opens up
+	/**
+	 * When user want to create a new rejection block by hitting the "+" Button
+	 * @param view
 	 */
 	public void GoToRejectionBlockActivity(View view) {
 		Intent GoToRejectionBlockActivity = new Intent(this,

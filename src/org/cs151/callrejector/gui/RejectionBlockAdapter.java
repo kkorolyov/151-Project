@@ -52,17 +52,11 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 
 		View view = inflater.inflate(R.layout.rejection_row, parent, false);
 		
-		//Sets the text for a SMS Preview
-//		TextView TimeBeingRejected = (TextView) view.findViewById(R.id.TextView01);
-//		TextView SMSMessage = (TextView) view.findViewById(R.id.TextView02);
-		
 		final RejectionBlock r = list.get(position);
 		
 		HourMinuteTime startTime = (HourMinuteTime) r.getStartTime();
 		HourMinuteTime endTime = (HourMinuteTime) r.getEndTime();
-		
-//		TimeBeingRejected.setText(startTime.toString(true) + " - " + endTime.toString(true));
-//		
+			
 		//if SMS is too long
 		String pass;
 		r.getSMS();
@@ -74,6 +68,7 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 		EditRejectionBlock.setText(startTime.toString12Hour() + " - " + endTime.toString12Hour()
 				+ "\n" + pass);
 		
+		//User hits this button to edit the rejection block
 		EditRejectionBlock.setOnClickListener(new OnClickListener(){
 
 			@Override
