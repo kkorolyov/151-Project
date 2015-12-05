@@ -54,10 +54,7 @@ public class DailySchedule implements Schedule {
 	 * @param newEnd new end time
 	 * @param sms new SMS
 	 * @throws InvalidTimeRangeException
-	 * @Deprecated Issues
 	 */
-	// TODO Fix if possible/necessary
-	@Deprecated
 	public void updateRejectionBlock(RejectionBlock toUpdate, HourMinuteTime newStart, HourMinuteTime newEnd, String sms) throws InvalidTimeRangeException {
 		toUpdate.setStartTime(newStart);
 		toUpdate.setEndTime(newEnd);
