@@ -1,5 +1,11 @@
 package org.cs151.callrejector.schedule;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,9 +16,11 @@ import org.cs151.callrejector.schedule.exceptions.MinuteOutOfBoundsException;
 
 /**
  * Contains and manages a collection of {@link RejectionBlock} objects.
+ * Edited by Brandon Feist
  * @author Kirill
  */
 public class DailySchedule implements Schedule {
+	private static final String SAVE_FILE = "blocks.ser";
 	private static final Logger log = Logger.getLogger(DailySchedule.class.getName());
 	private static final int updateInterval = 1000;
 	private static DailySchedule instance;
@@ -32,6 +40,11 @@ public class DailySchedule implements Schedule {
 	}
 	
 	private DailySchedule() {
+		//Check if Serialize file Exists
+		File file = new File(SAVE_FILE);
+		if(file.exists() && !file.isDirectory()) {
+			deSerialize();
+		}
 		initUpdateThread();
 		log.info("New " + DailySchedule.class.getName() + " instantiated successfully");
 	}
@@ -40,11 +53,13 @@ public class DailySchedule implements Schedule {
 	public void addRejectionBlock(HourTime start, HourTime end, String sms) throws InvalidTimeRangeException {		
 		addRejectionBlock(start, end, sms, false);
 	}
+	
 	@Override
 	public void addRejectionBlock(HourTime start, HourTime end, String sms, boolean enabled) throws InvalidTimeRangeException {
 		killUpdateThread();	// Stop updateThread (to safely edit blocks)
 		rejectionBlocks.add(new RejectionBlock(start, end, sms, enabled));	// Edit blocks
 		initUpdateThread();	// Restart updateThread
+		serialize();
 	}
 	
 	/**
@@ -70,6 +85,7 @@ public class DailySchedule implements Schedule {
 		rejectionBlocks.remove(toRemove);
 
 		initUpdateThread();
+		serialize();
 	}
 	
 	private void initUpdateThread() {	// TODO Specify in some SelfUpdater interface?
@@ -136,5 +152,30 @@ public class DailySchedule implements Schedule {
 	@Override
 	public ArrayList<RejectionBlock> getAllRejectionBlocksList() {
 		return (ArrayList<RejectionBlock>) rejectionBlocks;
+	}
+	
+	private void serialize() {
+		try {
+			ObjectOutputStream obj_stream = new ObjectOutputStream(new FileOutputStream(new File(SAVE_FILE)));
+			obj_stream.writeObject(rejectionBlocks);
+			obj_stream.flush();
+			obj_stream.close();
+		} catch(IOException i) {
+			i.printStackTrace();
+		}
+		File file = new File(SAVE_FILE);
+		//log.info("Serialize, file is: " + file.exists() );
+	}
+	
+	@SuppressWarnings({ "unchecked"})
+	private void deSerialize() {
+		//log.info("Deserialize");
+		try {
+			ObjectInputStream obj_in = new ObjectInputStream(new FileInputStream(new File(SAVE_FILE)));
+			rejectionBlocks = (List<RejectionBlock>) obj_in.readObject();
+			obj_in.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
