@@ -16,8 +16,12 @@ import org.cs151.callrejector.schedule.exceptions.MinuteOutOfBoundsException;
 
 /**
  * Contains and manages a collection of {@link RejectionBlock} objects.
+<<<<<<< HEAD
  * Edited by Brandon Feist
  * @author Kirill
+=======
+ * @author Kirill Korolyov
+>>>>>>> 7cd1ad1a1e67f816fa678e43b0cce7e91c11df58
  */
 public class DailySchedule implements Schedule {
 	private static final String SAVE_FILE = "blocks.ser";
@@ -69,10 +73,7 @@ public class DailySchedule implements Schedule {
 	 * @param newEnd new end time
 	 * @param sms new SMS
 	 * @throws InvalidTimeRangeException
-	 * @Deprecated Issues
 	 */
-	// TODO Fix if possible/necessary
-	@Deprecated
 	public void updateRejectionBlock(RejectionBlock toUpdate, HourMinuteTime newStart, HourMinuteTime newEnd, String sms) throws InvalidTimeRangeException {
 		toUpdate.setStartTime(newStart);
 		toUpdate.setEndTime(newEnd);
@@ -86,6 +87,11 @@ public class DailySchedule implements Schedule {
 
 		initUpdateThread();
 		serialize();
+	}
+	
+	@Override
+	public void clear() {
+		rejectionBlocks.clear();
 	}
 	
 	private void initUpdateThread() {	// TODO Specify in some SelfUpdater interface?

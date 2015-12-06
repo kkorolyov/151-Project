@@ -1,5 +1,9 @@
 package org.cs151.callrejector.schedule.exceptions;
 
+/**
+ * Exception for Time hour bounds checking.
+ * @author Kirill Korolyov
+ */
 public class HourOutOfBoundsException extends Exception {
 	private static final long serialVersionUID = -439286073271097110L;
 	

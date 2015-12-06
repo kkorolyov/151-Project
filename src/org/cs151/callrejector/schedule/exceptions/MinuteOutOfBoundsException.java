@@ -1,5 +1,9 @@
 package org.cs151.callrejector.schedule.exceptions;
 
+/**
+ * Exception for Time minute bounds checking.
+ * @author Kirill Korolyov
+ */
 public class MinuteOutOfBoundsException extends Exception {
 	private static final long serialVersionUID = -4333032634736368283L;
 

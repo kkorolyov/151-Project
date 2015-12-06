@@ -6,6 +6,7 @@ import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
 
 /**
  * Generic interface for a {@link RejectionBlock} manager.
+ * @author Kirill Korolyov
  */
 public interface Schedule {
 	/**
@@ -33,6 +34,10 @@ public interface Schedule {
 	 */
 	void removeRejectionBlock(RejectionBlock toRemove);
 	
+	/**
+	 * Removes all {@code RejectionBlock}s.
+	 */
+	void clear();
 	/**
 	 * @return currently enabled and active rejectionBlock, or {@code null} if no such block exists
 	 */

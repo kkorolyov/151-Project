@@ -6,6 +6,7 @@ import org.cs151.callrejector.schedule.exceptions.HourOutOfBoundsException;
 
 /**
  * A single hour of the day from 0 to 23.
+ * @author Kirill Korolyov
  */
 public class HourTime implements Comparable<HourTime>, Serializable {
 	private static final long serialVersionUID = 4113925352020659368L;
@@ -84,14 +85,15 @@ public class HourTime implements Comparable<HourTime>, Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj)	// Same object
 			return true;
-		if (obj == null)
+		if (obj == null)	// Null check
 			return false;
-		if (!(obj instanceof HourTime))
+		if (!(obj instanceof HourTime))	// Type check (Subclasses allowed in 1 direction)
 			return false;
-		if (getHour() != ((HourTime) obj).getHour())
+		if (hour != ((HourTime) obj).hour)	// Properties check
 			return false;
+		
 		return true;
 	}
 	

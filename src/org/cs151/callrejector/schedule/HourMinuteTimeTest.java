@@ -6,6 +6,10 @@ import org.cs151.callrejector.schedule.exceptions.HourOutOfBoundsException;
 import org.cs151.callrejector.schedule.exceptions.MinuteOutOfBoundsException;
 import org.junit.Test;
 
+/**
+ * Tests {@link HourMinuteTime}.
+ * @author Kirill Korolyov
+ */
 public class HourMinuteTimeTest {
 	@Test
 	public void testConstruct24hr() throws HourOutOfBoundsException, MinuteOutOfBoundsException {
