@@ -10,7 +10,7 @@ import org.cs151.callrejector.schedule.exceptions.MinuteOutOfBoundsException;
 
 /**
  * Contains and manages a collection of {@link RejectionBlock} objects.
- * @author Kirill
+ * @author Kirill Korolyov
  */
 public class DailySchedule implements Schedule {
 	private static final Logger log = Logger.getLogger(DailySchedule.class.getName());

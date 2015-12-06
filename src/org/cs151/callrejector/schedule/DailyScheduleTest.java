@@ -11,6 +11,10 @@ import org.cs151.callrejector.schedule.exceptions.MinuteOutOfBoundsException;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Tests {@link DailySchedule}.
+ * @author Kirill Korolyov
+ */
 public class DailyScheduleTest {
 
 	@Before

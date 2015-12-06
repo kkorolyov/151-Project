@@ -6,6 +6,7 @@ import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
 
 /**
  * Generic interface for a {@link RejectionBlock} manager.
+ * @author Kirill Korolyov
  */
 public interface Schedule {
 	/**

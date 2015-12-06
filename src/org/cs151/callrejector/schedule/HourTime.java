@@ -6,6 +6,7 @@ import org.cs151.callrejector.schedule.exceptions.HourOutOfBoundsException;
 
 /**
  * A single hour of the day from 0 to 23.
+ * @author Kirill Korolyov
  */
 public class HourTime implements Comparable<HourTime>, Serializable {
 	private static final long serialVersionUID = 4113925352020659368L;

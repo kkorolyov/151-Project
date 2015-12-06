@@ -7,6 +7,10 @@ import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
 import org.cs151.callrejector.schedule.exceptions.MinuteOutOfBoundsException;
 import org.junit.Test;
 
+/**
+ * Tests {@link RejectionBlock}.
+ * @author Kirill Korolyov
+ */
 public class RejectionBlockTest {
 
 	@Test

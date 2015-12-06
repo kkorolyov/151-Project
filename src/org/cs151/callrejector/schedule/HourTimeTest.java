@@ -5,6 +5,10 @@ import static org.junit.Assert.*;
 import org.cs151.callrejector.schedule.exceptions.HourOutOfBoundsException;
 import org.junit.Test;
 
+/**
+ * Tests {@link HourTime}.
+ * @author Kirill Korolyov
+ */
 public class HourTimeTest {
 
 	@Test

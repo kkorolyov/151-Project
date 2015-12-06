@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
 
 /**
- * Provides call rejection actions within a specified time frame.
+ * Provides tracking of time within a specified time frame.
  * @author Kirill Korolyov
  * @author Brandon Feist
  */
