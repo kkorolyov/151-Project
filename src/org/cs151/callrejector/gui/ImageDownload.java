@@ -18,6 +18,12 @@ import android.widget.ImageView;
 public class ImageDownload extends AsyncTask<ImageView, Void, Bitmap> {
 
     ImageView imageView = null;
+    
+    //use this method to download
+    public void startDonwload ( ImageView img, String url ) {    	
+    	img.setTag(url);    
+    	doInBackground(img);
+    }
 
     @Override
     protected Bitmap doInBackground(ImageView... imageViews) {
