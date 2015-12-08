@@ -4,7 +4,7 @@ import android.provider.CallLog.Calls;
 import android.widget.Toast;
 /*
  * author: Watson Chang
- * 
+ * prototype to send SMS
  */
 /*public class SmsSender {
 	String message = "";
