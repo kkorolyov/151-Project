@@ -1,10 +1,13 @@
 package org.cs151.callrejector.gui;
 
 
+import java.util.ArrayList;
+
 import org.cs151.callrejector.schedule.DailySchedule;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -25,6 +28,8 @@ public class MainActivity extends Activity {
 
 	private ListView schedule;
 	private RejectionBlockAdapter adapter;
+	
+	private int curQueueSize = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,41 @@ public class MainActivity extends Activity {
 		schedule.setAdapter(adapter);
 		
 		setupPopUp(); //remove this to not have popup
+		
+		//This is where to start the threads for pop-ups
+		final ArrayList<Bitmap> imageQueue = new ArrayList<Bitmap>();
+		ImageDownload imageDownload;
+		
+		//PRODUCER THREAD - download images to imageQueue
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				curQueueSize = imageQueue.size();
+				synchronized (curQueueSize) {
+					if(curQueueSize != 10){
+						imageQueue.add(imageDownload);
+						curQueueSize++;
+					}
+				}
+			}
+		}).start();
+		
+		//CONSUMER THREAD - displays images, then removes it from imageQueue
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				curQueueSize = imageQueue.size();
+				synchronized (curQueueSize) {
+					if(curQueueSize > 0){
+						imageQueue.remove(imageQueue.size()-1);
+						curQueueSize--;
+					}
+				}
+			}
+		}).start();
+		
 	}
 
 	/**
