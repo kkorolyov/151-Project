@@ -93,6 +93,7 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 			toggleButton.setText("Off");
 		}
 		
+		//Switches background color when rejection block is enable/disable
 		toggleButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -110,6 +111,7 @@ public class RejectionBlockAdapter extends ArrayAdapter<RejectionBlock> {
 			}
 		});
 
+		//The delete button to delete the rejection block from schedule
 		Button DeleteButton = (Button) view.findViewById(R.id.Delete_Button);
 		
 		DeleteButton.setOnClickListener(new OnClickListener() {
