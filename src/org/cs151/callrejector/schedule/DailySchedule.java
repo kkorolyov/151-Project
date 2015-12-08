@@ -39,7 +39,7 @@ public class DailySchedule implements Schedule {
 	private DailySchedule() {
 		//Check if Serialize file Exists
 		initUpdateThread();
-		Log.i(TAG, "New " + DailySchedule.class.getSimpleName() + " instantiated successfully");
+		//Log.i(TAG, "New " + DailySchedule.class.getSimpleName() + " instantiated successfully");
 		deSerialize();
 	}
 	
@@ -168,7 +168,7 @@ public class DailySchedule implements Schedule {
 		} catch(IOException e) {
 			Log.e(TAG, e.getMessage(), e);
 		}
-		Log.i(TAG, "Serialized, file is: " + file.exists() );
+		//Log.i(TAG, "Serialized, file is: " + file.exists() );
 	}
 	
 	@SuppressWarnings({ "unchecked"})
@@ -187,6 +187,6 @@ public class DailySchedule implements Schedule {
 		} catch (Exception e) {
 			Log.e(TAG, e.getMessage(), e);
 		}
-		Log.i(TAG, "Successfully deserialized blocks");
+		//Log.i(TAG, "Successfully deserialized blocks");
 	}
 }

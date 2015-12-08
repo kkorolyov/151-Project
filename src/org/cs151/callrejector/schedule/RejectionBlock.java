@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
 
-import android.util.Log;
-
 /**
  * Provides tracking of time within a specified time frame.
  * @author Kirill Korolyov
@@ -13,7 +11,7 @@ import android.util.Log;
  */
 public class RejectionBlock implements Comparable<RejectionBlock>, Serializable {
 	private static final long serialVersionUID = -2969684380343526177L;
-	private static final String TAG = RejectionBlock.class.getName();
+	//private static final String TAG = RejectionBlock.class.getName();
 	
 	private HourTime start, end;
 	private String sms;	// SMS to send to rejected call
@@ -53,7 +51,7 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 		setEndTime(end);
 		setSMS(sms);
 		this.enabled = enabled;
-		Log.i(TAG, "Successfully constructed new " + getClass().getName() + " with startTime = " + getStartTime() + ", endTime = " + getEndTime() + ", SMS = " + getSMS() + ", enabled = " + isEnabled());
+		//Log.i(TAG, "Successfully constructed new " + getClass().getName() + " with startTime = " + getStartTime() + ", endTime = " + getEndTime() + ", SMS = " + getSMS() + ", enabled = " + isEnabled());
 	}
 	
 	/**
