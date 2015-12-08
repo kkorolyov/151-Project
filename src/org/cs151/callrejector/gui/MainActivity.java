@@ -97,7 +97,7 @@ public class MainActivity extends Activity {
     }
 
 
-    /*
+    /**
      * this repeates popup of 5 images
      */
     void repeatPop() {
@@ -213,7 +213,7 @@ public class MainActivity extends Activity {
 
     }
 
-    /*
+    /**
      * setup the popup window and layoutmanager for popup.xml
      */
 
@@ -234,10 +234,9 @@ public class MainActivity extends Activity {
             });
     }
 
-    /*
+    /**
      * setup the popup window and layoutmanager for popup2.xml
      */
-
     void setupView2 () {
         LayoutInflater inflater  = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         pv2 = inflater.inflate(R.layout.popup2, null);
@@ -255,11 +254,9 @@ public class MainActivity extends Activity {
             });
     }
 
-    /*
+    /**
      * setup the popup window and layoutmanager for popup3.xml
      */
-
-
     void setupView3 () {
         LayoutInflater inflater  = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         pv3 = inflater.inflate(R.layout.popup3, null);
@@ -277,11 +274,9 @@ public class MainActivity extends Activity {
             });
     }
 
-    /*
+    /**
      * setup the popup window and layoutmanager for popup4.xml
      */
-
-
     void setupView4 () {
         LayoutInflater inflater  = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         pv4 = inflater.inflate(R.layout.popup4, null);
@@ -298,11 +293,9 @@ public class MainActivity extends Activity {
             });
     }
 
-    /*
+    /**
      * setup the popup window and layoutmanager for popup5.xml
      */
-
-
     void setupView5 () {
         LayoutInflater inflater  = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         pv5 = inflater.inflate(R.layout.popup5, null);
@@ -319,11 +312,10 @@ public class MainActivity extends Activity {
             });
     }
 
-    /*
+    /**
      * checks to see if there are any other xmls showing,
      * to prevent multiple popups at the same time
      */
-
     public boolean isShow () {
         return (!this.current.isShowing() && !this.p2.isShowing()
                 &&!this.p3.isShowing() && !this.p4.isShowing()&& !this.p5.isShowing() );
