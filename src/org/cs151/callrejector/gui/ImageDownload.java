@@ -15,6 +15,9 @@ import android.widget.ImageView;
 //img1.setTag(url1);
 //(new ImageDownload()).execute(img1);
 
+/**
+ * Class that downloads images from a String URL
+ */
 public class ImageDownload extends AsyncTask<ImageView, Void, Bitmap> {
 
     ImageView imageView = null;
@@ -36,6 +39,9 @@ public class ImageDownload extends AsyncTask<ImageView, Void, Bitmap> {
         imageView.setImageBitmap(result);
     }
 
+    /*
+     * downloads bitmap from a String URL
+     */
     private Bitmap download(String url) {
 
         Bitmap bmp =null;
