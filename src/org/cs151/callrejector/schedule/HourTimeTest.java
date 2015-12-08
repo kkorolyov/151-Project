@@ -3,6 +3,7 @@ package org.cs151.callrejector.schedule;
 import static org.junit.Assert.*;
 
 import org.cs151.callrejector.schedule.exceptions.HourOutOfBoundsException;
+import org.cs151.callrejector.schedule.exceptions.MinuteOutOfBoundsException;
 import org.junit.Test;
 
 /**
@@ -12,16 +13,18 @@ import org.junit.Test;
 public class HourTimeTest {
 
 	@Test
-	public void testEquals() throws HourOutOfBoundsException {
-		HourTime testTime1, testTime2, testTime3, testTimeUnequal;
+	public void testEquals() throws HourOutOfBoundsException, MinuteOutOfBoundsException {
+		HourTime testTime1, testTime2, testTime3, testTimeUnequal, testTimeOtherType;
 		for (int testHour = HourTime.HOUR_BOUND_START; testHour <= HourTime.HOUR_BOUND_END; testHour++) {	// Test for every hour
 			testTime1 = new HourTime(testHour);
 			testTime2 = new HourTime(testHour);
 			testTime3 = new HourTime(testHour);
 			testTimeUnequal = new HourTime((testHour < HourTime.HOUR_BOUND_END / 2) ? (testHour + 1) : (testHour - 1));	// Unequal time either earlier or later as appropriate to avoid out of bounds 
+			testTimeOtherType = new HourMinuteTime((testHour < HourTime.HOUR_BOUND_END / 2) ? (testHour + 1) : (testHour - 1), 15);
 			
 			assertTrue(!testTime1.equals(null));	// Test unequal null
 			assertTrue(!testTime1.equals(testTimeUnequal));	// Test unequal properties
+			assertTrue(!testTime1.equals(testTimeOtherType));	// Test strict type checking
 			
 			testTime1.equals(testTime1);	// Reflexive
 			

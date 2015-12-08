@@ -79,7 +79,7 @@ public class HourTime implements Comparable<HourTime>, Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + getHour();
+		result = prime * result + hour;
 		return result;
 	}
 
@@ -89,7 +89,7 @@ public class HourTime implements Comparable<HourTime>, Serializable {
 			return true;
 		if (obj == null)	// Null check
 			return false;
-		if (!(obj instanceof HourTime))	// Type check (Subclasses allowed in 1 direction)
+		if (!(obj.getClass() == HourTime.class))	// Strict type check
 			return false;
 		if (hour != ((HourTime) obj).hour)	// Properties check
 			return false;
