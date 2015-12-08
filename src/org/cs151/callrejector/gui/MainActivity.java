@@ -30,6 +30,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		DailySchedule.getSchedule().setFileName(getFilesDir().getPath() + "schedule.ser");
 		adapter = new RejectionBlockAdapter(this, R.layout.rejection_row, DailySchedule.getSchedule().getAllRejectionBlocksList());
 		
 		schedule = (ListView) findViewById(R.id.ListViewRejectionBlock);

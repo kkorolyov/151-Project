@@ -44,9 +44,20 @@ public interface Schedule {
 	RejectionBlock getCurrentActiveBlock();
 	
 	/**
+	 * @return all rejectionBlocks stored in this schedule
+	 */
+	RejectionBlock[] getAllRejectionBlocks();
+	/**
 	 * @return all rejectionBlocks stored in this schedule, as an arrayList
 	 */
 	ArrayList<RejectionBlock> getAllRejectionBlocksList();
 	
-	// TODO Contains()
+	/**
+	 * @return name of file being serialized to
+	 */
+	String getFileName();
+	/**
+	 * @param fileName complete file path to serialize to
+	 */
+	void setFileName(String fileName);
 }

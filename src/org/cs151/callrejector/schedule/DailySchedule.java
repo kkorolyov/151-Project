@@ -1,34 +1,27 @@
 package org.cs151.callrejector.schedule;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 import org.cs151.callrejector.schedule.exceptions.HourOutOfBoundsException;
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
 import org.cs151.callrejector.schedule.exceptions.MinuteOutOfBoundsException;
 
+import android.util.Log;
+
 /**
  * Contains and manages a collection of {@link RejectionBlock} objects.
-<<<<<<< HEAD
- * Edited by Brandon Feist
- * @author Kirill
-=======
  * @author Kirill Korolyov
->>>>>>> 7cd1ad1a1e67f816fa678e43b0cce7e91c11df58
+ * @author Brandon Feist
  */
 public class DailySchedule implements Schedule {
-	private static final String SAVE_FILE = "blocks.ser";
-	private static final Logger log = Logger.getLogger(DailySchedule.class.getName());
+	private static final String TAG = DailySchedule.class.getSimpleName();
 	private static final int updateInterval = 1000;
 	private static DailySchedule instance;
 	
+	private String saveFile;
 	private volatile boolean updateRunning;
 	private volatile Thread updateThread;
 	//private volatile Set<RejectionBlock> rejectionBlocks = new TreeSet<RejectionBlock>();	// rejectionBlocks always sorted
@@ -45,12 +38,9 @@ public class DailySchedule implements Schedule {
 	
 	private DailySchedule() {
 		//Check if Serialize file Exists
-		File file = new File(SAVE_FILE);
-		if(file.exists() && !file.isDirectory()) {
-			deSerialize();
-		}
 		initUpdateThread();
-		log.info("New " + DailySchedule.class.getName() + " instantiated successfully");
+		Log.i(TAG, "New " + DailySchedule.class.getSimpleName() + " instantiated successfully");
+		deSerialize();
 	}
 	
 	@Override
@@ -103,7 +93,7 @@ public class DailySchedule implements Schedule {
 					try {
 						Thread.sleep(updateInterval);	// Avoid perpetually hogging resources
 					} catch (InterruptedException e) {
-						log.log(Level.SEVERE, e.getMessage(), e);
+						Log.e(TAG, e.getMessage(), e);
 					}
 				}
 			}
@@ -116,9 +106,9 @@ public class DailySchedule implements Schedule {
 		try {
 			updateBlocks(new HourMinuteTime(currentHour, currentMinute));
 		} catch (HourOutOfBoundsException e) {
-			log.log(Level.SEVERE, e.getMessage(), e);
+			Log.e(TAG, e.getMessage(), e);
 		} catch (MinuteOutOfBoundsException e) {
-			log.log(Level.SEVERE, e.getMessage(), e);
+			Log.e(TAG, e.getMessage(), e);
 		}
 	}
 	private void updateBlocks(HourTime testTime) {
@@ -132,7 +122,7 @@ public class DailySchedule implements Schedule {
 			try {
 				Thread.sleep(updateInterval / 2);
 			} catch (InterruptedException e) {
-				log.log(Level.SEVERE, e.getMessage(), e);
+				Log.e(TAG, e.getMessage(), e);
 			}
 		}
 	}
@@ -146,42 +136,57 @@ public class DailySchedule implements Schedule {
 		return null;
 	}
 	
-	/**
-	 * @return all rejectionBlocks stored in this schedule
-	 */
 	public RejectionBlock[] getAllRejectionBlocks() {
 		return rejectionBlocks.toArray(new RejectionBlock[rejectionBlocks.size()]);
 	}
-	/**
-	 * @return all rejectionBlocks stored in this schedule, as an arrayList
-	 */
 	@Override
 	public ArrayList<RejectionBlock> getAllRejectionBlocksList() {
 		return (ArrayList<RejectionBlock>) rejectionBlocks;
 	}
 	
+	@Override
+	public String getFileName() {
+		return saveFile;
+	}
+	@Override
+	public void setFileName(String fileName) {
+		this.saveFile = fileName;
+		Log.i(TAG, "Set serialization file to " + fileName);
+		deSerialize();	// Try deserializing
+	}
+	
 	private void serialize() {
+		if (saveFile == null)
+			return;
+		
+		File file = new File(saveFile);
 		try {
-			ObjectOutputStream obj_stream = new ObjectOutputStream(new FileOutputStream(new File(SAVE_FILE)));
+			ObjectOutputStream obj_stream = new ObjectOutputStream(new FileOutputStream(file));
 			obj_stream.writeObject(rejectionBlocks);
 			obj_stream.flush();
 			obj_stream.close();
-		} catch(IOException i) {
-			i.printStackTrace();
+		} catch(IOException e) {
+			Log.e(TAG, e.getMessage(), e);
 		}
-		File file = new File(SAVE_FILE);
-		//log.info("Serialize, file is: " + file.exists() );
+		Log.i(TAG, "Serialized, file is: " + file.exists() );
 	}
 	
 	@SuppressWarnings({ "unchecked"})
 	private void deSerialize() {
-		//log.info("Deserialize");
+		if (saveFile == null)
+			return;
+		
+		File file = new File(saveFile);
+		if(!file.exists() || file.isDirectory())
+			return;
+				
 		try {
-			ObjectInputStream obj_in = new ObjectInputStream(new FileInputStream(new File(SAVE_FILE)));
+			ObjectInputStream obj_in = new ObjectInputStream(new FileInputStream(file));
 			rejectionBlocks = (List<RejectionBlock>) obj_in.readObject();
 			obj_in.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.e(TAG, e.getMessage(), e);
 		}
+		Log.i(TAG, "Successfully deserialized blocks");
 	}
 }
