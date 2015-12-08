@@ -1,9 +1,10 @@
 package org.cs151.callrejector.schedule;
 
 import java.io.Serializable;
-import java.util.logging.Logger;
 
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
+
+import android.util.Log;
 
 /**
  * Provides tracking of time within a specified time frame.
@@ -12,7 +13,7 @@ import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
  */
 public class RejectionBlock implements Comparable<RejectionBlock>, Serializable {
 	private static final long serialVersionUID = -2969684380343526177L;
-	private static final Logger log = Logger.getLogger(RejectionBlock.class.getName());
+	private static final String TAG = RejectionBlock.class.getName();
 	
 	private HourTime start, end;
 	private String sms;	// SMS to send to rejected call
@@ -52,8 +53,7 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 		setEndTime(end);
 		setSMS(sms);
 		this.enabled = enabled;
-		// TODO Fix logging
-		log.info("Successfully constructed new " + getClass().getName() + " with startTime = " + getStartTime() + ", endTime = " + getEndTime() + ", SMS = " + getSMS() + ", enabled = " + isEnabled());
+		Log.i(TAG, "Successfully constructed new " + getClass().getName() + " with startTime = " + getStartTime() + ", endTime = " + getEndTime() + ", SMS = " + getSMS() + ", enabled = " + isEnabled());
 	}
 	
 	/**

@@ -17,7 +17,7 @@ import android.util.Log;
  * @author Brandon Feist
  */
 public class DailySchedule implements Schedule {
-	private static final String TAG = DailySchedule.class.getSimpleName();
+	private static final String TAG = DailySchedule.class.getName();
 	private static final int updateInterval = 1000;
 	private static DailySchedule instance;
 	
