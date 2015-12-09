@@ -23,7 +23,7 @@ public class ImageDownload extends AsyncTask<ImageView, Void, Bitmap> {
     ImageView imageView = null;
     
     //use this method to download
-    public void startDonwload ( ImageView img, String url ) {    	
+    public void startDownload ( ImageView img, String url ) {    	
     	img.setTag(url);    
     	doInBackground(img);
     }

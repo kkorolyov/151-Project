@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.SynchronousQueue;
 
 import org.cs151.callrejector.schedule.exceptions.HourOutOfBoundsException;
 import org.cs151.callrejector.schedule.exceptions.InvalidTimeRangeException;
@@ -23,9 +25,10 @@ public class DailySchedule implements Schedule {
 	
 	private String saveFile;
 	private volatile boolean updateRunning;
-	private volatile Thread updateThread;
+	private volatile Thread pollThread, updateThread;
 	//private volatile Set<RejectionBlock> rejectionBlocks = new TreeSet<RejectionBlock>();	// rejectionBlocks always sorted
 	private volatile List<RejectionBlock> rejectionBlocks = new ArrayList<RejectionBlock>();
+	private final BlockingQueue<HourTime> currentTimeQueue = new SynchronousQueue<HourTime>();
 	
 	/**
 	 * @return {@code Schedule} instance
@@ -42,7 +45,9 @@ public class DailySchedule implements Schedule {
 	 */
 	private DailySchedule() {
 		//Check if Serialize file Exists
+		updateRunning = true;
 		initUpdateThread();
+		initPollTimeThread();
 		//Log.i(TAG, "New " + DailySchedule.class.getSimpleName() + " instantiated successfully");
 		deSerialize();
 	}
@@ -56,7 +61,7 @@ public class DailySchedule implements Schedule {
 	public void addRejectionBlock(HourTime start, HourTime end, String sms, boolean enabled) throws InvalidTimeRangeException {
 		killUpdateThread();	// Stop updateThread (to safely edit blocks)
 		rejectionBlocks.add(new RejectionBlock(start, end, sms, enabled));	// Edit blocks
-		initUpdateThread();	// Restart updateThread
+		updateRunning = true;
 		serialize();
 	}
 	
@@ -77,9 +82,10 @@ public class DailySchedule implements Schedule {
 	@Override
 	public void removeRejectionBlock(RejectionBlock toRemove) {
 		killUpdateThread();
-		rejectionBlocks.remove(toRemove);
-
-		initUpdateThread();
+		Log.i(TAG, "Trying to remove block " + toRemove);
+		Log.i(TAG, String.valueOf(rejectionBlocks.contains(toRemove)));
+		Log.i(TAG, String.valueOf(rejectionBlocks.remove(toRemove)));
+		updateRunning = true;
 		serialize();
 	}
 	
@@ -88,42 +94,75 @@ public class DailySchedule implements Schedule {
 		rejectionBlocks.clear();
 	}
 	
+	private void initPollTimeThread() {
+		pollThread = new Thread("Time poll") {
+			public void run() {
+				while (true) {
+					try {
+						pollTime();
+						Thread.sleep(updateInterval);
+					} catch (InterruptedException e) {
+						Log.e(TAG, e.getMessage(), e);
+					} catch (HourOutOfBoundsException e) {
+						Log.e(TAG, e.getMessage(), e);
+					} catch (MinuteOutOfBoundsException e) {
+						Log.e(TAG, e.getMessage(), e);
+					}
+				}
+			}
+		};
+		pollThread.start();
+	}
+	
 	/**
 	 * Initial thread update. Calls updateTime() every second.
 	 */
 	private void initUpdateThread() {	// TODO Specify in some SelfUpdater interface?
-		updateRunning = true;
 		updateThread = new Thread("Time update") {
 			public void run() {
-				while (updateRunning) {
+				while (true) {
 					updateTime();
-					try {
+					/*try {
 						Thread.sleep(updateInterval);	// Avoid perpetually hogging resources
 					} catch (InterruptedException e) {
 						Log.e(TAG, e.getMessage(), e);
-					}
+					}*/
 				}
 			}
 		};
 		updateThread.start();
 	}
 	
+	private void pollTime() throws HourOutOfBoundsException, MinuteOutOfBoundsException {
+		Calendar currentCalendar = Calendar.getInstance();
+		HourTime currentTime = new HourMinuteTime(currentCalendar.get(Calendar.HOUR_OF_DAY), currentCalendar.get(Calendar.MINUTE));
+		try {
+			currentTimeQueue.put(currentTime);
+		} catch (InterruptedException e) {
+			Log.e(TAG, e.getMessage(), e);
+		}
+		//Log.i(TAG, "Produced Time: " + currentTime);
+	}	
 	/**
 	 * Updates the schedule clock (Hour & Minute).
 	 */
 	private void updateTime() {
-		Calendar currentCalendar = Calendar.getInstance();
-		int currentHour = currentCalendar.get(Calendar.HOUR_OF_DAY), currentMinute = currentCalendar.get(Calendar.MINUTE);
 		try {
-			updateBlocks(new HourMinuteTime(currentHour, currentMinute));
-		} catch (HourOutOfBoundsException e) {
-			Log.e(TAG, e.getMessage(), e);
-		} catch (MinuteOutOfBoundsException e) {
+			HourTime updateTime = currentTimeQueue.take();
+			updateBlocks(updateTime);
+			//Log.i(TAG, "Consumed Time: " + updateTime);
+		} catch (InterruptedException e) {
 			Log.e(TAG, e.getMessage(), e);
 		}
 	}
 
 	private void updateBlocks(HourTime testTime) {
+		if (!updateRunning) {
+			//Log.i(TAG, "!updateRunning");
+			return;
+		}
+		
+		//Log.i(TAG, "Updating blocks");
 		for (RejectionBlock block : rejectionBlocks)
 			block.updateTime(testTime);
 	}
@@ -133,13 +172,6 @@ public class DailySchedule implements Schedule {
 	 */
 	private void killUpdateThread() {	// Kills updateThread, waits for death
 		updateRunning = false;
-		while (updateThread.isAlive()) {
-			try {
-				Thread.sleep(updateInterval / 2);
-			} catch (InterruptedException e) {
-				Log.e(TAG, e.getMessage(), e);
-			}
-		}
 	}
 	
 	@Override

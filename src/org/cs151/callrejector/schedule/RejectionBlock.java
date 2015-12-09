@@ -180,6 +180,8 @@ public class RejectionBlock implements Comparable<RejectionBlock>, Serializable 
 				active = true;
 			else
 				active = false;
+			
+			//Log.i(TAG, testTime + " active = " + active);
 		}
 	}
 	

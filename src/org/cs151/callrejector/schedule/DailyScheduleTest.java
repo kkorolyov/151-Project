@@ -58,7 +58,7 @@ public class DailyScheduleTest {
 		}
 		String testString = "Test String";	// Will test with this
 		DailySchedule.getSchedule().addRejectionBlock(new HourMinuteTime(currentHour, currentMinute), new HourMinuteTime(nextHour, nextMinute), testString, true);
-		Thread.sleep(100);	// Give block enough time to check
+		Thread.sleep(1100);	// Give block enough time to check
 		assertEquals(testString, DailySchedule.getSchedule().getCurrentActiveBlock().getSMS());
 	}
 	@Test
