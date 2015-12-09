@@ -36,6 +36,10 @@ public class DailySchedule implements Schedule {
 		return instance;
 	}
 	
+	/**
+	 * Checks if there is a serialized filed of the rejectionBlock ArrayList.
+	 * If the file exists, it is deserialized.
+	 */
 	private DailySchedule() {
 		//Check if Serialize file Exists
 		initUpdateThread();
@@ -84,6 +88,9 @@ public class DailySchedule implements Schedule {
 		rejectionBlocks.clear();
 	}
 	
+	/**
+	 * Initial thread update. Calls updateTime() every second.
+	 */
 	private void initUpdateThread() {	// TODO Specify in some SelfUpdater interface?
 		updateRunning = true;
 		updateThread = new Thread("Time update") {
@@ -100,6 +107,10 @@ public class DailySchedule implements Schedule {
 		};
 		updateThread.start();
 	}
+	
+	/**
+	 * Updates the schedule clock (Hour & Minute).
+	 */
 	private void updateTime() {
 		Calendar currentCalendar = Calendar.getInstance();
 		int currentHour = currentCalendar.get(Calendar.HOUR_OF_DAY), currentMinute = currentCalendar.get(Calendar.MINUTE);
@@ -111,11 +122,15 @@ public class DailySchedule implements Schedule {
 			Log.e(TAG, e.getMessage(), e);
 		}
 	}
+
 	private void updateBlocks(HourTime testTime) {
 		for (RejectionBlock block : rejectionBlocks)
 			block.updateTime(testTime);
 	}
 	
+	/**
+	 * Ends the thread that updates the schedule time.
+	 */
 	private void killUpdateThread() {	// Kills updateThread, waits for death
 		updateRunning = false;
 		while (updateThread.isAlive()) {
@@ -155,6 +170,9 @@ public class DailySchedule implements Schedule {
 		deSerialize();	// Try deserializing
 	}
 	
+	/**
+	 * Serializes the rejectionBlock ArrayList to file.
+	 */
 	private void serialize() {
 		if (saveFile == null)
 			return;
@@ -171,6 +189,9 @@ public class DailySchedule implements Schedule {
 		//Log.i(TAG, "Serialized, file is: " + file.exists() );
 	}
 	
+	/**
+	 * Deserializes the rejectionBlock ArrayList from file.
+	 */
 	@SuppressWarnings({ "unchecked"})
 	private void deSerialize() {
 		if (saveFile == null)
