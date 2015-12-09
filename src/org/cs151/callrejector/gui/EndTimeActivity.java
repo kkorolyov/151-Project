@@ -68,8 +68,7 @@ public class EndTimeActivity extends Activity {
 	 * @throws MinuteOutOfBoundsException
 	 * @throws InvalidTimeRangeException
 	 */
-	public void MakeRejectionBlock(View view)
-			throws MinuteOutOfBoundsException, InvalidTimeRangeException {
+	public void MakeRejectionBlock(View view) throws InvalidTimeRangeException{
 
 		if (r != null) {
 			DailySchedule.getSchedule().removeRejectionBlock(r);
